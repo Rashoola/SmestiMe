@@ -5,12 +5,13 @@
 package dev.rashoola.backend.service;
 
 import dev.rashoola.backend.domain.User;
+import dev.rashoola.backend.util.Response;
 
 /**
  *
  * @author rasul
  */
 public interface UserService {
-    public void register(User user);
-    public User login(String email, String password);
+    public Response<User> register(User user);
+    public Response<User> login(String email, String password);
 }

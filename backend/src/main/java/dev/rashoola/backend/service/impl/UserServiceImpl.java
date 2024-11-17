@@ -5,33 +5,59 @@
 package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.User;
+import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.UserRepository;
 import dev.rashoola.backend.service.UserService;
+import dev.rashoola.backend.util.Response;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author rasul
  */
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService{
     
     @Autowired
     private UserRepository repository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
-    public void register(User user) {
+    public Response<User> register(User user) {
         if(repository.existsByEmail(user.getEmail())){
-            throw new RuntimeException("User with this email already exists");
+            System.out.println("The user with this email already exists.");
+            return new Response<>(ResponseStatus.Conflict, user);
         }
         
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+        
         repository.save(user);
+        return new Response<>(ResponseStatus.Ok, user);
     }
 
     @Override
-    public User login(String email, String password) {
-        return null;
+    public Response<User> login(String email, String password) {
+        Optional<User> user = repository.findByEmail(email);
+        if(user.isEmpty()){
+            System.out.println("The user with this email does not exist.");
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        if(!passwordEncoder.matches(password, user.get().getPassword())){
+            System.out.println("The password is incorrect.");
+            return new Response<>(ResponseStatus.Unauthorized, null);
+        }
+        
+        System.out.println("Successfull login.");
+        return new Response<>(ResponseStatus.Ok, user.get());
     }
     
 }
