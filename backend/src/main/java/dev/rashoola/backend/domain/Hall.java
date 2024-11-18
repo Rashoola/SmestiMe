@@ -4,6 +4,7 @@
  */
 package dev.rashoola.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class Hall {
     private String name;
     
     @ManyToOne
+    @JsonIgnore
     private Venue venue;
 
     public Long getId() {
