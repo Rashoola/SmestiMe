@@ -10,6 +10,7 @@ import dev.rashoola.backend.repository.VenueRepository;
 import dev.rashoola.backend.service.VenueService;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,16 @@ public class VenueServiceImpl implements VenueService{
         }
         
         return new Response<>(ResponseStatus.Ok, venues);
+    }
+
+    @Override
+    public Response<Venue> findById(Long id) {
+        Optional<Venue> venue = repository.findById(id);
+        if(venue.isEmpty()){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        return new Response<>(ResponseStatus.Ok, venue.get());
     }
     
 }

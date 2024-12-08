@@ -4,16 +4,15 @@
  */
 package dev.rashoola.backend.service;
 
-import dev.rashoola.backend.domain.Venue;
+import dev.rashoola.backend.domain.Event;
+import dev.rashoola.backend.dto.EventRequestDto;
 import dev.rashoola.backend.util.Response;
-import java.util.List;
 
 /**
  *
  * @author rasul
  */
-public interface VenueService {
-    public Response<Venue> create(Venue venue);
-    public Response<List<Venue>> index();
-    public Response<Venue> findById(Long id);
+public interface EventService {
+    public Response<Event> create(EventRequestDto event);
+    public Response<String> delete(Event event);
 }

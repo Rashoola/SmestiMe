@@ -4,13 +4,16 @@
  */
 package dev.rashoola.backend.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -33,6 +36,9 @@ public class Event {
     
     @ManyToOne
     private Venue venue;
+    
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookedHalls;
 
     public Long getId() {
         return id;
@@ -72,6 +78,14 @@ public class Event {
 
     public void setVenue(Venue venue) {
         this.venue = venue;
+    }
+
+    public List<Booking> getBookedHalls() {
+        return bookedHalls;
+    }
+
+    public void setBookedHalls(List<Booking> bookedHalls) {
+        this.bookedHalls = bookedHalls;
     }
     
 }

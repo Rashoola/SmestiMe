@@ -6,11 +6,13 @@ package dev.rashoola.backend.repository;
 
 import dev.rashoola.backend.domain.Participation;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author rasul
  */
+@Repository
 public interface ParticipationRepository extends JpaRepository<Participation, Long>{
     
 }

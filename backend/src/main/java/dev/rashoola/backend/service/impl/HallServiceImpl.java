@@ -4,12 +4,15 @@
  */
 package dev.rashoola.backend.service.impl;
 
+import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Hall;
 import dev.rashoola.backend.domain.Venue;
 import dev.rashoola.backend.enums.ResponseStatus;
+import dev.rashoola.backend.repository.BookingRepository;
 import dev.rashoola.backend.repository.HallRepository;
 import dev.rashoola.backend.service.HallService;
 import dev.rashoola.backend.util.Response;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,9 @@ public class HallServiceImpl implements HallService{
     
     @Autowired
     private final HallRepository repository;
+    
+    @Autowired
+    private final BookingRepository bookingRepository;
 
     @Override
     public Response<Hall> create(Hall hall) {
@@ -45,6 +51,21 @@ public class HallServiceImpl implements HallService{
         }
         
         return new Response<>(ResponseStatus.Ok, halls.get());
+    }
+
+    @Override
+    public Response<List<Hall>> allHallsAreFree(List<Long> hallIds, LocalDate date) {
+        List<Hall> halls = repository.findHallsByIds(hallIds);
+        if(halls.isEmpty()){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        for(Hall hall : halls){
+            List<Booking> bookings = bookingRepository.findByHallAndDate(hall, date);
+            if(!bookings.isEmpty()){
+                return new Response<>(ResponseStatus.Conflict, null);
+            }
+        }
+        return new Response<>(ResponseStatus.Ok, halls);
     }
     
 }
