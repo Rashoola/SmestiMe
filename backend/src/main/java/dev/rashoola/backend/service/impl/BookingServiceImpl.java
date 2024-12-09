@@ -38,6 +38,16 @@ public class BookingServiceImpl implements BookingService{
         
         return new Response<>(ResponseStatus.Ok, "The bookings have been saved.");
     }
+
+    @Override
+    public Response<String> deleteByEvent(Event event) {
+        try {
+            repository.deleteByEvent(event);
+            return new Response<>(ResponseStatus.Ok, "The bookings for this event have been deleted.");
+        } catch(Exception ex) {
+            return new Response<>(ResponseStatus.InternalServerError, "An error occured during deletion of the bookings.");
+        }
+    }
     
     
 }

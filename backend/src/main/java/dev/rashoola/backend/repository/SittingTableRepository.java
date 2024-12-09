@@ -4,6 +4,7 @@
  */
 package dev.rashoola.backend.repository;
 
+import dev.rashoola.backend.domain.Hall;
 import dev.rashoola.backend.domain.SittingTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SittingTableRepository extends JpaRepository<SittingTable, Long>{
-    
+    public boolean existsByHallAndName(Hall hall, String name);
 }

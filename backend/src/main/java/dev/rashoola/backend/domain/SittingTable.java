@@ -4,6 +4,7 @@
  */
 package dev.rashoola.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public class SittingTable {
     private Integer numberOfSeats;
     
     @ManyToOne
+    @JsonIgnore
     private Hall hall;
 
     public Long getId() {

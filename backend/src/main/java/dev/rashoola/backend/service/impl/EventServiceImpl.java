@@ -15,7 +15,6 @@ import dev.rashoola.backend.service.EventService;
 import dev.rashoola.backend.service.HallService;
 import dev.rashoola.backend.service.VenueService;
 import dev.rashoola.backend.util.Response;
-import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,17 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public Response<String> delete(Event event) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Response<String> bookingDeletionResponse = bookingService.deleteByEvent(event);
+        if(!bookingDeletionResponse.getStatus().equals(ResponseStatus.Ok)){
+            return new Response<>(ResponseStatus.InternalServerError, "The booking deletion failed.");
+        }
+        
+        try {
+            repository.delete(event);
+            return new Response<>(ResponseStatus.Ok, "The event has been deleted.");
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.InternalServerError, "An error occured during deletion of the event");
+        }
     }
     
 }

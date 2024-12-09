@@ -4,14 +4,13 @@
  */
 package dev.rashoola.backend.controller;
 
-import dev.rashoola.backend.domain.Event;
-import dev.rashoola.backend.dto.EventRequestDto;
-import dev.rashoola.backend.service.EventService;
+import dev.rashoola.backend.domain.SittingTable;
+import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.util.ResponseConverter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,18 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/events")
-public class EventController {
+@RequestMapping("api/tables")
+public class SittingTableController {
     
     @Autowired
-    private final EventService eventService;
+    private final SittingTableService sittingTableService;
     
     @Autowired
-    private final ResponseConverter<Event> converter;
+    private final ResponseConverter<String> converter;
     
     @PostMapping("/create")
-    public ResponseEntity<Event> create(@RequestBody EventRequestDto event){
-        return converter.toResponseEntity(eventService.create(event));
+    public ResponseEntity<String> create(@RequestBody List<SittingTable> sittingTables){
+        return converter.toResponseEntity(sittingTableService.create(sittingTables));
     }
-    
 }
