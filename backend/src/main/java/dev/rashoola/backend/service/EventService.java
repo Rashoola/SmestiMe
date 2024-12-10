@@ -15,4 +15,5 @@ import dev.rashoola.backend.util.Response;
 public interface EventService {
     public Response<Event> create(EventRequestDto event);
     public Response<String> delete(Event event);
+    public Response<Event> findById(Long id);
 }

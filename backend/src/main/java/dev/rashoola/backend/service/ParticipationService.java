@@ -4,15 +4,14 @@
  */
 package dev.rashoola.backend.service;
 
-import dev.rashoola.backend.domain.User;
+import dev.rashoola.backend.domain.Participation;
+import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.util.Response;
 
 /**
  *
  * @author rasul
  */
-public interface UserService {
-    public Response<User> register(User user);
-    public Response<User> login(String email, String password);
-    public Response<User> findById(Long id);
+public interface ParticipationService {
+    public Response<Participation> create(ParticipationCreationDto dto);
 }

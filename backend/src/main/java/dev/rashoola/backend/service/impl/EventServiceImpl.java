@@ -86,5 +86,14 @@ public class EventServiceImpl implements EventService{
             return new Response<>(ResponseStatus.InternalServerError, "An error occured during deletion of the event");
         }
     }
+
+    @Override
+    public Response<Event> findById(Long id) {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+    }
     
 }

@@ -59,5 +59,14 @@ public class UserServiceImpl implements UserService{
         System.out.println("Successfull login.");
         return new Response<>(ResponseStatus.Ok, user.get());
     }
+
+    @Override
+    public Response<User> findById(Long id) {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+    }
     
 }
