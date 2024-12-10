@@ -5,6 +5,7 @@
 package dev.rashoola.backend.controller;
 
 import dev.rashoola.backend.domain.SittingTable;
+import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.util.ResponseConverter;
 import java.util.List;
@@ -32,7 +33,7 @@ public class SittingTableController {
     private final ResponseConverter<String> converter;
     
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody List<SittingTable> sittingTables){
-        return converter.toResponseEntity(sittingTableService.create(sittingTables));
+    public ResponseEntity<String> create(@RequestBody SittingTableCreationDto dto){
+        return converter.toResponseEntity(sittingTableService.create(dto));
     }
 }

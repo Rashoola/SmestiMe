@@ -67,5 +67,14 @@ public class HallServiceImpl implements HallService{
         }
         return new Response<>(ResponseStatus.Ok, halls);
     }
+
+    @Override
+    public Response<Hall> findById(Long id) {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+    }
     
 }

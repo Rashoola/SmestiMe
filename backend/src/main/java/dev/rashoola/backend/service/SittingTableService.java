@@ -4,14 +4,13 @@
  */
 package dev.rashoola.backend.service;
 
-import dev.rashoola.backend.domain.SittingTable;
+import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.util.Response;
-import java.util.List;
 
 /**
  *
  * @author rasul
  */
 public interface SittingTableService {
-    public Response<String> create(List<SittingTable> sittingTables);
+    public Response<String> create(SittingTableCreationDto dto);
 }
