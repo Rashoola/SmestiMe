@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author rasul
  */
-public record EventRequestDto(String name, String description, Long venueId, LocalDate date, List<Long> hallIds) {
+public record EventRequestDto(String name, String description, Long venueId, LocalDate date, String entryCode, List<Long> hallIds) {
 
 }

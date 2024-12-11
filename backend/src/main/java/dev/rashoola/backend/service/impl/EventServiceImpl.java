@@ -64,6 +64,7 @@ public class EventServiceImpl implements EventService{
         finalEvent.setName(event.name());
         finalEvent.setDescription(event.description());
         finalEvent.setDate(event.date());
+        finalEvent.setEntryCode(event.entryCode());
         finalEvent.setVenue(venue);
         Event savedEvent = repository.save(finalEvent);
 

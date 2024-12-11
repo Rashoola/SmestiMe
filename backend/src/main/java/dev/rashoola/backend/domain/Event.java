@@ -37,6 +37,9 @@ public class Event {
     @ManyToOne
     private Venue venue;
     
+    @Column
+    private String entryCode;
+    
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookedHalls;
 
@@ -86,6 +89,14 @@ public class Event {
 
     public void setBookedHalls(List<Booking> bookedHalls) {
         this.bookedHalls = bookedHalls;
+    }
+
+    public String getEntryCode() {
+        return entryCode;
+    }
+
+    public void setEntryCode(String entryCode) {
+        this.entryCode = entryCode;
     }
     
 }

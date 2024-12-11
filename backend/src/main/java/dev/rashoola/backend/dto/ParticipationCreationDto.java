@@ -8,6 +8,6 @@ package dev.rashoola.backend.dto;
  *
  * @author rasul
  */
-public record ParticipationCreationDto(Long userId, Long eventId) {
+public record ParticipationCreationDto(Long userId, Long eventId, String entryCode) {
 
 }
