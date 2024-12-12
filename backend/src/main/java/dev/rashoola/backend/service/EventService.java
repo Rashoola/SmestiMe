@@ -7,6 +7,7 @@ package dev.rashoola.backend.service;
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.dto.EventRequestDto;
 import dev.rashoola.backend.util.Response;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,6 @@ public interface EventService {
     public Response<Event> create(EventRequestDto event);
     public Response<String> delete(Event event);
     public Response<Event> findById(Long id);
+    public Response<List<Event>> index();
+    public Response<Event> show(Long id);
 }

@@ -8,10 +8,12 @@ import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.dto.EventRequestDto;
 import dev.rashoola.backend.service.EventService;
 import dev.rashoola.backend.util.ResponseConverter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,16 @@ public class EventController {
     @PostMapping("/create")
     public ResponseEntity<Event> create(@RequestBody EventRequestDto event){
         return converter.toResponseEntity(eventService.create(event));
+    }
+    
+    @GetMapping("")
+    public ResponseEntity<List<Event>> getAll(){
+        return converter.toListResponseEntity(eventService.index());
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Event> show(@PathVariable Long id){
+        return converter.toResponseEntity(eventService.show(id));
     }
     
 }

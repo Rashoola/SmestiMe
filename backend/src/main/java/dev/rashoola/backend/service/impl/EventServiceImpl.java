@@ -96,5 +96,23 @@ public class EventServiceImpl implements EventService{
             return new Response<>(ResponseStatus.NotFound, null);
         }
     }
+
+    @Override
+    public Response<List<Event>> index() {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findAll());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.InternalServerError, null);
+        }
+    }
+
+    @Override
+    public Response<Event> show(Long id) {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.InternalServerError, null);
+        }
+    }
     
 }
