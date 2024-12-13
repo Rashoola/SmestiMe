@@ -31,9 +31,6 @@ public class Hall {
     @ManyToOne
     @JsonIgnore
     private Venue venue;
-    
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SittingTable> sittingTables;
 
     public Long getId() {
         return id;

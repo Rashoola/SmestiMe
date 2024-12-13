@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,9 @@ public class VenueController {
     @Autowired
     private final ResponseConverter<Venue> converter;
     
+    @Autowired
+    private final ResponseConverter<Hall> hallConverter;
+    
     @PostMapping("/create")
     public ResponseEntity<Venue> create(@RequestBody Venue venue){
         for(Hall hall : venue.getHalls()){
@@ -48,5 +52,10 @@ public class VenueController {
     @GetMapping("")
     public ResponseEntity<List<Venue>> index(){
         return converter.toListResponseEntity(venueService.index());
+    }
+    
+    @GetMapping("/{id}/halls")
+    public ResponseEntity<List<Hall>> getHalls(@PathVariable Long id){
+        return hallConverter.toListResponseEntity(hallService.findByVenueId(id));
     }
 }

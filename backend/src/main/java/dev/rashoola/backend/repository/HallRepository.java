@@ -26,6 +26,9 @@ public interface HallRepository extends JpaRepository<Hall, Long>{
     @Query("SELECT h FROM Hall h WHERE h.id IN :ids")
     public List<Hall> findHallsByIds(@Param("ids") List<Long> ids);
     
+    @Query("SELECT h FROM Hall h WHERE h.venue.id = :id")
+    public List<Hall> findByVenueId(@Param("id") Long venueId);
+    
    /*@Query("SELECT CASE WHEN COUNT(h) = 0 THEN true ELSE false END " +
        "FROM Hall h WHERE h = :hall AND :date NOT IN " +
        "(SELECT e.date FROM Booking b JOIN b.event e WHERE b.hall = h)")

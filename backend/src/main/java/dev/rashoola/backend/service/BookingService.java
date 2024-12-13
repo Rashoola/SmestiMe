@@ -17,4 +17,5 @@ import java.util.List;
 public interface BookingService {
     public Response<String> createBookingsForEvent(Event event, List<Hall> halls);
     public Response<String> deleteByEvent(Event event);
+    public Response<Booking> findById(Long id);
 }

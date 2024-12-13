@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SittingTableRepository extends JpaRepository<SittingTable, Long>{
-    public boolean existsByHallAndName(Hall hall, String name);
+    
 }

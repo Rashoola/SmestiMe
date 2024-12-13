@@ -48,6 +48,15 @@ public class BookingServiceImpl implements BookingService{
             return new Response<>(ResponseStatus.InternalServerError, "An error occured during deletion of the bookings.");
         }
     }
+
+    @Override
+    public Response<Booking> findById(Long id) {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.InternalServerError, null);
+        }
+    }
     
     
 }

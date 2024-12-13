@@ -17,6 +17,7 @@ import java.util.List;
 public interface HallService {
     public Response<Hall> create(Hall hall);
     public Response<List<Hall>> findByVenue(Venue venue);
+    public Response<List<Hall>> findByVenueId(Long id);
     public Response<Hall> findById(Long id);
     public Response<List<Hall>> allHallsAreFree(List<Long> hallIds, LocalDate date);
 }

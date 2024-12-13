@@ -30,7 +30,7 @@ public class SittingTable {
     
     @ManyToOne
     @JsonIgnore
-    private Hall hall;
+    private Booking booking;
 
     public Long getId() {
         return id;
@@ -56,12 +56,14 @@ public class SittingTable {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public Hall getHall() {
-        return hall;
+    public Booking getBooking() {
+        return booking;
     }
 
-    public void setHall(Hall hall) {
-        this.hall = hall;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
+
+   
     
 }

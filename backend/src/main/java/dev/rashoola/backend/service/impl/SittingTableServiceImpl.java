@@ -4,13 +4,14 @@
  */
 package dev.rashoola.backend.service.impl;
 
+import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Hall;
 import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.dto.SittingTableCreationDto.SittingTableDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.SittingTableRepository;
-import dev.rashoola.backend.service.HallService;
+import dev.rashoola.backend.service.BookingService;
 import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.util.Response;
 import java.util.LinkedList;
@@ -30,30 +31,34 @@ public class SittingTableServiceImpl implements SittingTableService{
     @Autowired
     private final SittingTableRepository repository;
     
-    @Autowired
-    private final HallService hallService;
+    @Autowired BookingService bookingService;
 
     @Override
     public Response<String> create(SittingTableCreationDto dto) {
-        Response<Hall> hallResponse = hallService.findById(dto.hallId());
+        Response<Booking> bookingResponse = bookingService.findById(dto.bookingId());
         
-        if(!hallResponse.getStatus().equals(ResponseStatus.Ok)){
-            return new Response<>(ResponseStatus.InternalServerError, "The hall was not found");
+        if(!bookingResponse.getStatus().equals(ResponseStatus.Ok)){
+            return new Response<>(ResponseStatus.NotFound, "There's no booking for these tables");
         }
         
-        Hall hall = hallResponse.getData();
-        List<SittingTable> sittingTables = new LinkedList<>();
-        for(SittingTableDto stdto : dto.sittingTables()){
-            SittingTable sittingTable = new SittingTable();
-            sittingTable.setHall(hall);
-            sittingTable.setName(stdto.name());
-            sittingTable.setNumberOfSeats(stdto.numberOfSeats());
+        Booking booking = bookingResponse.getData();
+        List<SittingTable> tables = new LinkedList<>();
+        
+        for(SittingTableDto table : dto.tables()){
+            SittingTable st = new SittingTable();
+            st.setBooking(booking);
+            st.setName(table.name());
+            st.setNumberOfSeats(table.numberOfSeats());
             
-            sittingTables.add(sittingTable);
+            tables.add(st);
         }
         
-        repository.saveAll(sittingTables);
-        return new Response<>(ResponseStatus.Ok, "The tables have been saved.");
+        try{
+            repository.saveAll(tables);
+            return new Response<>(ResponseStatus.Ok, "All the tables have been saved.");
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.InternalServerError, "An error during saving of the tables.");
+        }
     }
     
 }
