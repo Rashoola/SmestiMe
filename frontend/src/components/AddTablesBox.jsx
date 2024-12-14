@@ -1,0 +1,76 @@
+import React, { useState } from 'react';
+import '../style/AddTablesBox.css';
+
+const AddTablesBox = ({ bookingId, onClose, onConfirm }) => {
+  const [tables, setTables] = useState([]);
+  const [tableName, setTableName] = useState('');
+  const [numberOfSeats, setNumberOfSeats] = useState('');
+
+  const addTable = () => {
+    if (tableName.trim() && numberOfSeats > 0) {
+      setTables([...tables, { name: tableName, numberOfSeats: parseInt(numberOfSeats, 10) }]);
+      setTableName('');
+      setNumberOfSeats('');
+    }
+  };
+
+  const removeTable = (index) => {
+    setTables(tables.filter((_, i) => i !== index));
+  };
+
+  const confirmTables = () => {
+    const payload = { bookingId, tables };
+    console.log(payload)
+    fetch('http://localhost:9000/api/tables/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to save tables');
+        }
+        alert("Столови су успешно сачувани");
+      })
+  };
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-box">
+        <h3>Add Tables to reservation: {bookingId}</h3>
+        <div className="modal-inputs">
+          <input
+            type="text"
+            placeholder="Table Name"
+            value={tableName}
+            onChange={(e) => setTableName(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Number of Seats"
+            value={numberOfSeats}
+            onChange={(e) => setNumberOfSeats(e.target.value)}
+          />
+          <button onClick={addTable}>Add Table</button>
+        </div>
+        <ul className="modal-table-list">
+          {tables.map((table, index) => (
+            <li key={index}>
+              {table.name} - {table.numberOfSeats} seats
+              <button onClick={() => removeTable(index)}>Remove</button>
+            </li>
+          ))}
+        </ul>
+        <div className="modal-actions">
+          <button onClick={confirmTables}>Confirm</button>
+          <button onClick={onClose}>Close</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AddTablesBox;
+
+
+

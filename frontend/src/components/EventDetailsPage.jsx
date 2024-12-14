@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../style/EventDetailsPage.css';
+import AddTablesBox from './AddTablesBox';
+
+const HallBookingItem = ({ booking, onAddTables }) => {
+  return (
+    <div className="hall-booking-item">
+      <p><strong>Сала:</strong> {booking.hall.name}</p>
+      <button onClick={() => onAddTables(booking.id)}>Додај столове</button>
+    </div>
+  );
+};
 
 const EventDetailsPage = () => {
-  const { id } = useParams(); // Extract event ID from URL
+  const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
 
   useEffect(() => {
-    // Fetch the event details
     const fetchEvent = async () => {
       try {
         const response = await fetch(`http://localhost:9000/api/events/${id}`);
-        console.log(`http://localhost:9000/api/events/${id}`);
         if (!response.ok) {
-          throw new Error("Failed to fetch event details");
+          throw new Error('Failed to fetch event details');
         }
         const data = await response.json();
         setEvent(data);
@@ -27,6 +37,11 @@ const EventDetailsPage = () => {
     };
     fetchEvent();
   }, [id]);
+
+  const handleAddTables = (bookingId) => {
+    setSelectedBookingId(bookingId);
+    setShowModal(true);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -49,17 +64,31 @@ const EventDetailsPage = () => {
       <div className="booked-halls">
         <h3>Резервисане сале</h3>
         {event.bookedHalls.length > 0 ? (
-          <ul>
-            {event.bookedHalls.map((booked) => (
-              <li key={booked.id}>{booked.hall.name}</li>
-            ))}
-          </ul>
+          event.bookedHalls.map((booked) => (
+            <HallBookingItem
+              key={booked.id}
+              booking={booked}
+              onAddTables={handleAddTables}
+            />
+          ))
         ) : (
           <p>Нема резервисаних сала.</p>
         )}
       </div>
+
+      {showModal && (
+        <AddTablesBox
+          bookingId={selectedBookingId}
+          onClose={() => setShowModal(false)}
+          onConfirm={() => {
+            setShowModal(false);
+            // Optionally refetch event details or show a success message
+          }}
+        />
+      )}
     </div>
   );
 };
 
 export default EventDetailsPage;
+
