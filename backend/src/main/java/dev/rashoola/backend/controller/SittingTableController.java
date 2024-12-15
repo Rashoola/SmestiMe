@@ -4,11 +4,9 @@
  */
 package dev.rashoola.backend.controller;
 
-import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.util.ResponseConverter;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

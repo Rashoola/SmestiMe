@@ -60,5 +60,14 @@ public class SittingTableServiceImpl implements SittingTableService{
             return new Response<>(ResponseStatus.InternalServerError, "An error during saving of the tables.");
         }
     }
+
+    @Override
+    public Response<SittingTable> findById(Long id) {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+    }
     
 }

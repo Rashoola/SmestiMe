@@ -6,6 +6,7 @@ package dev.rashoola.backend.controller;
 
 import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
+import dev.rashoola.backend.dto.TableAssignmentDto;
 import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.util.ResponseConverter;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,16 @@ public class ParticipationController {
     @Autowired
     private final ResponseConverter<Participation> converter;
     
+    @Autowired
+    private final ResponseConverter<String> stringConverter;
+    
     @PostMapping("/create")
     public ResponseEntity<Participation> create(@RequestBody ParticipationCreationDto dto){
         return converter.toResponseEntity(participationService.create(dto));
+    }
+    
+    @PostMapping("/assign-table")
+    public ResponseEntity<String> assignTable(@RequestBody TableAssignmentDto dto){
+        return stringConverter.toResponseEntity(participationService.assignTable(dto));
     }
 }

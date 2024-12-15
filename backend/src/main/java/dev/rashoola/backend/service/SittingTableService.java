@@ -4,6 +4,7 @@
  */
 package dev.rashoola.backend.service;
 
+import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.util.Response;
 
@@ -13,4 +14,5 @@ import dev.rashoola.backend.util.Response;
  */
 public interface SittingTableService {
     public Response<String> create(SittingTableCreationDto dto);
+    public Response<SittingTable> findById(Long id);
 }

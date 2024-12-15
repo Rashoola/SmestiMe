@@ -2,15 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../style/EventDetailsPage.css';
 import AddTablesBox from './AddTablesBox';
-
-const HallBookingItem = ({ booking, onAddTables }) => {
-  return (
-    <div className="hall-booking-item">
-      <p><strong>Сала:</strong> {booking.hall.name}</p>
-      <button onClick={() => onAddTables(booking.id)}>Додај столове</button>
-    </div>
-  );
-};
+import HallBookingItem from './HallBookingItem';
 
 const EventDetailsPage = () => {
   const { id } = useParams();

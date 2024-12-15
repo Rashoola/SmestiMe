@@ -6,12 +6,15 @@ package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.domain.Participation;
+import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.domain.User;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
+import dev.rashoola.backend.dto.TableAssignmentDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.ParticipationRepository;
 import dev.rashoola.backend.service.EventService;
 import dev.rashoola.backend.service.ParticipationService;
+import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.service.UserService;
 import dev.rashoola.backend.util.Response;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +37,9 @@ public class ParticipationServiceImpl implements ParticipationService{
     
     @Autowired
     private final EventService eventService;
+    
+    @Autowired
+    private final SittingTableService sittingTableService;
 
     @Override
     public Response<Participation> create(ParticipationCreationDto dto) {
@@ -64,6 +70,37 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.Ok, savedParticipation);
         } catch(Exception ex){
             return new Response<>(ResponseStatus.InternalServerError, null);
+        }
+    }
+
+    @Override
+    public Response<String> assignTable(TableAssignmentDto dto) {
+        Participation participation = null;
+        try{
+            participation = repository.findById(dto.participationId()).get();
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, "Participation not found.");
+        }
+        
+        SittingTable table = null;
+        try{
+           Response<SittingTable> tableResponse = sittingTableService.findById(dto.sittingTableId());
+           if(!tableResponse.getStatus().equals(ResponseStatus.Ok)){
+               return new Response<>(ResponseStatus.NotFound, "Sitting table not found.");
+           }
+           
+           table = tableResponse.getData();
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, "Sitting table not found.");
+        }
+        
+        participation.setSittingTable(table);
+        
+        try{
+            repository.save(participation);
+            return new Response<>(ResponseStatus.Ok, "The participation has been modified.");
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.InternalServerError, "An error ocurred during changing the participation.");
         }
     }
     
