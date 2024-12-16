@@ -4,10 +4,12 @@
  */
 package dev.rashoola.backend.service.impl;
 
+import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.domain.User;
+import dev.rashoola.backend.dto.GetWaitingParticipationsDto;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.dto.TableAssignmentDto;
 import dev.rashoola.backend.enums.ResponseStatus;
@@ -17,6 +19,8 @@ import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.service.UserService;
 import dev.rashoola.backend.util.Response;
+import java.util.LinkedList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,6 +106,35 @@ public class ParticipationServiceImpl implements ParticipationService{
         } catch(Exception ex){
             return new Response<>(ResponseStatus.InternalServerError, "An error ocurred during changing the participation.");
         }
+    }
+
+    @Override
+    public Response<List<Participation>> getWaitingParticipations(Long eventId) {
+        
+        Response<Event> eventResponse = eventService.findById(eventId);
+        
+        if(!eventResponse.getStatus().equals(ResponseStatus.Ok)){
+            System.out.println("Event nije pronadjen.");
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        Event event = eventResponse.getData();
+        
+        List<Participation> participations = repository.findByEvent(event);
+        List<Participation> waitingParticipations = new LinkedList<>();
+        
+        if(participations == null || participations.isEmpty()){
+            System.out.println("Participacije nisu pronadjene.");
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        for(Participation p : participations){
+            if(p.getSittingTable() == null){
+                waitingParticipations.add(p);
+            }
+        }
+        
+        return new Response<>(ResponseStatus.Ok, waitingParticipations);
     }
     
 }

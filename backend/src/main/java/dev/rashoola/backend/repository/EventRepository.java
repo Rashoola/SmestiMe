@@ -4,9 +4,12 @@
  */
 package dev.rashoola.backend.repository;
 
+import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
 import java.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,4 +20,7 @@ import org.springframework.stereotype.Repository;
 public interface EventRepository extends JpaRepository<Event, Long>{
     public boolean existsByName(String name);
     public boolean existsByDate(LocalDate date);
+    
+    @Query("SELECT b.event FROM Booking b WHERE b = :booking")
+    Event findByBooking(@Param("booking") Booking booking);
 }

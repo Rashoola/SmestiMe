@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const TableItem = ({ table, assignments, participants, onDropParticipant }) => {
-    const [showParticipants, setShowParticipants] = useState(false);
-
-    // Get the participants assigned to this table
-    const assignedParticipants = assignments[table.id] || [];
+const TableItem = ({ table, onDropParticipant }) => {
 
     const handleDrop = (event) => {
         event.preventDefault();
@@ -23,27 +19,6 @@ const TableItem = ({ table, assignments, participants, onDropParticipant }) => {
             onDragOver={handleDragOver}
         >
             <h3>Table: {table.name}</h3>
-
-            <button
-                onClick={() => setShowParticipants((prev) => !prev)}
-                className="toggle-participants-btn"
-            >
-                {showParticipants ? 'Hide Participants' : 'Show Participants'}
-            </button>
-
-            {showParticipants && (
-                <ul className="participants-list">
-                    {assignedParticipants.length > 0 ? (
-                        assignedParticipants.map((participantId) => (
-                            <li key={participantId}>
-                                Participant ID: {participantId}
-                            </li>
-                        ))
-                    ) : (
-                        <li>No participants assigned to this table.</li>
-                    )}
-                </ul>
-            )}
         </div>
     );
 };

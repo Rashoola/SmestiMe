@@ -59,6 +59,7 @@ const EventDetailsPage = () => {
           event.bookedHalls.map((booked) => (
             <HallBookingItem
               key={booked.id}
+              event={event}
               booking={booked}
               onAddTables={handleAddTables}
             />

@@ -1,22 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ParticipantItem from './ParticipantItem';
 import TableItem from './TableItem';
 import '../style/SittingArrangementPage.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const SittingArrangementPage = () => {
+    const { eventId } = useParams();
     const location = useLocation();
     const booking = location.state?.booking; // Safely access booking
+    const event = location.state?.event;
 
-    // Initialize state unconditionally
+    const [waitingParticipants, setWaitingParticipants] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchWaitingParticipants = async () => {
+            console.log(JSON.stringify({eventId: event.id}));
+          try {
+            const response = await fetch(`http://localhost:9000/api/participations/event/${event.id}/waiting`);
+            const data = await response.json();
+            setWaitingParticipants(data);
+          } catch (err) {
+            setError('Failed to fetch waiting participants');
+            console.log(err);
+          }
+        };
+    
+        fetchWaitingParticipants();
+      }, []);
+    /*// Initialize state unconditionally
     const initialAssignments = booking
         ? {
-              participants: [
-                  { id: 1, name: "Alice" },
-                  { id: 2, name: "Bob" },
-                  { id: 3, name: "Charlie" },
-                  { id: 4, name: "Dana" },
-              ],
+              participants: waitingParticipants,
               tableAssignments: booking.sittingTables.reduce((acc, table) => {
                   acc[table.id] = [];
                   return acc;
@@ -24,48 +39,26 @@ const SittingArrangementPage = () => {
           }
         : { participants: [], tableAssignments: {} };
 
-    const [assignments, setAssignments] = React.useState(initialAssignments);
+    const [assignments, setAssignments] = React.useState(initialAssignments);*/
 
     if (!booking) {
         return <p>Error: No booking data available.</p>; // Handle missing data
     }
 
     const handleDropParticipant = async (tableId, participantId) => {
+        console.log( JSON.stringify({ tableId: tableId, participationId: participantId }))
         try {
             // Send the participant and table IDs to the backend
-            const response = await fetch('http://localhost:9000/participations/assign-table', {
+            const response = await fetch('http://localhost:9000/api/participations/assign-table', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ tableId, participantId }),
+                body: JSON.stringify({ sittingTableId: tableId, participationId: participantId }),
             });
 
-            if (response.ok) {
-                // Update state only if the backend call was successful
-                setAssignments((prev) => {
-                    const updatedTableAssignments = { ...prev.tableAssignments };
-
-                    // Remove participant from their current table or participant list
-                    Object.keys(updatedTableAssignments).forEach((key) => {
-                        updatedTableAssignments[key] = updatedTableAssignments[key].filter(
-                            (id) => id !== participantId
-                        );
-                    });
-
-                    // Add participant to the target table
-                    updatedTableAssignments[tableId].push(participantId);
-
-                    return {
-                        participants: prev.participants.filter(
-                            (p) => p.id !== participantId
-                        ),
-                        tableAssignments: updatedTableAssignments,
-                    };
-                });
-            } else {
-                console.error('Failed to assign participant.');
-                alert('Error: Could not assign participant to table.');
+            if(response.ok){
+                alert("The user has been added to the table.");
             }
         } catch (error) {
             console.error('Error during backend communication:', error);
@@ -77,7 +70,7 @@ const SittingArrangementPage = () => {
         <div className="sitting-arrangement-page">
             <div className="participants-list">
                 <h2>Participants</h2>
-                {assignments.participants.map((participant) => (
+                {waitingParticipants.map((participant) => (
                     <ParticipantItem key={participant.id} participant={participant} />
                 ))}
             </div>
@@ -88,8 +81,6 @@ const SittingArrangementPage = () => {
                     <TableItem
                         key={table.id}
                         table={table}
-                        assignments={assignments.tableAssignments}
-                        participants={assignments.participants}
                         onDropParticipant={handleDropParticipant}
                     />
                 ))}

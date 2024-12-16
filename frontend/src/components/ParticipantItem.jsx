@@ -3,6 +3,7 @@ import React from 'react';
 const ParticipantItem = ({ participant }) => {
     const handleDragStart = (e) => {
         e.dataTransfer.setData("participantId", participant.id);
+        console.log("ParticipationId:" + participant.id)
     };
 
     return (
@@ -11,7 +12,7 @@ const ParticipantItem = ({ participant }) => {
             onDragStart={handleDragStart}
             className="participant-item"
         >
-            {participant.name}
+            {participant.user.name}
         </div>
     );
 };

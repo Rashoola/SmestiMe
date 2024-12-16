@@ -2,13 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style/HallBookingItem.css';
 
-const HallBookingItem = ({ booking, onAddTables }) => {
+const HallBookingItem = ({ event, booking, onAddTables }) => {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
         // Navigate to SittingArrangementPage and pass the booking object as state
         console.log(booking);
-        navigate(`/arrangement`, { state: { booking } });
+        navigate(`/arrangement`, { state: { event, booking } });
     };
 
     return (
