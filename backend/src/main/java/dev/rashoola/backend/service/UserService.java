@@ -13,6 +13,7 @@ import dev.rashoola.backend.util.Response;
  */
 public interface UserService {
     public Response<User> register(User user);
+    public Response<User> registerAdmin(User user);
     public Response<User> login(String email, String password);
     public Response<User> findById(Long id);
 }

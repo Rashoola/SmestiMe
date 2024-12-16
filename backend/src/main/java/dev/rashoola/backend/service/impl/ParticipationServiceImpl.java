@@ -57,7 +57,7 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.Conflict, null);
         }
         
-        if(!dto.entryCode().equals(event.getEntryCode())){
+        if((!dto.entryCode().equals(event.getEntryCode())) & (event.getEntryCode() != null)){
             return new Response<>(ResponseStatus.Unauthorized, null);
         }
         

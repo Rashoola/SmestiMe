@@ -5,6 +5,7 @@
 package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.User;
+import dev.rashoola.backend.domain.enums.UserType;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.UserRepository;
 import dev.rashoola.backend.service.UserService;
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService{
         
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
+        user.setUserType(UserType.PARTICIPANT);
         
         repository.save(user);
         return new Response<>(ResponseStatus.Ok, user);
@@ -67,6 +69,21 @@ public class UserServiceImpl implements UserService{
         } catch(Exception ex){
             return new Response<>(ResponseStatus.NotFound, null);
         }
+    }
+
+    @Override
+    public Response<User> registerAdmin(User user) {
+        if(repository.existsByEmail(user.getEmail())){
+            System.out.println("The user with this email already exists.");
+            return new Response<>(ResponseStatus.Conflict, user);
+        }
+        
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+        user.setUserType(UserType.ADMIN);
+        
+        repository.save(user);
+        return new Response<>(ResponseStatus.Ok, user);
     }
     
 }

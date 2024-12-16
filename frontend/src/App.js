@@ -6,6 +6,7 @@ import RegisterPage from './components/RegisterPage';
 import AdminDashboard from './components/AdminDashboard';
 import EventDetailsPage from './components/EventDetailsPage';
 import SittingArrangementPage from './components/SittingArrangementPage';
+import ParticipantDashboard from './components/ParticipantDashboard';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/admin_dashboard" element={<AdminDashboard/>} />
         <Route path="/events/:id" element={<EventDetailsPage />} />
         <Route path="/arrangement" element={<SittingArrangementPage />} />
+        <Route path="/participant_dashboard" element={<ParticipantDashboard />} />
       </Routes>
     </Router>
   );

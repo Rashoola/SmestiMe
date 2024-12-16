@@ -36,6 +36,11 @@ public class UserController {
         return converter.toResponseEntity(userService.register(user));
     }
     
+    @PostMapping("/register-admin")
+    public ResponseEntity<User> registerAdmin(@RequestBody User user){
+        return converter.toResponseEntity(userService.registerAdmin(user));
+    }
+    
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody UserLoginDto dto){
         return converter.toResponseEntity(userService.login(dto.email(),dto.password()));

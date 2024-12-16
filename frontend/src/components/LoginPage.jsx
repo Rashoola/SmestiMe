@@ -31,12 +31,12 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
-
+      console.log(data.id)
       // Assuming `data` contains the admin object
-      if (data.userType === 'PARTICIPANT') {
+      if (data.userType === 'ADMIN') {
         navigate('/admin_dashboard', { state: { admin: data } });
       } else {
-        throw new Error('Unauthorized access. Only admins can log in here.');
+        navigate('/participant_dashboard', { state: { participant: data } });
       }
     } catch (err) {
       setError(err.message);
