@@ -15,4 +15,5 @@ import dev.rashoola.backend.util.Response;
 public interface SittingTableService {
     public Response<String> create(SittingTableCreationDto dto);
     public Response<SittingTable> findById(Long id);
+    public Response<Integer> getParticipantCount(Long id);
 }

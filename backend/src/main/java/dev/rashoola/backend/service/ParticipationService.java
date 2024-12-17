@@ -19,4 +19,5 @@ public interface ParticipationService {
     public Response<Participation> create(ParticipationCreationDto dto);
     public Response<String> assignTable(TableAssignmentDto dto);
     public Response<List<Participation>> getWaitingParticipations(Long eventId);
+    public Response<List<Participation>> getParticipationsBySittingTable(Long sittingTableId);
 }

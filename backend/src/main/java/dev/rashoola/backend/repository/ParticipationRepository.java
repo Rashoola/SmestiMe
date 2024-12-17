@@ -7,6 +7,7 @@ package dev.rashoola.backend.repository;
 import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.domain.Participation;
+import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.domain.User;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,5 @@ import org.springframework.stereotype.Repository;
 public interface ParticipationRepository extends JpaRepository<Participation, Long>{
     public boolean existsByUserAndEvent(User user, Event event);
     public List<Participation> findByEvent(Event event);
+    public List<Participation> findBySittingTable(SittingTable sittingTable);
 }

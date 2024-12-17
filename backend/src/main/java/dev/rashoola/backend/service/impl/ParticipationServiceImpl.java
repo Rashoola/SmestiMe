@@ -4,12 +4,10 @@
  */
 package dev.rashoola.backend.service.impl;
 
-import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.domain.User;
-import dev.rashoola.backend.dto.GetWaitingParticipationsDto;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.dto.TableAssignmentDto;
 import dev.rashoola.backend.enums.ResponseStatus;
@@ -98,6 +96,11 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.NotFound, "Sitting table not found.");
         }
         
+        int numberOfParticipants = sittingTableService.getParticipantCount(table.getId()).getData();
+        if(!(numberOfParticipants < table.getNumberOfSeats())){
+            return new Response<>(ResponseStatus.Forbidden, "Sitting table is full.");
+        }
+        
         participation.setSittingTable(table);
         
         try{
@@ -135,6 +138,21 @@ public class ParticipationServiceImpl implements ParticipationService{
         }
         
         return new Response<>(ResponseStatus.Ok, waitingParticipations);
+    }
+
+    @Override
+    public Response<List<Participation>> getParticipationsBySittingTable(Long sittingTableId) {
+        Response<SittingTable> tableResponse = sittingTableService.findById(sittingTableId);
+        
+        if(!tableResponse.getStatus().equals(ResponseStatus.Ok)){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        SittingTable table = tableResponse.getData();
+        
+        List<Participation> participations = repository.findBySittingTable(table);
+        
+        return new Response<>(ResponseStatus.Ok, participations);
     }
     
 }

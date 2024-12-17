@@ -6,12 +6,14 @@ package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Hall;
+import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.dto.SittingTableCreationDto.SittingTableDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.SittingTableRepository;
 import dev.rashoola.backend.service.BookingService;
+import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.util.Response;
 import java.util.LinkedList;
@@ -32,6 +34,9 @@ public class SittingTableServiceImpl implements SittingTableService{
     private final SittingTableRepository repository;
     
     @Autowired BookingService bookingService;
+    
+    @Autowired
+    private final ParticipationService participationService;
 
     @Override
     public Response<String> create(SittingTableCreationDto dto) {
@@ -68,6 +73,20 @@ public class SittingTableServiceImpl implements SittingTableService{
         } catch(Exception ex){
             return new Response<>(ResponseStatus.NotFound, null);
         }
+    }
+
+    @Override
+    public Response<Integer> getParticipantCount(Long id) {
+        Response<List<Participation>> participationsResponse = participationService.getParticipationsBySittingTable(id);
+        
+        if(!participationsResponse.getStatus().equals(ResponseStatus.Ok)){
+            return new Response<>(ResponseStatus.NotFound, 0);
+        }
+        
+        List<Participation> participations = participationsResponse.getData();
+        int count = participations.size();
+        
+        return new Response<>(ResponseStatus.Ok, count);
     }
     
 }
