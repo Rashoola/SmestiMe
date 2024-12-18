@@ -9,7 +9,10 @@ import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.domain.User;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
+import dev.rashoola.backend.dto.SittingTableCreationDto.SittingTableDto;
 import dev.rashoola.backend.dto.TableAssignmentDto;
+import dev.rashoola.backend.dto.UserParticipationDto;
+import dev.rashoola.backend.dto.UserParticipationDto.EventDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.ParticipationRepository;
 import dev.rashoola.backend.service.EventService;
@@ -96,8 +99,9 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.NotFound, "Sitting table not found.");
         }
         
-        int numberOfParticipants = sittingTableService.getParticipantCount(table.getId()).getData();
-        if(!(numberOfParticipants < table.getNumberOfSeats())){
+        Response<Boolean> fullnessResponse = sittingTableService.isFull(table);
+        Boolean isFull = fullnessResponse.getData();
+        if(isFull){
             return new Response<>(ResponseStatus.Forbidden, "Sitting table is full.");
         }
         
@@ -153,6 +157,38 @@ public class ParticipationServiceImpl implements ParticipationService{
         List<Participation> participations = repository.findBySittingTable(table);
         
         return new Response<>(ResponseStatus.Ok, participations);
+    }
+
+    @Override
+    public Response<List<UserParticipationDto>> getParticipationsByUser(Long userId) {
+        Response<User> userResponse = userService.findById(userId);
+        
+        if(!userResponse.getStatus().equals(ResponseStatus.Ok)){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        User user = userResponse.getData();
+        
+        List<Participation> participations = repository.findByUser(user);
+        List<UserParticipationDto> dtos = new LinkedList<>();
+        
+        for (Participation p : participations){
+            EventDto eventDto = new EventDto(p.getEvent().getId(), p.getEvent().getName());
+            
+            SittingTableDto tableDto = null;
+            
+            if(p.getSittingTable() == null){
+                tableDto = new SittingTableDto(0L, "None", 0);
+            }
+            else {
+             tableDto = new SittingTableDto(p.getSittingTable().getId(), p.getSittingTable().getName(), p.getSittingTable().getNumberOfSeats());
+            }
+            UserParticipationDto dto = new UserParticipationDto(p.getId(), eventDto, tableDto);
+            
+            dtos.add(dto);
+        }
+        
+        return new Response<>(ResponseStatus.Ok, dtos);
     }
     
 }

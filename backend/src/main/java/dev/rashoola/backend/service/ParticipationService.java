@@ -8,6 +8,7 @@ import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.dto.GetWaitingParticipationsDto;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.dto.TableAssignmentDto;
+import dev.rashoola.backend.dto.UserParticipationDto;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
 
@@ -20,4 +21,5 @@ public interface ParticipationService {
     public Response<String> assignTable(TableAssignmentDto dto);
     public Response<List<Participation>> getWaitingParticipations(Long eventId);
     public Response<List<Participation>> getParticipationsBySittingTable(Long sittingTableId);
+    public Response<List<UserParticipationDto>> getParticipationsByUser(Long userId);
 }

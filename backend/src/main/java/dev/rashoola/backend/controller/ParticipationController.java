@@ -8,6 +8,7 @@ import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.dto.GetWaitingParticipationsDto;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.dto.TableAssignmentDto;
+import dev.rashoola.backend.dto.UserParticipationDto;
 import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.util.ResponseConverter;
 import java.util.List;
@@ -39,6 +40,9 @@ public class ParticipationController {
     @Autowired
     private final ResponseConverter<String> stringConverter;
     
+    @Autowired
+    private final ResponseConverter<UserParticipationDto> dtoConverter;
+    
     @PostMapping("/create")
     public ResponseEntity<Participation> create(@RequestBody ParticipationCreationDto dto){
         return converter.toResponseEntity(participationService.create(dto));
@@ -53,5 +57,10 @@ public class ParticipationController {
     @GetMapping("/event/{eventId}/waiting")
     public ResponseEntity<List<Participation>> getWaitingParticipations(@PathVariable Long eventId){
         return converter.toListResponseEntity(participationService.getWaitingParticipations(eventId));
+    }
+    
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<UserParticipationDto>> getParticipationsByUser(@PathVariable Long userId){
+        return dtoConverter.toListResponseEntity(participationService.getParticipationsByUser(userId));
     }
 }

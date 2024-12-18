@@ -4,13 +4,13 @@
  */
 package dev.rashoola.backend.dto;
 
-import java.util.List;
+import dev.rashoola.backend.dto.SittingTableCreationDto.SittingTableDto;
 
 /**
  *
  * @author rasul
  */
-public record SittingTableCreationDto(Long bookingId, List<SittingTableDto> tables) {
-    public static record SittingTableDto(Long id, String name, int numberOfSeats){
-    }
+public record UserParticipationDto(Long id, EventDto event, SittingTableDto table) {
+    public static record EventDto(Long id, String name){
+        }
 }

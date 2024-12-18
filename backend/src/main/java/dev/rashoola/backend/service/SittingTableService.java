@@ -7,6 +7,8 @@ package dev.rashoola.backend.service;
 import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.util.Response;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -15,5 +17,5 @@ import dev.rashoola.backend.util.Response;
 public interface SittingTableService {
     public Response<String> create(SittingTableCreationDto dto);
     public Response<SittingTable> findById(Long id);
-    public Response<Integer> getParticipantCount(Long id);
+    public Response<Boolean> isFull(SittingTable sittingTable);
 }

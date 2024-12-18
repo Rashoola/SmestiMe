@@ -22,4 +22,5 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
     public boolean existsByUserAndEvent(User user, Event event);
     public List<Participation> findByEvent(Event event);
     public List<Participation> findBySittingTable(SittingTable sittingTable);
+    public List<Participation> findByUser(User user);
 }

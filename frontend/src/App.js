@@ -7,6 +7,8 @@ import AdminDashboard from './components/AdminDashboard';
 import EventDetailsPage from './components/EventDetailsPage';
 import SittingArrangementPage from './components/SittingArrangementPage';
 import ParticipantDashboard from './components/ParticipantDashboard';
+import MyEventsPage from './components/MyEventsPage';
+import ChooseTablePage from './components/ChooseTablePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="/events/:id" element={<EventDetailsPage />} />
         <Route path="/arrangement" element={<SittingArrangementPage />} />
         <Route path="/participant_dashboard" element={<ParticipantDashboard />} />
+        <Route path="/my-events" element={<MyEventsPage />} />
+        <Route path="/choose-table" element={<ChooseTablePage />} />
       </Routes>
     </Router>
   );
