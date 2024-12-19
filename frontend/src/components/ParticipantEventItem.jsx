@@ -19,7 +19,7 @@ const ParticipantEventItem = ({ participant, event }) => {
             <h3>{event.name}</h3>
             <p><strong>Место:</strong> {event.venue.name}</p>
             <p><strong>Датум:</strong> {new Date(event.date).toLocaleDateString()}</p>
-            <button onClick={handleParticipateClick}>Prijavi se</button>
+            <button onClick={handleParticipateClick}>Пријави се за догађај</button>
             {isParticipateBoxOpen && <ParticipateBox event={event} participant={participant} onClose={handleCloseParticipateBox} />}
         </div>
     );

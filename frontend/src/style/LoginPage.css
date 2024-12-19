@@ -1,12 +1,12 @@
 @keyframes gradient-background {
     0% {
-      background-color: lightblue;
+      background-color: purple;
     }
     50% {
-      background-color: lightgreen;
+      background-color: violet;
     }
     100% {
-      background-color: lightblue;
+      background-color: purple;
     }
   }
   

@@ -13,7 +13,7 @@ const MyEventItem = ({participant, event}) => {
     return(
         <div className='my-event-item'>
             <h2>{event.event.name}</h2>
-            <button onClick={handleClick}>Choose your table</button>
+            <button onClick={handleClick}>Изаберите сто</button>
         </div>
     );
 };

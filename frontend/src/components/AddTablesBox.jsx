@@ -37,33 +37,33 @@ const AddTablesBox = ({ bookingId, onClose, onConfirm }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-box">
-        <h3>Add Tables to reservation: {bookingId}</h3>
+        <h3>Додајте сто у резервацију број {bookingId}</h3>
         <div className="modal-inputs">
           <input
             type="text"
-            placeholder="Table Name"
+            placeholder="Назив стола"
             value={tableName}
             onChange={(e) => setTableName(e.target.value)}
           />
           <input
             type="number"
-            placeholder="Number of Seats"
+            placeholder="Број седећих места"
             value={numberOfSeats}
             onChange={(e) => setNumberOfSeats(e.target.value)}
           />
-          <button onClick={addTable}>Add Table</button>
+          <button onClick={addTable}>Додај</button>
         </div>
         <ul className="modal-table-list">
           {tables.map((table, index) => (
             <li key={index}>
-              {table.name} - {table.numberOfSeats} seats
-              <button onClick={() => removeTable(index)}>Remove</button>
+              {table.name} - {table.numberOfSeats} места
+              <button onClick={() => removeTable(index)}>Уклони</button>
             </li>
           ))}
         </ul>
         <div className="modal-actions">
-          <button onClick={confirmTables}>Confirm</button>
-          <button onClick={onClose}>Close</button>
+          <button onClick={confirmTables}>Потврди унос</button>
+          <button onClick={onClose}>Затвори</button>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@
     padding: 20px;
     animation: gradient-background 8s infinite; /* Smooth gradient transition */
     border-radius: 8px;
+    height: 100%;
   }
   
   .partition {
@@ -64,6 +65,7 @@
   
   .event-item {
     padding: 15px;
+    height: 150px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -76,10 +78,11 @@
   }
   
   .event-item p {
-    margin: 5px 0;
+    margin-bottom: 10px;
   }
   
   .details-button {
+    margin-top: 20px;
     padding: 10px 15px;
     background-color: #007bff;
     color: white;

@@ -21,11 +21,13 @@ const ParticipantDashboard = () => {
     return (
         <>
         <Header title="СместиМе!"></Header>
-        <h1>Welcome, {participant.name}</h1>
+        <h1>Добродошли, {participant.name}</h1>
+        <p>На овој страници имате преглед свих догађаја на које се можете пријавити.</p>
+        <button onClick={handleMyEventsClick}>Моји догађаји</button>
         <div className='participant-dashboard'>
             <ParticipantEventList participant={participant}/>
         </div>
-        <button onClick={handleMyEventsClick}>My events</button>
+        
         </>
     );
 };

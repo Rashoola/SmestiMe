@@ -1,0 +1,22 @@
+.modal-content {
+    background-color: white;
+    width:500px;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.input-group {
+    width: 90%;
+}
+
+.confirm-button, .cancel-button{
+    color: white;
+    width: 30%;
+    height: 40px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.confirm-button{
+    background-color: green;
+}

@@ -69,14 +69,14 @@ const SittingArrangementPage = () => {
     return (
         <div className="sitting-arrangement-page">
             <div className="participants-list">
-                <h2>Participants</h2>
+                <h2>Учесници</h2>
                 {waitingParticipants.map((participant) => (
                     <ParticipantItem key={participant.id} participant={participant} />
                 ))}
             </div>
 
             <div className="tables-list">
-                <h2>Tables</h2>
+                <h2>Столови</h2>
                 {booking.sittingTables.map((table) => (
                     <TableItem
                         key={table.id}
