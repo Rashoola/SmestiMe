@@ -6,16 +6,15 @@ import '../style/ChooseTablePage.css';
 
 const ChooseTablePage = () => {
     const location = useLocation();
-    const event = location.state?.event;
-    const participant = location.state?.participant;
+    const participation = location.state?.participation;
 
     return(
         <>
         <Header title='SmestiMe!'></Header>
         
         <div className='choose-table'>
-            <h1>{event.event.name}</h1>
-            <ChooseHallList event={event} participant={participant}></ChooseHallList>
+            <h1>{participation.event.name}</h1>
+            <ChooseHallList participation={participation}></ChooseHallList>
         </div>
         </>
     );

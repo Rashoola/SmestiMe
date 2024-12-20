@@ -4,7 +4,6 @@
  */
 package dev.rashoola.backend.repository;
 
-import dev.rashoola.backend.domain.Hall;
 import dev.rashoola.backend.domain.SittingTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

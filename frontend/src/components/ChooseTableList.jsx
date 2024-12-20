@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import ChooseTableItem from './ChooseTableItem';
 
-const ChooseTableList = ({booking, participant}) => {
+const ChooseTableList = ({booking, participation}) => {
 
     const [tables, setTables] = useState([]);
 
@@ -14,7 +14,7 @@ const ChooseTableList = ({booking, participant}) => {
             {tables.length === 0 ? (
         <p>Nema stolova za prikaz.</p>
       ) : (
-        tables.map((table) => <ChooseTableItem key={table.id} table={table} participant={participant}/>)
+        tables.map((table) => <ChooseTableItem key={table.id} table={table} participation={participation}/>)
       )}
         </div>
     );

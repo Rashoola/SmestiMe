@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import ChooseHallItem from './ChooseHallItem';
 
-const ChooseHallList = ({event, participant}) => {
+const ChooseHallList = ({participation}) => {
 
     const [bookedHalls, setBookedHalls] = useState([]);
 
@@ -10,8 +10,7 @@ const ChooseHallList = ({event, participant}) => {
     }, []);
     
     const fetchBookedHalls = async () => {
-        console.log("ChooseHallList: " + participant);
-        const response = await fetch(`http://localhost:9000/api/events/${event.id}`);
+        const response = await fetch(`http://localhost:9000/api/events/${participation.event.id}`);
         if (!response.ok) {
             throw new Error('Failed to fetch booked halls.');
           }
@@ -26,7 +25,7 @@ const ChooseHallList = ({event, participant}) => {
       {bookedHalls.length === 0 ? (
         <p>Nema sala za prikaz.</p>
       ) : (
-        bookedHalls.map((booking) => <ChooseHallItem key={booking.id} booking={booking} participant={participant} />)
+        bookedHalls.map((booking) => <ChooseHallItem key={booking.id} booking={booking} participation = {participation} />)
       )}
         </div>
     );

@@ -83,6 +83,7 @@ public class ParticipationServiceImpl implements ParticipationService{
         Participation participation = null;
         try{
             participation = repository.findById(dto.participationId()).get();
+            System.out.println(participation.getId());
         } catch(Exception ex){
             return new Response<>(ResponseStatus.NotFound, "Participation not found.");
         }
@@ -105,6 +106,7 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.Forbidden, "Sitting table is full.");
         }
         
+        System.out.println("TableId: " + table.getId() + ", Table name: " + table.getName());
         participation.setSittingTable(table);
         
         try{

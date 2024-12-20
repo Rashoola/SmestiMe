@@ -1,11 +1,11 @@
 import React from 'react';
 import ChooseTableList from './ChooseTableList';
 
-const ChooseHallItem = ({booking, participant}) => {
+const ChooseHallItem = ({booking, participation}) => {
     return(
         <div className='choose-hall-item'>
             <h2>{booking.hall.name}</h2>
-            <ChooseTableList booking={booking} participant={participant}></ChooseTableList>
+            <ChooseTableList booking={booking} participation={participation}></ChooseTableList>
         </div>
     );
 };

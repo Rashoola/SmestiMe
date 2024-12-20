@@ -3,7 +3,7 @@ import MyEventItem from './MyEventItem';
 
 const MyEventsList = ({participant}) => {
 
-    const [myEvents, setMyEvents] = useState([]);
+    const [myParticipations, setMyParticipations] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const MyEventsList = ({participant}) => {
             }
             const data = await response.json();
             console.log(data)
-            setMyEvents(data);
+            setMyParticipations(data);
           } catch (err) {
             setError(err.message);
           }
@@ -27,10 +27,10 @@ const MyEventsList = ({participant}) => {
     return(
         <div className='my-events-list'>
             {error && <p className="error-message">{error}</p>}
-      {myEvents.length === 0 ? (
+      {myParticipations.length === 0 ? (
         <p>Тренутно нема догађаја за приказ.</p>
       ) : (
-        myEvents.map((event) => <MyEventItem key={event.id} event={event} participant={participant} />)
+        myParticipations.map((participation) => <MyEventItem key={participation.id} participation={participation}/>)
       )}
         </div>
     );
