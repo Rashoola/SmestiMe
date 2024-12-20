@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../style/EventDetailsPage.css';
+import Header from './Header';
 import AddTablesBox from './AddTablesBox';
 import HallBookingItem from './HallBookingItem';
 
@@ -39,8 +40,14 @@ const EventDetailsPage = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
+    <>
+    <Header title="СместиМе! - О догађају"></Header>
+    <h1>Информације о догађају</h1>
+    <p>На овој страници можете видети све информације о изабраном догађају. У одељку "Резервисане сале"
+       можете изабрати жељену салу и у оквиру ње распоредити учеснике по столовима, као и додавати нове столове у резервацију.
+    </p>
     <div className="event-details">
-      <h2>{event.name}</h2>
+      <h2>Догађај: {event.name}</h2>
       <p><strong>Опис:</strong> {event.description}</p>
       <p><strong>Датум:</strong> {new Date(event.date).toLocaleDateString()}</p>
       <p><strong>Код за улаз:</strong> {event.entryCode}</p>
@@ -80,6 +87,7 @@ const EventDetailsPage = () => {
         />
       )}
     </div>
+    </>
   );
 };
 

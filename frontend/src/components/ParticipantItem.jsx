@@ -12,7 +12,7 @@ const ParticipantItem = ({ participant }) => {
             onDragStart={handleDragStart}
             className="participant-item"
         >
-            {participant.user.name}
+            {participant.user.name} {participant.user.surname}
         </div>
     );
 };

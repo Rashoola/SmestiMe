@@ -4,7 +4,7 @@ import ChooseTableList from './ChooseTableList';
 const ChooseHallItem = ({booking, participation}) => {
     return(
         <div className='choose-hall-item'>
-            <h2>{booking.hall.name}</h2>
+            <h2>Сала: {booking.hall.name}</h2>
             <ChooseTableList booking={booking} participation={participation}></ChooseTableList>
         </div>
     );

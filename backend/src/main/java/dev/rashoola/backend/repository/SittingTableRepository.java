@@ -4,7 +4,9 @@
  */
 package dev.rashoola.backend.repository;
 
+import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.SittingTable;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,5 +22,7 @@ public interface SittingTableRepository extends JpaRepository<SittingTable, Long
        "FROM Participation p WHERE p.sittingTable = :sittingTable")
     Boolean isFull(@Param("sittingTable") SittingTable sittingTable, 
                @Param("numberOfSeats") int numberOfSeats);
+    
+    public List<SittingTable> findByBooking(Booking booking);
 
 }

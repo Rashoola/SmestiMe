@@ -20,7 +20,7 @@ const ParticipantDashboard = () => {
 
     return (
         <>
-        <Header title="СместиМе!"></Header>
+        <Header title="СместиМе! - Главна"></Header>
         <h1>Добродошли, {participant.name}</h1>
         <p>На овој страници имате преглед свих догађаја на које се можете пријавити.</p>
         <button onClick={handleMyEventsClick}>Моји догађаји</button>

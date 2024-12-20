@@ -43,7 +43,7 @@ const TableItem = ({ table, onDropParticipant }) => {
             onDrop={handleDrop}
             onDragOver={handleDragOver}
         >
-            <h3>Table: {table.name}</h3>
+            <h3>{table.name}</h3>
         </div>
     );
 };

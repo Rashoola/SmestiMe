@@ -77,5 +77,22 @@ public class SittingTableServiceImpl implements SittingTableService{
             return new Response<>(ResponseStatus.InternalServerError, null);
         }
     }
+
+    @Override
+    public Response<List<SittingTable>> findByBookingId(Long bookingId) {
+        Response<Booking> bookingResponse = bookingService.findById(bookingId);
+        
+        if(!bookingResponse.getStatus().equals(ResponseStatus.Ok)){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        Booking booking = bookingResponse.getData();
+        
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findByBooking(booking));
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+    }
     
 }

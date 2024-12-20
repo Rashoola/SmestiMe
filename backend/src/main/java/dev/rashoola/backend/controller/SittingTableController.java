@@ -8,6 +8,7 @@ import dev.rashoola.backend.domain.SittingTable;
 import dev.rashoola.backend.dto.SittingTableCreationDto;
 import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.util.ResponseConverter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,9 @@ public class SittingTableController {
     @Autowired
     private final ResponseConverter<Boolean> booleanConverter;
     
+    @Autowired
+    private final ResponseConverter<SittingTable> tableConverter;
+    
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody SittingTableCreationDto dto){
         return converter.toResponseEntity(sittingTableService.create(dto));
@@ -44,5 +48,10 @@ public class SittingTableController {
     @PostMapping("/full")
     public ResponseEntity<Boolean> full(@RequestBody SittingTable table){
         return booleanConverter.toResponseEntity(sittingTableService.isFull(table));
+    }
+    
+    @GetMapping("/by-booking/{bookingId}")
+    public ResponseEntity<List<SittingTable>> getByBookingId(@PathVariable Long bookingId){
+        return tableConverter.toListResponseEntity(sittingTableService.findByBookingId(bookingId));
     }
 }

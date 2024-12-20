@@ -10,10 +10,11 @@ const ChooseTablePage = () => {
 
     return(
         <>
-        <Header title='SmestiMe!'></Header>
-        
+        <Header title='СместиМе! - Бирање стола'></Header>
+        <h1>Бирање стола</h1>
+        <p>На овој страници можете извршити бирање стола за којим бисте желели да седите на догађају.</p>
         <div className='choose-table'>
-            <h1>{participation.event.name}</h1>
+            <h1>Догађај: {participation.event.name}</h1>
             <ChooseHallList participation={participation}></ChooseHallList>
         </div>
         </>

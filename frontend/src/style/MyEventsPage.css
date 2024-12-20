@@ -10,21 +10,15 @@
     }
   }
 
-.choose-table {
+  .my-events {
     animation: gradient-background 3s infinite;
     height: 100vh;
     padding: 20px;
-}
+  }
 
-.choose-hall-item {
+  .my-event-item{
     background-color: white;
-    margin: 7px;
+    margin: 5px;
     padding: 10px;
-}
-
-.choose-table-item {
-    box-shadow: 1px 2px 1px rgba(0,0,0,0.2);
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px;
-}
+    border-radius: 10px;
+  }
