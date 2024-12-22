@@ -75,12 +75,13 @@ const SittingArrangementPage = () => {
 
             if(response.ok){
                 alert("The user has been added to the table.");
+                window.location.reload();
             }
         } catch (error) {
             console.error('Error during backend communication:', error);
             alert('Error: Could not assign participant to table.');
         }
-        refresh();
+        
     };
 
     return (

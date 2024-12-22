@@ -49,6 +49,7 @@ const ChooseTableItem = ({table, participation}) => {
 
         if(response.ok){
             alert("Successfull table choice.");
+            window.location.reload();
         } else {
             alert("An error ocurred.");
         }

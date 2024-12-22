@@ -192,5 +192,22 @@ public class ParticipationServiceImpl implements ParticipationService{
         
         return new Response<>(ResponseStatus.Ok, dtos);
     }
+
+    @Override
+    public Response<Boolean> hasASeat(Long participationId) {
+        Participation participation = null;
+        
+        try{
+            participation = repository.findById(participationId).get();
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        if(participation.getSittingTable() == null){
+            return new Response<>(ResponseStatus.Ok, false);
+        }
+        
+        return new Response<>(ResponseStatus.Ok, true);
+    }
     
 }

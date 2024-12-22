@@ -21,4 +21,5 @@ public interface ParticipationService {
     public Response<List<Participation>> getWaitingParticipations(Long eventId);
     public Response<List<Participation>> getParticipationsBySittingTable(Long sittingTableId);
     public Response<List<UserParticipationDto>> getParticipationsByUser(Long userId);
+    public Response<Boolean> hasASeat(Long participationId);
 }

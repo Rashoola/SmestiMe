@@ -5,7 +5,6 @@
 package dev.rashoola.backend.controller;
 
 import dev.rashoola.backend.domain.Participation;
-import dev.rashoola.backend.dto.GetWaitingParticipationsDto;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.dto.TableAssignmentDto;
 import dev.rashoola.backend.dto.UserParticipationDto;
@@ -43,6 +42,9 @@ public class ParticipationController {
     @Autowired
     private final ResponseConverter<UserParticipationDto> dtoConverter;
     
+    @Autowired
+    private final ResponseConverter<Boolean> booleanConverter;
+    
     @PostMapping("/create")
     public ResponseEntity<Participation> create(@RequestBody ParticipationCreationDto dto){
         return converter.toResponseEntity(participationService.create(dto));
@@ -62,5 +64,10 @@ public class ParticipationController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<UserParticipationDto>> getParticipationsByUser(@PathVariable Long userId){
         return dtoConverter.toListResponseEntity(participationService.getParticipationsByUser(userId));
+    }
+    
+    @GetMapping("/{id}/has-a-seat")
+    public ResponseEntity<Boolean> hasASeat(@PathVariable Long id){
+        return booleanConverter.toResponseEntity(participationService.hasASeat(id));
     }
 }
