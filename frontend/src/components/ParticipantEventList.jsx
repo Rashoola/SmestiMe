@@ -10,7 +10,8 @@ const ParticipantEventList = ({participant}) => {
     try {
       const response = await fetch('http://localhost:9000/api/events');
       if (!response.ok) {
-        throw new Error('Failed to fetch events');
+        alert("Учитавање листе догађаја није успело");
+        return;
       }
       const data = await response.json();
       console.log(data)

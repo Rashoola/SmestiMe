@@ -27,10 +27,12 @@ const AddTablesBox = ({ bookingId, onClose, onConfirm }) => {
       body: JSON.stringify(payload),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to save tables');
+        if (response.ok) {
+          alert("Столови су успешно сачувани");
+        } else {
+          alert("Дошло је до грешке при чувању столова.");
         }
-        alert("Столови су успешно сачувани");
+        
       })
   };
 

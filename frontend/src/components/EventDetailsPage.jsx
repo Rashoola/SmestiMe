@@ -18,7 +18,8 @@ const EventDetailsPage = () => {
       try {
         const response = await fetch(`http://localhost:9000/api/events/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch event details');
+          alert("Учитавање података о догађају није успело.");
+          return;
         }
         const data = await response.json();
         setEvent(data);

@@ -17,7 +17,7 @@ const MyEventItem = ({participation}) => {
             const data = await response.json();
             setHasASeat(data);
         } else {
-            alert('An error ocurred during determining of the seating status.');
+            alert('Грешка приликом добијања информације о изабраним столовима.');
         }
     };
 

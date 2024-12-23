@@ -27,7 +27,7 @@ const LoginPage = () => {
       });
 
       if (!response.ok) {
-        alert('Wrong email or password.');
+        alert('Погрешна мејл адреса или лозинка.');
         return;
       }
 

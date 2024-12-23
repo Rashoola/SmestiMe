@@ -12,7 +12,7 @@ const ChooseHallList = ({participation}) => {
     const fetchBookedHalls = async () => {
         const response = await fetch(`http://localhost:9000/api/events/${participation.event.id}`);
         if (!response.ok) {
-            throw new Error('Failed to fetch booked halls.');
+            alert("Учитавање резервисаних сала није успело.");
           }
           const data = await response.json();
           console.log(data)

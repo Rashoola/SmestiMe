@@ -15,7 +15,8 @@ const MyEventsList = ({participant}) => {
         try {
             const response = await fetch(`http://localhost:9000/api/participations/user/${participant.id}`);
             if (!response.ok) {
-              throw new Error('Failed to fetch participations.');
+              alert("Учитавање листе догађаја није успело.");
+              return;
             }
             const data = await response.json();
             console.log(data)

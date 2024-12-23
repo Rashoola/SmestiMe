@@ -24,9 +24,9 @@ const ParticipateBox = ({participant, event, onClose}) => {
         );
 
         if (response.ok) {
-            alert("Uspesno ste se prijavili na dogadjaj.");
+            alert("Успешно сте се пријавили на догађај.");
           } else {
-        alert('Failed to create the participation.');
+        alert('Дошло је до грешке приликом пријаве на догађај.');
         }
         onClose();
     }

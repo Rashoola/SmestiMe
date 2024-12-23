@@ -50,8 +50,8 @@ const RegisterPage = () => {
       });
 
       if (!response.ok) {
-        const { message } = await response.json();
-        throw new Error(message || 'Регистрација није успела.');
+        alert("Регистрација није успела.");
+        return;
       }
 
       navigate('/login');

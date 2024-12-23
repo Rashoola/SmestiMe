@@ -51,10 +51,10 @@ const ChooseTableItem = ({table, participation}) => {
         );
 
         if(response.ok){
-            alert("Successfull table choice.");
+            alert("Сто је успешно изабран.");
             window.location.reload();
         } else {
-            alert("An error ocurred.");
+            alert("Грешка приликом одабира стола.");
         }
     }
 

@@ -92,7 +92,8 @@ const EventCreationBox = ({ onClose }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create event');
+        alert("Дошло је до грешке приликом чувања догађаја.");
+        return;
       }
 
       const result = await response.json();

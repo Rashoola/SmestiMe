@@ -74,14 +74,14 @@ const SittingArrangementPage = () => {
             });
 
             if(response.ok){
-                alert("The user has been added to the table.");
+                alert("Корисник је смештен на одабрани сто.");
                 window.location.reload();
             } else {
-                alert("User cannot be added to this table. The table may be full.");
+                alert("Корисник не може бити смештен на изабрани сто.");
             }
         } catch (error) {
             console.error('Error during backend communication:', error);
-            alert('Error: Could not assign participant to table.');
+            alert('Дошло је до грешке приликом смештања корисника за столом.');
         }
         
     };
