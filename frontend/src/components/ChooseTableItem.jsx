@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../style/ChooseTableItem.css';
 
 const ChooseTableItem = ({table, participation}) => {
+
+    const navigate = useNavigate();
 
     const [dataToSend, setDataToSend] = useState({
         participationId: 0,

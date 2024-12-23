@@ -27,7 +27,8 @@ const LoginPage = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Login failed. Please check your credentials.');
+        alert('Wrong email or password.');
+        return;
       }
 
       const data = await response.json();

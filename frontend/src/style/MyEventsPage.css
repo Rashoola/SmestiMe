@@ -22,3 +22,7 @@
     padding: 10px;
     border-radius: 10px;
   }
+
+  .seated {
+    display: none;
+  }

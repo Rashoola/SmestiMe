@@ -76,6 +76,8 @@ const SittingArrangementPage = () => {
             if(response.ok){
                 alert("The user has been added to the table.");
                 window.location.reload();
+            } else {
+                alert("User cannot be added to this table. The table may be full.");
             }
         } catch (error) {
             console.error('Error during backend communication:', error);

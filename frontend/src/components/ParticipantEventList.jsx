@@ -29,7 +29,7 @@ const ParticipantEventList = ({participant}) => {
 
   return (
     <div className="events">
-      <h2>Тренутни догађаји</h2>
+      <h2>Тренутни догађаји:</h2>
       {error && <p className="error-message">{error}</p>}
       {events.length === 0 ? (
         <p>Тренутно нема догађаја за приказ.</p>

@@ -88,3 +88,7 @@
   .cancel-button:hover {
     background-color: #e53935;
   }
+
+  .error-message {
+    color: red;
+  }

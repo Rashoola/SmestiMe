@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import '../style/ParticipateBox.css';
 
 const ParticipateBox = ({participant, event, onClose}) => {
 
@@ -22,16 +23,16 @@ const ParticipateBox = ({participant, event, onClose}) => {
             }
         );
 
-        if (!response.ok) {
-            throw new Error('Failed to create the participation.');
-          }
-        
-        alert("Uspesno ste se prijavili na dogadjaj.");
+        if (response.ok) {
+            alert("Uspesno ste se prijavili na dogadjaj.");
+          } else {
+        alert('Failed to create the participation.');
+        }
         onClose();
     }
 
     return (
-        <div>
+        <div className='participate-box'>
             <label htmlFor="entry-code">Unesite kod za ulaz</label>
             <input onChange={(e) => setEntryCode(e.target.value)} type="text" name="entry-code" />
             <button onClick={handleClick}>Prijava</button>

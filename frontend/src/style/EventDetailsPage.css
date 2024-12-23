@@ -7,6 +7,23 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: gradient-background 4s infinite;
   }
+
+  button{
+    width: 25%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0.75rem;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
   
   .event-details h2 {
     font-size: 2rem;
@@ -53,6 +70,7 @@
   
   .event-details .booked-halls li {
     margin-bottom: 5px;
+    height: 200px;
   }
   
   .event-details .details-button {

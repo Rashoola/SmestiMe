@@ -13,6 +13,7 @@ const EventCreationBox = ({ onClose }) => {
   const [venues, setVenues] = useState([]);
   const [availableHalls, setAvailableHalls] = useState([]);
   const [error, setError] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     const fetchVenues = async () => {
@@ -37,14 +38,13 @@ const EventCreationBox = ({ onClose }) => {
     const venueId = e.target.value;
     const selectedVenue = venues.find((venue) => venue.id === parseInt(venueId, 10));
 
-    // Update available halls for the selected venue
     const halls = selectedVenue?.halls || [];
     setAvailableHalls(halls);
 
     setFormData((prev) => ({
       ...prev,
       venueId: venueId ? parseInt(venueId, 10) : '',
-      hallIds: [], // Reset hall selection when venue changes
+      hallIds: [],
     }));
   };
 
@@ -53,7 +53,26 @@ const EventCreationBox = ({ onClose }) => {
     setFormData((prev) => ({ ...prev, hallIds }));
   };
 
+  const validate = () => {
+    const errors = {};
+    if (!formData.name.trim()) errors.name = 'Име догађаја је обавезно.';
+    if (!formData.description.trim()) errors.description = 'Опис догађаја је обавезан.';
+    if (!formData.date) {
+      errors.date = 'Датум је обавезан.';
+    } else if (new Date(formData.date) < new Date()) {
+      errors.date = 'Датум мора бити у будућности.';
+    }
+    if (!formData.entryCode.trim()) errors.entryCode = 'Улазни код је обавезан.';
+    if (!formData.venueId) errors.venueId = 'Место одржавања је обавезно.';
+    if (formData.hallIds.length === 0) errors.hallIds = 'Морате изабрати најмање једну салу.';
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async () => {
+    if (!validate()) return;
+
     const event = {
       name: formData.name,
       description: formData.description,
@@ -77,9 +96,8 @@ const EventCreationBox = ({ onClose }) => {
       }
 
       const result = await response.json();
-      console.log('Event created:', result);
-      alert("Догађај је успешно креиран.");
-      onClose(); // Close the modal
+      alert('Догађај је успешно креиран.');
+      onClose();
     } catch (err) {
       console.error(err);
       setError('Failed to create event');
@@ -101,6 +119,7 @@ const EventCreationBox = ({ onClose }) => {
               onChange={handleChange}
               placeholder="Унесите име догађаја"
             />
+            {validationErrors.name && <p className="error-message">{validationErrors.name}</p>}
           </label>
           <label>
             Опис:
@@ -110,10 +129,14 @@ const EventCreationBox = ({ onClose }) => {
               onChange={handleChange}
               placeholder="Унесите опис догађаја"
             ></textarea>
+            {validationErrors.description && (
+              <p className="error-message">{validationErrors.description}</p>
+            )}
           </label>
           <label>
             Датум:
             <input type="date" name="date" value={formData.date} onChange={handleChange} />
+            {validationErrors.date && <p className="error-message">{validationErrors.date}</p>}
           </label>
           <label>
             Улазни код:
@@ -124,6 +147,9 @@ const EventCreationBox = ({ onClose }) => {
               onChange={handleChange}
               placeholder="Унесите улазни код"
             />
+            {validationErrors.entryCode && (
+              <p className="error-message">{validationErrors.entryCode}</p>
+            )}
           </label>
           <label>
             Место одржавања:
@@ -135,6 +161,7 @@ const EventCreationBox = ({ onClose }) => {
                 </option>
               ))}
             </select>
+            {validationErrors.venueId && <p className="error-message">{validationErrors.venueId}</p>}
           </label>
           <label>
             Сале:
@@ -150,6 +177,7 @@ const EventCreationBox = ({ onClose }) => {
                 </option>
               ))}
             </select>
+            {validationErrors.hallIds && <p className="error-message">{validationErrors.hallIds}</p>}
           </label>
           <div className="modal-buttons">
             <button type="button" className="action-button" onClick={handleSubmit}>
