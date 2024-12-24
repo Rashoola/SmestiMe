@@ -8,7 +8,7 @@ const ParticipantEventList = ({participant}) => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('http://localhost:9000/api/events');
+      const response = await fetch(`http://localhost:9000/api/events/for-participants/${participant.id}`);
       if (!response.ok) {
         alert("Учитавање листе догађаја није успело");
         return;

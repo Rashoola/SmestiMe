@@ -8,7 +8,7 @@ const MyEventItem = ({participation}) => {
     const [hasASeat, setHasASeat] = useState(false);
 
     useEffect(() => {
-        checkIfHasASeat();
+        checkIfHasASeatSimple();
     }, []);
 
     const checkIfHasASeat = async () => {
@@ -21,6 +21,10 @@ const MyEventItem = ({participation}) => {
         }
     };
 
+    const checkIfHasASeatSimple = () => {
+        setHasASeat(participation.table.name != "None");
+    };
+
     const handleClick = () => {
         
         navigate('/choose-table', {state: {participation}});
@@ -30,7 +34,7 @@ const MyEventItem = ({participation}) => {
         <div className='my-event-item'>
             <h2>{participation.event.name}</h2>
             <button className={hasASeat ? 'seated' : ''} onClick={handleClick} disabled={hasASeat}>{hasASeat? 'Изабрали сте сто' : 'Изаберите сто'}</button>
-            <p>{hasASeat? 'Сто је изабран.' : ''}</p>
+            <p>{hasASeat? `Сто је изабран. Назив стола: ${participation.table.name} ` : ''}</p>
         </div>
     );
 };

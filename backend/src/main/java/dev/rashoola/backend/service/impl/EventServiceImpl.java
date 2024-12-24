@@ -13,6 +13,7 @@ import dev.rashoola.backend.repository.EventRepository;
 import dev.rashoola.backend.service.BookingService;
 import dev.rashoola.backend.service.EventService;
 import dev.rashoola.backend.service.HallService;
+import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.service.VenueService;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
@@ -114,5 +115,7 @@ public class EventServiceImpl implements EventService{
             return new Response<>(ResponseStatus.InternalServerError, null);
         }
     }
-    
 }
+
+    
+

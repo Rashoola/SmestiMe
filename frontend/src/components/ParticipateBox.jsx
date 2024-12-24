@@ -35,8 +35,8 @@ const ParticipateBox = ({participant, event, onClose}) => {
         <div className='participate-box'>
             <label htmlFor="entry-code">Unesite kod za ulaz</label>
             <input onChange={(e) => setEntryCode(e.target.value)} type="text" name="entry-code" />
-            <button onClick={handleClick}>Prijava</button>
-            <button onClick={onClose}>Otkazi</button>
+            <button onClick={handleClick}>Пријавa</button>
+            <button onClick={onClose}>Откажи</button>
         </div>
     );
 };
