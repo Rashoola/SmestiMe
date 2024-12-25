@@ -70,4 +70,9 @@ public class ParticipationController {
     public ResponseEntity<Boolean> hasASeat(@PathVariable Long id){
         return booleanConverter.toResponseEntity(participationService.hasASeat(id));
     }
+    
+    @GetMapping("/table/{sittingTableId}")
+    public ResponseEntity<List<Participation>> getParticipationsBySittingTable(@PathVariable Long sittingTableId){
+        return converter.toListResponseEntity(participationService.getParticipationsBySittingTable(sittingTableId));
+    }
 }

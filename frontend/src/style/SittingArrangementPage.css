@@ -61,7 +61,11 @@ body {
 
 .table-item h3 {
     margin: 0 0 10px 0;
-    color: #444;
+    color: black;
+}
+
+.table-item h4 {
+    color: black;
 }
 
 .table-item ul {

@@ -1,11 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import TableParticipantsBox from './TableParticipantsBox';
 
 const TableItem = ({ table, onDropParticipant }) => {
-
     const [isFull, setIsFull] = useState(false);
+    const [participantsAreVisible, setParticipantsAreVisible] = useState(false);
+    const [participants, setParticipants] = useState([]);
+
+    const toggleParticipantsBox = () => {
+        setParticipantsAreVisible((prev) => !prev);
+    };
 
     useEffect(() => {
         determineFullness();
+        fetchParticipants();
     }, []);
 
     const handleDrop = (event) => {
@@ -19,23 +26,29 @@ const TableItem = ({ table, onDropParticipant }) => {
     };
 
     const determineFullness = async () => {
-        console.log(table);
-        const response = await fetch('http://localhost:9000/api/tables/full',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(table)
-            }
-        );
+        const response = await fetch('http://localhost:9000/api/tables/full', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(table),
+        });
 
-        if(response.ok){
+        if (response.ok) {
             const data = await response.json();
-            console.log(data);
             setIsFull(data);
         }
-    }
+    };
+
+    const fetchParticipants = async () => {
+        const response = await fetch(`http://localhost:9000/api/participations/table/${table.id}`);
+        if (response.ok) {
+            const data = await response.json();
+            setParticipants(data);
+        } else {
+            alert('Error loading participants for the table.');
+        }
+    };
 
     return (
         <div
@@ -44,9 +57,17 @@ const TableItem = ({ table, onDropParticipant }) => {
             onDragOver={handleDragOver}
         >
             <h3>{table.name}</h3>
+            <h4>Капацитет: {table.numberOfSeats} места</h4>
+            <button onClick={toggleParticipantsBox}>
+                {participantsAreVisible ? 'Сакриј учеснике' : 'Прикажи учеснике'}
+            </button>
+            {participantsAreVisible && (
+                <TableParticipantsBox participants={participants} onClose={toggleParticipantsBox} />
+            )}
         </div>
     );
 };
 
 export default TableItem;
+
 
