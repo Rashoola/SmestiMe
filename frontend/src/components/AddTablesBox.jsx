@@ -21,7 +21,7 @@ const AddTablesBox = ({ bookingId, onClose, onConfirm }) => {
   const confirmTables = () => {
     const payload = { bookingId, tables };
     console.log(payload)
-    fetch('http://localhost:9000/api/tables/create', {
+    fetch('http://localhost:9000/api/organization-units/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

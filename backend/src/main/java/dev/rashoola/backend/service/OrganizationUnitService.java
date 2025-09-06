@@ -5,8 +5,8 @@
 package dev.rashoola.backend.service;
 
 import dev.rashoola.backend.domain.Booking;
-import dev.rashoola.backend.domain.SittingTable;
-import dev.rashoola.backend.dto.SittingTableCreationDto;
+import dev.rashoola.backend.domain.OrganizationUnit;
+import dev.rashoola.backend.dto.OrganizationUnitCreationDto;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  *
  * @author rasul
  */
-public interface SittingTableService {
-    public Response<String> create(SittingTableCreationDto dto);
-    public Response<SittingTable> findById(Long id);
-    public Response<Boolean> isFull(SittingTable sittingTable);
-    public Response<List<SittingTable>> findByBookingId(Long bookingId);
+public interface OrganizationUnitService {
+    public Response<String> create(OrganizationUnitCreationDto dto);
+    public Response<OrganizationUnit> findById(Long id);
+    public Response<Boolean> isFull(OrganizationUnit sittingTable);
+    public Response<List<OrganizationUnit>> findByBookingId(Long bookingId);
 }

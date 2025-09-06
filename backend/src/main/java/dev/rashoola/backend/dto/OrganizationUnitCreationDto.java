@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author rasul
  */
-public record SittingTableCreationDto(Long bookingId, List<SittingTableDto> tables) {
-    public static record SittingTableDto(Long id, String name, int numberOfSeats){
+public record OrganizationUnitCreationDto(Long bookingId, List<OrganizationUnitDto> units) {
+    public static record OrganizationUnitDto(Long id, String name, int capacity, String unitType){
     }
 }

@@ -4,13 +4,13 @@
  */
 package dev.rashoola.backend.dto;
 
-import dev.rashoola.backend.dto.SittingTableCreationDto.SittingTableDto;
+import dev.rashoola.backend.dto.OrganizationUnitCreationDto.OrganizationUnitDto;
 
 /**
  *
  * @author rasul
  */
-public record UserParticipationDto(Long id, EventDto event, SittingTableDto table) {
+public record UserParticipationDto(Long id, EventDto event, OrganizationUnitDto organizationUnit) {
     public static record EventDto(Long id, String name){
         }
 }

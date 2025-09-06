@@ -4,7 +4,7 @@
  */
 package dev.rashoola.backend.repository;
 
-import dev.rashoola.backend.domain.Hall;
+import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.Venue;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,15 +19,15 @@ import org.springframework.stereotype.Repository;
  * @author rasul
  */
 @Repository
-public interface HallRepository extends JpaRepository<Hall, Long>{
-    public Optional<List<Hall>> findByVenue(Venue venue);
+public interface LocationRepository extends JpaRepository<Location, Long>{
+    public Optional<List<Location>> findByVenue(Venue venue);
     public boolean existsByVenueAndName(Venue venue, String name);
     
-    @Query("SELECT h FROM Hall h WHERE h.id IN :ids")
-    public List<Hall> findHallsByIds(@Param("ids") List<Long> ids);
+    @Query("SELECT l FROM Location l WHERE l.id IN :ids")
+    public List<Location> findByIds(@Param("ids") List<Long> ids);
     
-    @Query("SELECT h FROM Hall h WHERE h.venue.id = :id")
-    public List<Hall> findByVenueId(@Param("id") Long venueId);
+    @Query("SELECT l FROM Location l WHERE l.venue.id = :id")
+    public List<Location> findByVenueId(@Param("id") Long venueId);
     
    /*@Query("SELECT CASE WHEN COUNT(h) = 0 THEN true ELSE false END " +
        "FROM Hall h WHERE h = :hall AND :date NOT IN " +

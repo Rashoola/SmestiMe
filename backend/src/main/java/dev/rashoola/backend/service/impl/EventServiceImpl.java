@@ -5,14 +5,13 @@
 package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.Event;
-import dev.rashoola.backend.domain.Hall;
+import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.Venue;
 import dev.rashoola.backend.dto.EventRequestDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.EventRepository;
 import dev.rashoola.backend.service.BookingService;
 import dev.rashoola.backend.service.EventService;
-import dev.rashoola.backend.service.HallService;
 import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.service.VenueService;
 import dev.rashoola.backend.util.Response;
@@ -20,6 +19,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import dev.rashoola.backend.service.LocationService;
 
 /**
  *
@@ -33,7 +33,7 @@ public class EventServiceImpl implements EventService{
     private final EventRepository repository;
     
     @Autowired
-    private final HallService hallService;
+    private final LocationService hallService;
     
     @Autowired
     private final VenueService venueService;
@@ -45,21 +45,21 @@ public class EventServiceImpl implements EventService{
     public Response<Event> create(EventRequestDto event) {
 
         Venue venue = null;
-        List<Hall> halls = null;
+        List<Location> locations = null;
 
         Response<Venue> venueResponse = venueService.findById(event.venueId());
         if (venueResponse.getStatus() == ResponseStatus.Ok) {
             venue = venueResponse.getData();
         }
 
-        Response<List<Hall>> hallsResponse = hallService.allHallsAreFree(event.hallIds(), event.date());
+        Response<List<Location>> locationsResponse = hallService.allFree(event.locationIds(), event.date());
 
-        if (!hallsResponse.getStatus().equals(ResponseStatus.Ok)) {
+        if (!locationsResponse.getStatus().equals(ResponseStatus.Ok)) {
             return new Response<>(ResponseStatus.Conflict, null);
         }
         
-        halls = hallsResponse.getData();
-        System.out.println(halls);
+        locations = locationsResponse.getData();
+        System.out.println(locations);
         
         Event finalEvent = new Event();
         finalEvent.setName(event.name());
@@ -69,7 +69,7 @@ public class EventServiceImpl implements EventService{
         finalEvent.setVenue(venue);
         Event savedEvent = repository.save(finalEvent);
 
-        bookingService.createBookingsForEvent(savedEvent, halls);
+        bookingService.createBookingsForEvent(savedEvent, locations);
 
         return new Response<>(ResponseStatus.Ok, savedEvent);
     }

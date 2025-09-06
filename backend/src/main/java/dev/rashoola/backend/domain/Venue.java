@@ -33,7 +33,7 @@ public class Venue {
     private String contact;
     
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Hall> halls;
+    private List<Location> locations;
 
     public Long getId() {
         return id;
@@ -67,12 +67,12 @@ public class Venue {
         this.contact = contact;
     }
 
-    public List<Hall> getHalls() {
-        return halls;
+    public List<Location> getLocations() {
+        return locations;
     }
 
-    public void setHalls(List<Hall> halls) {
-        this.halls = halls;
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
     
 }

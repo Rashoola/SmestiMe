@@ -41,7 +41,7 @@ public class Event {
     private String entryCode;
     
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Booking> bookedHalls;
+    private List<Booking> bookedLocations;
 
     public Long getId() {
         return id;
@@ -83,12 +83,12 @@ public class Event {
         this.venue = venue;
     }
 
-    public List<Booking> getBookedHalls() {
-        return bookedHalls;
+    public List<Booking> getBookedLocations() {
+        return bookedLocations;
     }
 
-    public void setBookedHalls(List<Booking> bookedHalls) {
-        this.bookedHalls = bookedHalls;
+    public void setBookedLocations(List<Booking> bookedLocations) {
+        this.bookedLocations = bookedLocations;
     }
 
     public String getEntryCode() {

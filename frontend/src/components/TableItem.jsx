@@ -26,7 +26,7 @@ const TableItem = ({ table, onDropParticipant }) => {
     };
 
     const determineFullness = async () => {
-        const response = await fetch('http://localhost:9000/api/tables/full', {
+        const response = await fetch('http://localhost:9000/api/organization-units/full', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const TableItem = ({ table, onDropParticipant }) => {
     };
 
     const fetchParticipants = async () => {
-        const response = await fetch(`http://localhost:9000/api/participations/table/${table.id}`);
+        const response = await fetch(`http://localhost:9000/api/participations/organization-unit/${table.id}`);
         if (response.ok) {
             const data = await response.json();
             setParticipants(data);

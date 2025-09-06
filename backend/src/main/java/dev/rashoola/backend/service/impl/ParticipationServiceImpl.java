@@ -6,18 +6,17 @@ package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.domain.Participation;
-import dev.rashoola.backend.domain.SittingTable;
+import dev.rashoola.backend.domain.OrganizationUnit;
 import dev.rashoola.backend.domain.User;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
-import dev.rashoola.backend.dto.SittingTableCreationDto.SittingTableDto;
-import dev.rashoola.backend.dto.TableAssignmentDto;
+import dev.rashoola.backend.dto.OrganizationUnitAssignmentDto;
+import dev.rashoola.backend.dto.OrganizationUnitCreationDto.OrganizationUnitDto;
 import dev.rashoola.backend.dto.UserParticipationDto;
 import dev.rashoola.backend.dto.UserParticipationDto.EventDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.ParticipationRepository;
 import dev.rashoola.backend.service.EventService;
 import dev.rashoola.backend.service.ParticipationService;
-import dev.rashoola.backend.service.SittingTableService;
 import dev.rashoola.backend.service.UserService;
 import dev.rashoola.backend.util.Response;
 import java.util.LinkedList;
@@ -25,6 +24,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import dev.rashoola.backend.service.OrganizationUnitService;
 
 /**
  *
@@ -44,7 +44,7 @@ public class ParticipationServiceImpl implements ParticipationService{
     private final EventService eventService;
     
     @Autowired
-    private final SittingTableService sittingTableService;
+    private final OrganizationUnitService sittingTableService;
 
     @Override
     public Response<Participation> create(ParticipationCreationDto dto) {
@@ -79,7 +79,7 @@ public class ParticipationServiceImpl implements ParticipationService{
     }
 
     @Override
-    public Response<String> assignTable(TableAssignmentDto dto) {
+    public Response<String> assignOrganizationUnit(OrganizationUnitAssignmentDto dto) {
         Participation participation = null;
         try{
             participation = repository.findById(dto.participationId()).get();
@@ -88,9 +88,9 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.NotFound, "Participation not found.");
         }
         
-        SittingTable table = null;
+        OrganizationUnit table = null;
         try{
-           Response<SittingTable> tableResponse = sittingTableService.findById(dto.sittingTableId());
+           Response<OrganizationUnit> tableResponse = sittingTableService.findById(dto.organizationUnitId());
            if(!tableResponse.getStatus().equals(ResponseStatus.Ok)){
                return new Response<>(ResponseStatus.NotFound, "Sitting table not found.");
            }
@@ -107,7 +107,7 @@ public class ParticipationServiceImpl implements ParticipationService{
         }
         
         System.out.println("TableId: " + table.getId() + ", Table name: " + table.getName());
-        participation.setSittingTable(table);
+        participation.setOrganizationUnit(table);
         
         try{
             repository.save(participation);
@@ -138,7 +138,7 @@ public class ParticipationServiceImpl implements ParticipationService{
         }
         
         for(Participation p : participations){
-            if(p.getSittingTable() == null){
+            if(p.getOrganizationUnit() == null){
                 waitingParticipations.add(p);
             }
         }
@@ -147,16 +147,16 @@ public class ParticipationServiceImpl implements ParticipationService{
     }
 
     @Override
-    public Response<List<Participation>> getParticipationsBySittingTable(Long sittingTableId) {
-        Response<SittingTable> tableResponse = sittingTableService.findById(sittingTableId);
+    public Response<List<Participation>> getParticipationsByOrganizationUnit(Long sittingTableId) {
+        Response<OrganizationUnit> tableResponse = sittingTableService.findById(sittingTableId);
         
         if(!tableResponse.getStatus().equals(ResponseStatus.Ok)){
             return new Response<>(ResponseStatus.NotFound, null);
         }
         
-        SittingTable table = tableResponse.getData();
+        OrganizationUnit table = tableResponse.getData();
         
-        List<Participation> participations = repository.findBySittingTable(table);
+        List<Participation> participations = repository.findByOrganizationUnit(table);
         
         return new Response<>(ResponseStatus.Ok, participations);
     }
@@ -177,13 +177,13 @@ public class ParticipationServiceImpl implements ParticipationService{
         for (Participation p : participations){
             EventDto eventDto = new EventDto(p.getEvent().getId(), p.getEvent().getName());
             
-            SittingTableDto tableDto = null;
+            OrganizationUnitDto tableDto = null;
             
-            if(p.getSittingTable() == null){
-                tableDto = new SittingTableDto(0L, "None", 0);
+            if(p.getOrganizationUnit() == null){
+                tableDto = new OrganizationUnitDto(0L, "None", 0);
             }
             else {
-             tableDto = new SittingTableDto(p.getSittingTable().getId(), p.getSittingTable().getName(), p.getSittingTable().getNumberOfSeats());
+             tableDto = new OrganizationUnitDto(p.getOrganizationUnit().getId(), p.getOrganizationUnit().getName(), p.getOrganizationUnit().getCapacity());
             }
             UserParticipationDto dto = new UserParticipationDto(p.getId(), eventDto, tableDto);
             
@@ -203,7 +203,7 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.NotFound, null);
         }
         
-        if(participation.getSittingTable() == null){
+        if(participation.getOrganizationUnit() == null){
             return new Response<>(ResponseStatus.Ok, false);
         }
         

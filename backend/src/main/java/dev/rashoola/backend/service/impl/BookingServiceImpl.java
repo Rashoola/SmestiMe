@@ -6,7 +6,7 @@ package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
-import dev.rashoola.backend.domain.Hall;
+import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.BookingRepository;
 import dev.rashoola.backend.service.BookingService;
@@ -28,11 +28,11 @@ public class BookingServiceImpl implements BookingService{
     private final BookingRepository repository;
 
     @Override
-    public Response<String> createBookingsForEvent(Event event, List<Hall> halls) {
-        for (Hall hall : halls) {
+    public Response<String> createBookingsForEvent(Event event, List<Location> locations) {
+        for (Location location : locations) {
             Booking booking = new Booking();
             booking.setEvent(event);
-            booking.setHall(hall);
+            booking.setLocation(location);
             repository.save(booking);
         }
         

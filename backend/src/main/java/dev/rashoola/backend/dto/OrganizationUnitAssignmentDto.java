@@ -8,6 +8,6 @@ package dev.rashoola.backend.dto;
  *
  * @author rasul
  */
-public record TableAssignmentDto(Long participationId, Long sittingTableId) {
+public record OrganizationUnitAssignmentDto(Long participationId, Long organizationUnitId) {
 
 }

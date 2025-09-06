@@ -6,7 +6,7 @@ package dev.rashoola.backend.service;
 
 import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
-import dev.rashoola.backend.dto.TableAssignmentDto;
+import dev.rashoola.backend.dto.OrganizationUnitAssignmentDto;
 import dev.rashoola.backend.dto.UserParticipationDto;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
  */
 public interface ParticipationService {
     public Response<Participation> create(ParticipationCreationDto dto);
-    public Response<String> assignTable(TableAssignmentDto dto);
+    public Response<String> assignOrganizationUnit(OrganizationUnitAssignmentDto dto);
     public Response<List<Participation>> getWaitingParticipations(Long eventId);
-    public Response<List<Participation>> getParticipationsBySittingTable(Long sittingTableId);
+    public Response<List<Participation>> getParticipationsByOrganizationUnit(Long sittingTableId);
     public Response<List<UserParticipationDto>> getParticipationsByUser(Long userId);
     public Response<Boolean> hasASeat(Long participationId);
 }

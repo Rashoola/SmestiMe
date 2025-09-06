@@ -4,9 +4,8 @@
  */
 package dev.rashoola.backend.controller;
 
-import dev.rashoola.backend.domain.SittingTable;
-import dev.rashoola.backend.dto.SittingTableCreationDto;
-import dev.rashoola.backend.service.SittingTableService;
+import dev.rashoola.backend.domain.OrganizationUnit;
+import dev.rashoola.backend.dto.OrganizationUnitCreationDto;
 import dev.rashoola.backend.util.ResponseConverter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import dev.rashoola.backend.service.OrganizationUnitService;
 
 /**
  *
@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/tables")
-public class SittingTableController {
+@RequestMapping("api/organization-units")
+public class OrganizationUnitController {
     
     @Autowired
-    private final SittingTableService sittingTableService;
+    private final OrganizationUnitService unitService;
     
     @Autowired
     private final ResponseConverter<String> converter;
@@ -38,20 +38,20 @@ public class SittingTableController {
     private final ResponseConverter<Boolean> booleanConverter;
     
     @Autowired
-    private final ResponseConverter<SittingTable> tableConverter;
+    private final ResponseConverter<OrganizationUnit> unitConverter;
     
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody SittingTableCreationDto dto){
-        return converter.toResponseEntity(sittingTableService.create(dto));
+    public ResponseEntity<String> create(@RequestBody OrganizationUnitCreationDto dto){
+        return converter.toResponseEntity(unitService.create(dto));
     }
     
     @PostMapping("/full")
-    public ResponseEntity<Boolean> full(@RequestBody SittingTable table){
-        return booleanConverter.toResponseEntity(sittingTableService.isFull(table));
+    public ResponseEntity<Boolean> full(@RequestBody OrganizationUnit table){
+        return booleanConverter.toResponseEntity(unitService.isFull(table));
     }
     
     @GetMapping("/by-booking/{bookingId}")
-    public ResponseEntity<List<SittingTable>> getByBookingId(@PathVariable Long bookingId){
-        return tableConverter.toListResponseEntity(sittingTableService.findByBookingId(bookingId));
+    public ResponseEntity<List<OrganizationUnit>> getByBookingId(@PathVariable Long bookingId){
+        return unitConverter.toListResponseEntity(unitService.findByBookingId(bookingId));
     }
 }

@@ -4,9 +4,8 @@
  */
 package dev.rashoola.backend.controller;
 
-import dev.rashoola.backend.domain.Hall;
+import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.Venue;
-import dev.rashoola.backend.service.HallService;
 import dev.rashoola.backend.service.VenueService;
 import dev.rashoola.backend.util.ResponseConverter;
 import java.util.List;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import dev.rashoola.backend.service.LocationService;
 
 /**
  *
@@ -33,18 +33,18 @@ public class VenueController {
     private final VenueService venueService;
     
     @Autowired
-    private final HallService hallService;
+    private final LocationService locationService;
     
     @Autowired
     private final ResponseConverter<Venue> converter;
     
     @Autowired
-    private final ResponseConverter<Hall> hallConverter;
+    private final ResponseConverter<Location> locationConverter;
     
     @PostMapping("/create")
     public ResponseEntity<Venue> create(@RequestBody Venue venue){
-        for(Hall hall : venue.getHalls()){
-            hall.setVenue(venue);
+        for(Location location : venue.getLocations()){
+            location.setVenue(venue);
         }
         return converter.toResponseEntity(venueService.create(venue));
     }
@@ -54,8 +54,8 @@ public class VenueController {
         return converter.toListResponseEntity(venueService.index());
     }
     
-    @GetMapping("/{id}/halls")
-    public ResponseEntity<List<Hall>> getHalls(@PathVariable Long id){
-        return hallConverter.toListResponseEntity(hallService.findByVenueId(id));
+    @GetMapping("/{id}/locations")
+    public ResponseEntity<List<Location>> getHalls(@PathVariable Long id){
+        return locationConverter.toListResponseEntity(locationService.findByVenueId(id));
     }
 }

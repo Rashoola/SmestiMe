@@ -29,15 +29,14 @@ public class Participation {
     private Event event;
     
     @ManyToOne
-    private SittingTable sittingTable;
+    private OrganizationUnit organizationUnit;
 
-
-    public SittingTable getSittingTable() {
-        return sittingTable;
+    public OrganizationUnit getOrganizationUnit() {
+        return organizationUnit;
     }
 
-    public void setSittingTable(SittingTable sittingTable) {
-        this.sittingTable = sittingTable;
+    public void setOrganizationUnit(OrganizationUnit organizationUnit) {
+        this.organizationUnit = organizationUnit;
     }
 
     public Long getId() {

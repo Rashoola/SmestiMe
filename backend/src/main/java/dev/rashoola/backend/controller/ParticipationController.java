@@ -6,7 +6,7 @@ package dev.rashoola.backend.controller;
 
 import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
-import dev.rashoola.backend.dto.TableAssignmentDto;
+import dev.rashoola.backend.dto.OrganizationUnitAssignmentDto;
 import dev.rashoola.backend.dto.UserParticipationDto;
 import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.util.ResponseConverter;
@@ -50,10 +50,10 @@ public class ParticipationController {
         return converter.toResponseEntity(participationService.create(dto));
     }
     
-    @PostMapping("/assign-table")
-    public ResponseEntity<String> assignTable(@RequestBody TableAssignmentDto dto){
-        System.out.println("Pozvano smestanje na sto. ParticipationId: " + dto.participationId() + ", TableId: " + dto.sittingTableId());
-        return stringConverter.toResponseEntity(participationService.assignTable(dto));
+    @PostMapping("/assign-unit")
+    public ResponseEntity<String> assignUnit(@RequestBody OrganizationUnitAssignmentDto dto){
+        System.out.println("Pozvano smestanje na sto. ParticipationId: " + dto.participationId() + ", TableId: " + dto.organizationUnitId());
+        return stringConverter.toResponseEntity(participationService.assignOrganizationUnit(dto));
     }
     
     @GetMapping("/event/{eventId}/waiting")
@@ -71,8 +71,8 @@ public class ParticipationController {
         return booleanConverter.toResponseEntity(participationService.hasASeat(id));
     }
     
-    @GetMapping("/table/{sittingTableId}")
-    public ResponseEntity<List<Participation>> getParticipationsBySittingTable(@PathVariable Long sittingTableId){
-        return converter.toListResponseEntity(participationService.getParticipationsBySittingTable(sittingTableId));
+    @GetMapping("/organization-unit/{organizationUnitId}")
+    public ResponseEntity<List<Participation>> getParticipationsByOrganizationUnit(@PathVariable Long organizationUnitId){
+        return converter.toListResponseEntity(participationService.getParticipationsByOrganizationUnit(organizationUnitId));
     }
 }

@@ -6,7 +6,7 @@ package dev.rashoola.backend.service;
 
 import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
-import dev.rashoola.backend.domain.Hall;
+import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @author rasul
  */
 public interface BookingService {
-    public Response<String> createBookingsForEvent(Event event, List<Hall> halls);
+    public Response<String> createBookingsForEvent(Event event, List<Location> halls);
     public Response<String> deleteByEvent(Event event);
     public Response<Booking> findById(Long id);
 }

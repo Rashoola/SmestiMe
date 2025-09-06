@@ -5,25 +5,28 @@
 package dev.rashoola.backend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
+import dev.rashoola.backend.domain.enums.LocationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import java.util.List;
-
 /**
  *
  * @author rasul
  */
 @Entity
-public class Hall {
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private LocationType locationType;
     
     @Column(nullable = false)
     private String name;
@@ -54,6 +57,14 @@ public class Hall {
 
     public void setVenue(Venue venue) {
         this.venue = venue;
+    }
+
+    public LocationType getLocationType() {
+        return locationType;
+    }
+
+    public void setLocationType(LocationType locationType) {
+        this.locationType = locationType;
     }
     
 }

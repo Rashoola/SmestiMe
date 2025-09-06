@@ -40,7 +40,7 @@ const ChooseTableItem = ({table, participation}) => {
         dataToSend.participationId = participation.id;
         dataToSend.sittingTableId = table.id;
 
-        const response = await fetch('http://localhost:9000/api/participations/assign-table',
+        const response = await fetch('http://localhost:9000/api/participations/assign-unit',
             {
                 method: 'POST',
                 headers: {

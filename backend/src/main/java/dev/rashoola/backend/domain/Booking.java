@@ -29,10 +29,10 @@ public class Booking {
     private Event event;
     
     @ManyToOne
-    private Hall hall;
+    private Location location;
     
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SittingTable> sittingTables;
+    private List<OrganizationUnit> organizationUnits;
 
     public Long getId() {
         return id;
@@ -50,20 +50,20 @@ public class Booking {
         this.event = event;
     }
 
-    public Hall getHall() {
-        return hall;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setHall(Hall hall) {
-        this.hall = hall;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public List<SittingTable> getSittingTables() {
-        return sittingTables;
+    public List<OrganizationUnit> getOrganizationUnits() {
+        return organizationUnits;
     }
 
-    public void setSittingTables(List<SittingTable> sittingTables) {
-        this.sittingTables = sittingTables;
+    public void setOrganizationUnits(List<OrganizationUnit> organizationUnits) {
+        this.organizationUnits = organizationUnits;
     }
 
 }

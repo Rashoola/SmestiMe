@@ -5,7 +5,7 @@
 package dev.rashoola.backend.repository;
 
 import dev.rashoola.backend.domain.Booking;
-import dev.rashoola.backend.domain.SittingTable;
+import dev.rashoola.backend.domain.OrganizationUnit;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Repository;
  * @author rasul
  */
 @Repository
-public interface SittingTableRepository extends JpaRepository<SittingTable, Long>{
-     @Query("SELECT CASE WHEN COUNT(p) >= :numberOfSeats THEN TRUE ELSE FALSE END " +
-       "FROM Participation p WHERE p.sittingTable = :sittingTable")
-    Boolean isFull(@Param("sittingTable") SittingTable sittingTable, 
-               @Param("numberOfSeats") int numberOfSeats);
+public interface OrganizationUnitRepository extends JpaRepository<OrganizationUnit, Long>{
+     @Query("SELECT CASE WHEN COUNT(p) >= :capacity THEN TRUE ELSE FALSE END " +
+       "FROM Participation p WHERE p.organizationUnit = :organizationUnit")
+    Boolean isFull(@Param("organizationUnit") OrganizationUnit organizationUnit, 
+               @Param("capacity") int capacity);
     
-    public List<SittingTable> findByBooking(Booking booking);
+    public List<OrganizationUnit> findByBooking(Booking booking);
 
 }
