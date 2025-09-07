@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage';
 import VenuesPage from './components/pages/VenuesPage';
+import VenueDisplayPage from './components/pages/VenueDisplayPage';
 import EventsPage from './components/pages/EventsPage';
 import AdminDashboard from './components/pages/AdminDashboard';
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/venues" element={<VenuesPage />} />
+        <Route path="/venue/:id" element={<VenueDisplayPage />} />
         <Route path="/events" element={<EventsPage />} />
       </Routes>
     </Router>

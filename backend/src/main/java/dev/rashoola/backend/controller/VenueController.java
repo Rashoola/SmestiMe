@@ -57,6 +57,11 @@ public class VenueController {
         return converter.toListResponseEntity(venueService.index());
     }
     
+    @GetMapping("/{id}")
+    public ResponseEntity<Venue> show(@PathVariable Long id){
+        return converter.toResponseEntity(venueService.findById(id));
+    }
+    
     @GetMapping("/{id}/locations")
     public ResponseEntity<List<Location>> getLocations(@PathVariable Long id){
         return locationConverter.toListResponseEntity(locationService.findByVenueId(id));
