@@ -6,6 +6,7 @@ package dev.rashoola.backend.service;
 
 import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.Venue;
+import dev.rashoola.backend.domain.enums.LocationType;
 import dev.rashoola.backend.util.Response;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,4 +21,5 @@ public interface LocationService {
     public Response<List<Location>> findByVenueId(Long id);
     public Response<Location> findById(Long id);
     public Response<List<Location>> allFree(List<Long> hallIds, LocalDate date);
+    public Response<List<String>> getTypes();
 }

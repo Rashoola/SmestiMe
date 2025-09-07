@@ -1,10 +1,8 @@
 import React from 'react';
 import Header from './Header';
-import ParticipantEventItem from './ParticipantEventItem';
 import ParticipantEventList from './ParticipantEventList';
 import {useLocation, useNavigate} from 'react-router-dom';
 import '../style/ParticipantDashboard.css';
-import MyEventsPage from './MyEventsPage';
 
 const ParticipantDashboard = () => {
 

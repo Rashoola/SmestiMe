@@ -54,7 +54,7 @@ const RegisterPage = () => {
         return;
       }
 
-      navigate('/login');
+      navigate('/');
     } catch (err) {
       setError(err.message);
     }

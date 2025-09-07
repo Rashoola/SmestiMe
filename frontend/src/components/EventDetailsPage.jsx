@@ -58,13 +58,13 @@ const EventDetailsPage = () => {
         <p><strong>Назив:</strong> {event.venue.name}</p>
         <p><strong>Адреса:</strong> {event.venue.address}</p>
         <p><strong>Контакт:</strong> {event.venue.contact}</p>
-        <p><strong>Сале:</strong> {event.venue.halls.map((hall) => hall.name).join(', ')}</p>
+        <p><strong>Сале:</strong> {event.venue.locations.map((location) => location.name).join(', ')}</p>
       </div>
 
       <div className="booked-halls">
         <h3>Резервисане сале</h3>
-        {event.bookedHalls.length > 0 ? (
-          event.bookedHalls.map((booked) => (
+        {event.bookedLocations.length > 0 ? (
+          event.bookedLocations.map((booked) => (
             <HallBookingItem
               key={booked.id}
               event={event}

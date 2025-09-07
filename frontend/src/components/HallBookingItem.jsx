@@ -13,7 +13,7 @@ const HallBookingItem = ({ event, booking, onAddTables }) => {
 
     return (
         <div className="hall-booking-item">
-            <p><strong>Сала:</strong> {booking.hall.name}</p>
+            <p><strong>Сала:</strong> {booking.location.name}</p>
             <button onClick={() => onAddTables(booking.id)}>Додај столове</button>
             <button onClick={handleNavigate}>Распоред</button>
         </div>

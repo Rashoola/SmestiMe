@@ -12,6 +12,20 @@
 
 .participant-dashboard {
     animation: gradient-background 4s infinite;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding: 40px;
+    min-height: 100%;
+}
+
+html{
+  height: 100vh;
+  margin: 0;
+  padding:0;
+}
+
+body{
+  height: 100%;
+}
+
+#root{
+  height: 100%;
 }

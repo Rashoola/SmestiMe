@@ -7,6 +7,7 @@ package dev.rashoola.backend.service.impl;
 import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.Venue;
+import dev.rashoola.backend.domain.enums.LocationType;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.BookingRepository;
 import dev.rashoola.backend.util.Response;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dev.rashoola.backend.repository.LocationRepository;
 import dev.rashoola.backend.service.LocationService;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -84,6 +87,15 @@ public class LocationServiceImpl implements LocationService{
         } catch(Exception ex){
             return new Response<>(ResponseStatus.InternalServerError, null);
         }
+    }
+
+    @Override
+    public Response<List<String>> getTypes() {
+        List<String> types = Arrays.stream(LocationType.values())
+                               .map(Enum::name)
+                               .collect(Collectors.toList());
+        
+        return new Response<>(ResponseStatus.Ok, types);
     }
     
 }

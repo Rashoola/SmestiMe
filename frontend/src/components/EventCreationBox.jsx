@@ -38,7 +38,7 @@ const EventCreationBox = ({ onClose }) => {
     const venueId = e.target.value;
     const selectedVenue = venues.find((venue) => venue.id === parseInt(venueId, 10));
 
-    const halls = selectedVenue?.halls || [];
+    const halls = selectedVenue?.locations || [];
     setAvailableHalls(halls);
 
     setFormData((prev) => ({
@@ -79,7 +79,7 @@ const EventCreationBox = ({ onClose }) => {
       date: formData.date,
       venueId: formData.venueId,
       entryCode: formData.entryCode,
-      hallIds: formData.hallIds,
+      locationIds: formData.hallIds,
     };
 
     try {

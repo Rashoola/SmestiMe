@@ -14,6 +14,7 @@
     animation: gradient-background 3s infinite;
     height: 100vh;
     padding: 20px;
+    margin-top: 40px;
   }
 
   .my-event-item{

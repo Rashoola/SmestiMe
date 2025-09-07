@@ -41,6 +41,9 @@ public class VenueController {
     @Autowired
     private final ResponseConverter<Location> locationConverter;
     
+    @Autowired
+    private final ResponseConverter<String> stringConverter;
+    
     @PostMapping("/create")
     public ResponseEntity<Venue> create(@RequestBody Venue venue){
         for(Location location : venue.getLocations()){
@@ -55,7 +58,12 @@ public class VenueController {
     }
     
     @GetMapping("/{id}/locations")
-    public ResponseEntity<List<Location>> getHalls(@PathVariable Long id){
+    public ResponseEntity<List<Location>> getLocations(@PathVariable Long id){
         return locationConverter.toListResponseEntity(locationService.findByVenueId(id));
+    }
+    
+    @GetMapping("/locations/types")
+    public ResponseEntity<List<String>> getLocationTypes(){
+        return stringConverter.toListResponseEntity(locationService.getTypes());
     }
 }
