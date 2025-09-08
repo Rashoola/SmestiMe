@@ -3,8 +3,10 @@ import {useState, useEffect} from 'react';
 import VenueItem from '../reusables/VenueItem';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
+import {useNavigate} from 'react-router-dom';
 
 const VenuesPage = () => {
+    const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
 
     useEffect(() => {
@@ -25,7 +27,7 @@ const VenuesPage = () => {
       }, []);
 
       const headerButtons = [
-    { title: "Napravi mesto", action: ()=>{} },
+    { title: "Napravi mesto", action: ()=>navigate('/venue/create') },
   ]
 
   return (

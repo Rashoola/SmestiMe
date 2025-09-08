@@ -15,7 +15,8 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/venues" element={<VenuesPage />} />
-        <Route path="/venue/:id" element={<VenueDisplayPage />} />
+        <Route path="/venue/create" element={<VenueDisplayPage mode='create'/>} />
+        <Route path="/venue/:id" element={<VenueDisplayPage mode='edit'/>} />
         <Route path="/events" element={<EventsPage />} />
       </Routes>
     </Router>

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface VenueService {
     public Response<Venue> create(Venue venue);
+    public Response<Venue> update(Venue venue);
     public Response<List<Venue>> index();
     public Response<Venue> findById(Long id);
 }

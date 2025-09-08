@@ -55,5 +55,11 @@ public class VenueServiceImpl implements VenueService{
         
         return new Response<>(ResponseStatus.Ok, venue.get());
     }
+
+    @Override
+    public Response<Venue> update(Venue venue) {
+        repository.save(venue);
+        return new Response<>(ResponseStatus.Ok, venue);
+    }
     
 }

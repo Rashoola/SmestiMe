@@ -52,6 +52,14 @@ public class VenueController {
         return converter.toResponseEntity(venueService.create(venue));
     }
     
+    @PostMapping("/update")
+    public ResponseEntity<Venue> update(@RequestBody Venue venue){
+        for(Location location : venue.getLocations()){
+            location.setVenue(venue);
+        }
+        return converter.toResponseEntity(venueService.update(venue));
+    }
+    
     @GetMapping("")
     public ResponseEntity<List<Venue>> index(){
         return converter.toListResponseEntity(venueService.index());

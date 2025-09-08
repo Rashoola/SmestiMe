@@ -1,11 +1,11 @@
 import React from 'react';
 
-const LocationItem = ({location}) => {
+const LocationItem = ({location, onRemove}) => {
   return (
     <div>
         <p>{location.name}</p>
-        <p>{location.type === 'HALL' ? 'sala' : 'ekskurzija'}</p>
-        <button>Ukloni</button>
+        <p>{location.locationType === 'HALL' ? 'sala' : 'ekskurzija'}</p>
+        <button onClick={onRemove}>Ukloni</button>
     </div>
   );
 };
