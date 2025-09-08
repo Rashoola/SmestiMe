@@ -163,34 +163,7 @@ public class ParticipationServiceImpl implements ParticipationService{
 
     @Override
     public Response<List<UserParticipationDto>> getParticipationsByUser(Long userId) {
-        Response<User> userResponse = userService.findById(userId);
-        
-        if(!userResponse.getStatus().equals(ResponseStatus.Ok)){
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
-        
-        User user = userResponse.getData();
-        
-        List<Participation> participations = repository.findByUser(user);
-        List<UserParticipationDto> dtos = new LinkedList<>();
-        
-        for (Participation p : participations){
-            EventDto eventDto = new EventDto(p.getEvent().getId(), p.getEvent().getName());
-            
-            OrganizationUnitDto tableDto = null;
-            
-            if(p.getOrganizationUnit() == null){
-                tableDto = new OrganizationUnitDto(0L, "None", 0);
-            }
-            else {
-             tableDto = new OrganizationUnitDto(p.getOrganizationUnit().getId(), p.getOrganizationUnit().getName(), p.getOrganizationUnit().getCapacity());
-            }
-            UserParticipationDto dto = new UserParticipationDto(p.getId(), eventDto, tableDto);
-            
-            dtos.add(dto);
-        }
-        
-        return new Response<>(ResponseStatus.Ok, dtos);
+       return null;
     }
 
     @Override

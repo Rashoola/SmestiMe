@@ -11,6 +11,10 @@ import java.util.List;
  *
  * @author rasul
  */
-public record EventRequestDto(String name, String description, Long venueId, LocalDate date, String entryCode, List<Long> locationIds) {
-
+public record EventRequestDto(Long id, String name, String description, Long venueId, LocalDate date, String entryCode, List<BookingDto> bookings) {
+   public static record BookingDto(Long id, Long locationId, List<OrganizationUnitDto> organizationUnits){
+       public static record OrganizationUnitDto(Long id, String name, Integer capacity, String unitType){
+           
+       }
+   }
 }

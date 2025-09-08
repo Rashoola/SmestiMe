@@ -4,10 +4,12 @@
  */
 package dev.rashoola.backend.service.impl;
 
+import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.Venue;
 import dev.rashoola.backend.dto.EventRequestDto;
+import dev.rashoola.backend.dto.EventRequestDto.BookingDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.EventRepository;
 import dev.rashoola.backend.service.BookingService;
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dev.rashoola.backend.service.LocationService;
+import java.util.LinkedList;
 
 /**
  *
@@ -33,7 +36,7 @@ public class EventServiceImpl implements EventService{
     private final EventRepository repository;
     
     @Autowired
-    private final LocationService hallService;
+    private final LocationService locationService;
     
     @Autowired
     private final VenueService venueService;
@@ -43,35 +46,11 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public Response<Event> create(EventRequestDto event) {
-
-        Venue venue = null;
-        List<Location> locations = null;
-
-        Response<Venue> venueResponse = venueService.findById(event.venueId());
-        if (venueResponse.getStatus() == ResponseStatus.Ok) {
-            venue = venueResponse.getData();
-        }
-
-        Response<List<Location>> locationsResponse = hallService.allFree(event.locationIds(), event.date());
-
-        if (!locationsResponse.getStatus().equals(ResponseStatus.Ok)) {
-            return new Response<>(ResponseStatus.Conflict, null);
-        }
-        
-        locations = locationsResponse.getData();
-        System.out.println(locations);
-        
-        Event finalEvent = new Event();
-        finalEvent.setName(event.name());
-        finalEvent.setDescription(event.description());
-        finalEvent.setDate(event.date());
-        finalEvent.setEntryCode(event.entryCode());
-        finalEvent.setVenue(venue);
-        Event savedEvent = repository.save(finalEvent);
-
-        bookingService.createBookingsForEvent(savedEvent, locations);
-
-        return new Response<>(ResponseStatus.Ok, savedEvent);
+       Venue venue = null;
+       for(BookingDto booking : event.bookings()){
+           Location location = locationService.findById(booking.locationId()).getData();
+       }
+  return null;
     }
 
     @Override

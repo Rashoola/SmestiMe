@@ -5,6 +5,7 @@ import LoginPage from './components/pages/LoginPage';
 import VenuesPage from './components/pages/VenuesPage';
 import VenueDisplayPage from './components/pages/VenueDisplayPage';
 import EventsPage from './components/pages/EventsPage';
+import EventDisplayPage from './components/pages/EventDisplayPage';
 import AdminDashboard from './components/pages/AdminDashboard';
 
 
@@ -18,6 +19,8 @@ function App() {
         <Route path="/venue/create" element={<VenueDisplayPage mode='create'/>} />
         <Route path="/venue/:id" element={<VenueDisplayPage mode='edit'/>} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/event/:id" element={<EventDisplayPage mode='edit'/>} />
+        <Route path="/event/create" element={<EventDisplayPage mode='create'/>} />
       </Routes>
     </Router>
   );

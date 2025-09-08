@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
 import EventItem from '../reusables/EventItem'; // adjust path if needed
+import { useNavigate } from 'react-router-dom';
 
 const EventsPage = () => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -24,6 +26,7 @@ const EventsPage = () => {
   }, []);
 
   const headerButtons = [
+    { title: "Napravi dogadjaj", action: ()=>navigate('/event/create') },
   ];
 
   return (
