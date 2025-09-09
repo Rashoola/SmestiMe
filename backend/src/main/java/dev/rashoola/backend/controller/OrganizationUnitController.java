@@ -40,6 +40,9 @@ public class OrganizationUnitController {
     @Autowired
     private final ResponseConverter<OrganizationUnit> unitConverter;
     
+    @Autowired
+    private final ResponseConverter<String> stringConverter;
+    
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody OrganizationUnitCreationDto dto){
         return converter.toResponseEntity(unitService.create(dto));
@@ -53,5 +56,10 @@ public class OrganizationUnitController {
     @GetMapping("/by-booking/{bookingId}")
     public ResponseEntity<List<OrganizationUnit>> getByBookingId(@PathVariable Long bookingId){
         return unitConverter.toListResponseEntity(unitService.findByBookingId(bookingId));
+    }
+    
+    @GetMapping("/types")
+    public ResponseEntity<List<String>> getUnitTypes(){
+        return stringConverter.toListResponseEntity(unitService.getTypes());
     }
 }

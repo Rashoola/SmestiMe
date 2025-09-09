@@ -97,5 +97,10 @@ public class LocationServiceImpl implements LocationService{
         
         return new Response<>(ResponseStatus.Ok, types);
     }
+
+    @Override
+    public Response<List<Location>> findAvailable(Long venueId, LocalDate date) {
+        return new Response<>(ResponseStatus.Ok, repository.findAvailableLocationsByVenueAndDate(venueId, date));
+    }
     
 }

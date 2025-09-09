@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import dev.rashoola.backend.service.LocationService;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -78,5 +81,12 @@ public class VenueController {
     @GetMapping("/locations/types")
     public ResponseEntity<List<String>> getLocationTypes(){
         return stringConverter.toListResponseEntity(locationService.getTypes());
+    }
+    
+    @GetMapping("/{id}/locations/available")
+    public ResponseEntity<List<Location>> getAvailableLocations(@PathVariable Long id, @RequestParam String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return locationConverter.toListResponseEntity(locationService.findAvailable(id, localDate));
     }
 }

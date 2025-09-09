@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dev.rashoola.backend.repository.OrganizationUnitRepository;
 import dev.rashoola.backend.service.OrganizationUnitService;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -95,6 +97,15 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService{
         } catch(Exception ex){
             return new Response<>(ResponseStatus.NotFound, null);
         }
+    }
+
+    @Override
+    public Response<List<String>> getTypes() {
+        List<String> types = Arrays.stream(UnitType.values())
+                               .map(Enum::name)
+                               .collect(Collectors.toList());
+        
+        return new Response<>(ResponseStatus.Ok, types);
     }
     
 }

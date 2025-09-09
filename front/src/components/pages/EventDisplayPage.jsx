@@ -1,137 +1,185 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Header from '../reusables/Header';
-import AboutSection from '../reusables/AboutSection';
-import LocationBookingItem from '../reusables/LocationBookingItem';
+import Header from "../reusables/Header";
+import AboutSection from "../reusables/AboutSection";
+import { useState, useEffect } from "react";
+import BookingItem from "../reusables/BookingItem";
 
 const EventDisplayPage = ({ mode }) => {
-  const { id } = useParams();
-
-  const [name, setName] = useState('');
-  const [venueId, setVenueId] = useState('');
-  const [date, setDate] = useState('');
-  const [entryCode, setEntryCode] = useState('');
-
   const [venues, setVenues] = useState([]);
+  const [unitTypes, setUnitTypes] = useState([]);
+  const [availableLocations, setAvailableLocations] = useState([]);
+  const [venueId, setVenueId] = useState("");
+  const [date, setDate] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [bookedLocations, setBookedLocations] = useState([]);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const [error, setError] = useState('');
-
-  // Fetch all venues
+  // Fetch venues
   const fetchVenues = async () => {
     try {
-      const res = await fetch('http://localhost:9000/api/venues');
-      if (res.ok) {
-        const data = await res.json();
-        setVenues(data);
-      } else {
-        setError('Neuspešno učitavanje mesta.');
-      }
+      const res = await fetch("http://localhost:9000/api/venues");
+      if (!res.ok) throw new Error("Failed to fetch venues");
+      const data = await res.json();
+      setVenues(data);
     } catch (err) {
-      setError('Greška prilikom povezivanja.');
+      console.error(err);
+      setError("Neuspešno učitavanje mesta.");
     }
   };
 
-  // Fetch event if editing
-  const fetchEvent = async () => {
+  // Fetch unit types
+  const fetchUnitTypes = async () => {
     try {
-      const res = await fetch(`http://localhost:9000/api/events/${id}`);
-      if (res.ok) {
-        const data = await res.json();
-        setName(data.name);
-        setVenueId(data.venue.id);
-        setDate(data.date);
-        setEntryCode(data.entryCode || '');
-        setBookedLocations(data.bookedLocations?.map((loc) => loc.id) || []);
-      } else {
-        setError('Neuspešno učitavanje događaja.');
-      }
+      const res = await fetch("http://localhost:9000/api/organization-units/types");
+      if (!res.ok) throw new Error("Failed to fetch unit types");
+      const data = await res.json(); // expect ["HALL", "EXCURSION", ...]
+      setUnitTypes(data);
     } catch (err) {
-      setError('Greška prilikom povezivanja.');
+      console.error(err);
+      setError("Neuspešno učitavanje tipova jedinica.");
     }
   };
 
-  // Initial load
+  // Fetch available locations for selected venue & date
+  const fetchAvailableLocations = async (venueId, date) => {
+    if (!venueId || !date) return;
+    try {
+      const res = await fetch(
+        `http://localhost:9000/api/venues/${venueId}/locations/available?date=${encodeURIComponent(date)}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch available locations");
+      const data = await res.json();
+      setAvailableLocations(data);
+      setBookedLocations([]); // reset booked locations
+    } catch (err) {
+      console.error(err);
+      setError("Neuspešno učitavanje slobodnih lokacija.");
+    }
+  };
+
   useEffect(() => {
     fetchVenues();
-    if (mode === 'edit') {
-      fetchEvent();
+    fetchUnitTypes();
+  }, []);
+
+  // Refetch locations when venue or date changes
+  useEffect(() => {
+    if (venueId && date) {
+      // Validate date format: dd.mm.yyyy and future date
+      const parts = date.split(".");
+      if (parts.length === 3) {
+        const [dd, mm, yyyy] = parts.map(Number);
+        const inputDate = new Date(yyyy, mm - 1, dd);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (inputDate >= today) {
+          fetchAvailableLocations(venueId, date);
+          setError("");
+        } else {
+          setError("Datum mora biti budući datum.");
+          setAvailableLocations([]);
+        }
+      } else {
+        setError("Datum mora biti u formatu dd.mm.yyyy");
+        setAvailableLocations([]);
+      }
     }
-  }, [mode, id]);
+  }, [venueId, date]);
 
   // Toggle booking of a location
-  const toggleLocation = (locationId) => {
-    setBookedLocations((prev) =>
-      prev.includes(locationId)
-        ? prev.filter((id) => id !== locationId)
-        : [...prev, locationId]
-    );
+  const toggleBooking = (location) => {
+    setBookedLocations((prev) => {
+      const exists = prev.find((b) => b.locationId === location.id);
+      if (exists) return prev.filter((b) => b.locationId !== location.id);
+
+      return [
+        ...prev,
+        { id: null, locationId: location.id, organizationUnits: [] },
+      ];
+    });
   };
 
-  const handleEnterLocation = (locationId) => {
-    alert(`Entering location ${locationId}`);
+  // Update organization units for a location
+  const updateOrganizationUnits = (locationId, units) => {
+    setBookedLocations((prev) =>
+      prev.map((b) =>
+        b.locationId === locationId ? { ...b, organizationUnits: units } : b
+      )
+    );
   };
 
   // Save event
   const handleSaveEvent = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
+    setMessage("");
+
+    if (!name || !date || !venueId) {
+      setError("Naziv, datum i mesto su obavezni.");
+      return;
+    }
 
     const payload = {
-      id: mode === 'edit' ? id : undefined,
+      id: null,
       name,
-      venueId,
       date,
-      entryCode,
-      bookedLocations, // list of location IDs
+      description,
+      venueId: parseInt(venueId),
+      bookedLocations,
     };
-    console.log(payload);
+
     try {
-      const url =
-        mode === 'create'
-          ? 'http://localhost:9000/api/events/create'
-          : 'http://localhost:9000/api/events/update';
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("http://localhost:9000/api/events/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
-      if (res.ok) {
-        const data = await res.json();
-        console.log('Event saved:', data);
-      } else {
-        setError('Neuspešno čuvanje događaja.');
-      }
+      if (!res.ok) throw new Error("Neuspešno čuvanje događaja.");
+      setMessage("Događaj uspešno sačuvan.");
+      console.log("Saved event:", payload);
     } catch (err) {
-      setError('Greška prilikom povezivanja.');
+      console.error(err);
+      setError("Neuspešno čuvanje događaja.");
     }
   };
 
   return (
     <>
-      <Header title='FON Event Manager' buttons={[]}/>
+      <Header title="FON Event Manager" buttons={[]} />
       <div className="main">
         <AboutSection
-          title="Stranica za prikaz događaja"
-          description="Ovde možete editovati događaj"
+          title="Stranica za događaj"
+          description="Ovde možete napraviti događaj"
         />
-        <div className="main-content">
-          {error && <p style={{ color: 'red' }}>{error}</p>}
 
-          <h2>Podaci o događaju</h2>
+        <div className="main-content">
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {message && <p style={{ color: "green" }}>{message}</p>}
+
           <form onSubmit={handleSaveEvent}>
-            <label htmlFor="name">Naziv:</label>
+            <label>Naziv:</label>
             <input
               type="text"
-              name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
 
-            <label htmlFor="venue">Mesto:</label>
+            <label>Opis:</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+
+            <label>Datum (dd.mm.yyyy):</label>
+            <input
+              type="text"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+
+            <label>Mesto:</label>
             <select
-              name="venue"
               value={venueId}
               onChange={(e) => setVenueId(e.target.value)}
             >
@@ -143,41 +191,22 @@ const EventDisplayPage = ({ mode }) => {
               ))}
             </select>
 
-            <label htmlFor="date">Datum:</label>
-            <input
-              type="text"
-              name="date"
-              value={date || ''}
-              onChange={(e) => setDate(e.target.value)}
-            />
+            <h3>Dostupne lokacije</h3>
+            {availableLocations.length === 0 && <p>Nema dostupnih lokacija.</p>}
+            {availableLocations.map((loc) => (
+              <BookingItem
+                key={loc.id}
+                location={loc}
+                booking={bookedLocations.find((b) => b.locationId === loc.id)}
+                onToggle={() => toggleBooking(loc)}
+                onUpdateUnits={(units) => updateOrganizationUnits(loc.id, units)}
+                unitTypes={unitTypes}
+              />
+            ))}
 
-            <label htmlFor="entry-code">Kod za ulaz:</label>
-            <input
-              type="text"
-              name="entry-code"
-              value={entryCode}
-              onChange={(e) => setEntryCode(e.target.value)}
-            />
-
-            {/* Locations from selected venue */}
-            {venueId && (
-              <div className="locations-section">
-                <h3>Lokacije u mestu</h3>
-                {venues
-                  .find((v) => v.id === parseInt(venueId))
-                  ?.locations.map((loc) => (
-                    <LocationBookingItem
-                      key={loc.id}
-                      location={loc}
-                      isBooked={bookedLocations.includes(loc.id)}
-                      onToggle={toggleLocation}
-                      onEnter={handleEnterLocation}
-                    />
-                  ))}
-              </div>
-            )}
-
-            <button type="submit">Sačuvaj</button>
+            <div style={{ marginTop: 12 }}>
+              <button type="submit">💾 Sačuvaj</button>
+            </div>
           </form>
         </div>
       </div>
@@ -186,4 +215,8 @@ const EventDisplayPage = ({ mode }) => {
 };
 
 export default EventDisplayPage;
+
+
+
+
 

@@ -21,5 +21,6 @@ public interface LocationService {
     public Response<List<Location>> findByVenueId(Long id);
     public Response<Location> findById(Long id);
     public Response<List<Location>> allFree(List<Long> hallIds, LocalDate date);
+    public Response<List<Location>> findAvailable(Long venueId, LocalDate date);
     public Response<List<String>> getTypes();
 }

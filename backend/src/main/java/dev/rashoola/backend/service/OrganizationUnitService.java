@@ -19,4 +19,5 @@ public interface OrganizationUnitService {
     public Response<OrganizationUnit> findById(Long id);
     public Response<Boolean> isFull(OrganizationUnit sittingTable);
     public Response<List<OrganizationUnit>> findByBookingId(Long bookingId);
+    public Response<List<String>> getTypes();
 }
