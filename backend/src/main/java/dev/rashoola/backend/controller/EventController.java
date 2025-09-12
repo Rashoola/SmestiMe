@@ -38,8 +38,8 @@ public class EventController {
     @Autowired
     private final ResponseConverter<Event> converter;
     
-    @PostMapping("/create")
-    public ResponseEntity<Event> create(@RequestBody EventRequestDto event){
+    @PostMapping("/save")
+    public ResponseEntity<Event> save(@RequestBody EventRequestDto event){
         return converter.toResponseEntity(eventService.create(event));
     }
     

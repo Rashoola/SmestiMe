@@ -96,6 +96,7 @@ const VenueDisplayPage = ({ mode }) => {
         setContact('');
         setLocations([]);
       }
+      alert('Podaci o mestu su sacuvani.');
     } catch (err) {
       setError(err.message || 'Greška prilikom povezivanja.');
     }

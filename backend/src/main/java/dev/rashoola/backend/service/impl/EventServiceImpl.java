@@ -7,7 +7,9 @@ package dev.rashoola.backend.service.impl;
 import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.Event;
 import dev.rashoola.backend.domain.Location;
+import dev.rashoola.backend.domain.OrganizationUnit;
 import dev.rashoola.backend.domain.Venue;
+import dev.rashoola.backend.domain.enums.UnitType;
 import dev.rashoola.backend.dto.EventRequestDto;
 import dev.rashoola.backend.dto.EventRequestDto.BookingDto;
 import dev.rashoola.backend.enums.ResponseStatus;
@@ -22,6 +24,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dev.rashoola.backend.service.LocationService;
+import jakarta.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 /**
@@ -44,14 +49,89 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private final BookingService bookingService;
 
-    @Override
-    public Response<Event> create(EventRequestDto event) {
-       Venue venue = null;
-       for(BookingDto booking : event.bookings()){
-           Location location = locationService.findById(booking.locationId()).getData();
-       }
-  return null;
+    @Transactional
+@Override
+public Response<Event> create(EventRequestDto dto) {
+    try {
+        Event event;
+
+        if (dto.id() != null) {
+            event = repository.findById(dto.id())
+                    .orElseThrow(() -> new RuntimeException("Event not found"));
+        } else {
+            event = new Event();
+        }
+
+        // Basic fields
+        event.setName(dto.name());
+        event.setDescription(dto.description());
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate date = LocalDate.parse(dto.date(), dtf);
+        event.setDate(date);
+        event.setEntryCode(dto.entryCode());
+
+        Venue venue = venueService.findById(dto.venueId()).getData();
+        if (venue == null) {
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        event.setVenue(venue);
+
+        // Clear old bookings if updating
+        if (event.getBookedLocations() == null) {
+            event.setBookedLocations(new LinkedList<>());
+        } else {
+            event.getBookedLocations().clear();
+        }
+
+        // Map DTO → Bookings
+        for (EventRequestDto.BookingDto bookingDto : dto.bookedLocations()) {
+            Booking booking = new Booking();
+
+            if (bookingDto.id() != null) {
+                booking.setId(bookingDto.id());
+            }
+
+            Location location = locationService.findById(bookingDto.locationId()).getData();
+            if (location == null) {
+                return new Response<>(ResponseStatus.NotFound, null);
+            }
+            booking.setLocation(location);
+            booking.setEvent(event);
+
+            // Units
+            List<OrganizationUnit> units = new LinkedList<>();
+            for (EventRequestDto.BookingDto.OrganizationUnitDto unitDto : bookingDto.organizationUnits()) {
+                OrganizationUnit unit = new OrganizationUnit();
+
+                if (unitDto.id() != null) {
+                    unit.setId(unitDto.id());
+                }
+
+                unit.setName(unitDto.name());
+                unit.setCapacity(unitDto.capacity());
+                try {
+                    unit.setUnitType(UnitType.valueOf(unitDto.unitType()));
+                } catch (IllegalArgumentException e) {
+                    return new Response<>(ResponseStatus.BadRequest, null);
+                }
+                unit.setBooking(booking);
+
+                units.add(unit);
+            }
+
+            booking.setOrganizationUnits(units);
+            event.getBookedLocations().add(booking);
+        }
+
+        Event saved = repository.save(event);
+        return new Response<>(ResponseStatus.Ok, saved);
+
+    } catch (Exception e) {
+        return new Response<>(ResponseStatus.InternalServerError, null);
     }
+}
+
 
     @Override
     public Response<String> delete(Event event) {
