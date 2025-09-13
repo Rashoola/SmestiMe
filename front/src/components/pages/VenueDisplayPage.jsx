@@ -16,8 +16,6 @@ const VenueDisplayPage = ({ mode }) => {
   const [locationTypes, setLocationTypes] = useState([]);
   const [locationType, setLocationType] = useState('');
 
-  const [error, setError] = useState('');
-
   // --- Fetch location types ---
   const fetchLocationTypes = async () => {
     try {
@@ -27,7 +25,7 @@ const VenueDisplayPage = ({ mode }) => {
       setLocationTypes(data);
       if (data.length > 0) setLocationType(data[0]);
     } catch (err) {
-      setError(err.message || 'Greška prilikom povezivanja.');
+      alert(err.message || 'Greška prilikom povezivanja.');
     }
   };
 
@@ -43,7 +41,7 @@ const VenueDisplayPage = ({ mode }) => {
       setContact(data.contact || '');
       setLocations(data.locations || []);
     } catch (err) {
-      setError(err.message || 'Greška prilikom povezivanja.');
+      alert(err.message || 'Greška prilikom povezivanja.');
     }
   };
 
@@ -55,7 +53,10 @@ const VenueDisplayPage = ({ mode }) => {
   // --- Add / Remove location ---
   const handleAddLocation = (e) => {
     e.preventDefault();
-    if (!locationName.trim()) return;
+    if (!locationName.trim()) {
+      alert('Naziv frakcije je obavezan.');
+      return;
+    }
     setLocations([...locations, { name: locationName, locationType }]);
     setLocationName('');
     setLocationType(locationTypes.length > 0 ? locationTypes[0] : '');
@@ -68,7 +69,16 @@ const VenueDisplayPage = ({ mode }) => {
   // --- Save venue (create or update) ---
   const handleSaveVenue = async (e) => {
     e.preventDefault();
-    setError('');
+
+    // Validation
+    if (!name.trim() || !address.trim() || !contact.trim()) {
+      alert('Naziv, adresa i kontakt su obavezni.');
+      return;
+    }
+    if (locations.length === 0) {
+      alert('Morate dodati bar jednu frakciju.');
+      return;
+    }
 
     const payload = { name, address, contact, locations };
 
@@ -96,9 +106,9 @@ const VenueDisplayPage = ({ mode }) => {
         setContact('');
         setLocations([]);
       }
-      alert('Podaci o mestu su sacuvani.');
+      alert('Podaci o mestu su sačuvani.');
     } catch (err) {
-      setError(err.message || 'Greška prilikom povezivanja.');
+      alert(err.message || 'Greška prilikom povezivanja.');
     }
   };
 
@@ -116,8 +126,6 @@ const VenueDisplayPage = ({ mode }) => {
         />
 
         <div className="main-content">
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-
           <h2>Podaci o mestu</h2>
           <form onSubmit={handleSaveVenue}>
             <label htmlFor="name">Naziv:</label>
@@ -187,3 +195,4 @@ const VenueDisplayPage = ({ mode }) => {
 };
 
 export default VenueDisplayPage;
+

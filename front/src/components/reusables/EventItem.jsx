@@ -9,7 +9,7 @@ const EventItem = ({event}) => {
       <p>{event.date}</p>
       <p>{event.venue.name}</p>
 
-      <button onClick={navigate(`event/${event.id}`)}>Prikazi podatke</button>
+      <button onClick={() => navigate(`/event/${event.id}`)}>Prikazi podatke</button>
     </div>
   );
 };
