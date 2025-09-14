@@ -6,7 +6,7 @@ const BookingItem = ({location}) => {
   return (
     <div className="booking-item">
      <p>{location.name}</p>
-     <button>Detalji</button>
+     <button>Opremi</button>
     </div>
   );
 };
