@@ -6,6 +6,7 @@ package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.OrganizationUnit;
+import dev.rashoola.backend.domain.enums.LocationType;
 import dev.rashoola.backend.domain.enums.UnitType;
 import dev.rashoola.backend.dto.OrganizationUnitCreationDto;
 import dev.rashoola.backend.dto.OrganizationUnitCreationDto.OrganizationUnitDto;
@@ -100,12 +101,13 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService{
     }
 
     @Override
-    public Response<List<String>> getTypes() {
-        List<String> types = Arrays.stream(UnitType.values())
-                               .map(Enum::name)
-                               .collect(Collectors.toList());
-        
-        return new Response<>(ResponseStatus.Ok, types);
-    }
+public Response<List<String>> getTypes(LocationType locationType) {
+    List<String> types = switch (locationType) {
+        case HALL -> List.of(UnitType.TABLE.name());
+        case EXCURSION -> List.of(UnitType.BUS.name(), UnitType.CAR.name());
+    };
+    return new Response<>(ResponseStatus.Ok, types);
+}
+
     
 }

@@ -1,43 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Header from "../reusables/Header";
 import AboutSection from "../reusables/AboutSection";
 import BookingItem from "../reusables/BookingItem";
 
 const EventDisplayPage = ({ mode }) => {
-
   const { id } = useParams();
-
-  
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [venue, setVenue] = useState({ name: 'Not loaded yet..' });
   const [date, setDate] = useState('');
   const [entryCode, setEntryCode] = useState('');
-
+  
   const [availableLocations, setAvailableLocations] = useState([]);
-  const [bookedLocations, setBookedLocations] = useState([]);
+  const [selectedLocationId, setSelectedLocationId] = useState("");
+  const [bookedLocations, setBookedLocations] = useState([]); // 🔑 real source of truth
 
-useEffect(() => {
-    if (mode === 'edit') {
+  useEffect(() => {
+    if (mode === "edit") {
       fetchEvent();
     }
-  }, [mode, id]
-  );
+  }, [mode, id]);
 
   useEffect(() => {
     fetchAvailableLocations();
-  }, [date, venue]
-  );
+  }, [date, venue]);
 
   const fetchEvent = async () => {
     try {
-      console.log('The id is: ' + id);
       const response = await fetch(`http://localhost:9000/api/events/${id}`);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setName(data.name);
         setDescription(data.description);
         setVenue(data.venue);
@@ -50,71 +44,177 @@ useEffect(() => {
     } catch (err) {
       alert("Error while connecting.");
     }
-  }
+  };
 
   const formatDate = (isoDate) => {
-  if (!isoDate) return "";
-  const [year, month, day] = isoDate.split("-");
-  return `${day}.${month}.${year}`;
-};
+    if (!isoDate) return "";
+    const [year, month, day] = isoDate.split("-");
+    return `${day}.${month}.${year}`;
+  };
 
   const fetchAvailableLocations = async () => {
-    if(date !== '' & venue !== null){
+    if (date !== "" && venue !== null) {
       const formattedDate = formatDate(date);
       const url = `http://localhost:9000/api/venues/${venue.id}/locations/available?date=${formattedDate}`;
-      console.log(url);
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      setAvailableLocations(data);
-    } catch(err) {
-      alert(err.message);
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        setAvailableLocations(data);
+      } catch (err) {
+        alert(err.message);
+      }
     }
-  }
   };
+
+  // 🔑 Update bookedLocations directly
+  const updateBookingUnits = (bookingId, newUnits) => {
+    setBookedLocations((prev) =>
+      prev.map((b) =>
+        b.id === bookingId ? { ...b, organizationUnits: newUnits } : b
+      )
+    );
+  };
+
+const addBooking = (e) => {
+  e.preventDefault(); // prevent form submission
+
+  if (!selectedLocationId) {
+    alert("Odaberite lokaciju");
+    return;
+  }
+
+  // Find the selected location object
+  const location = availableLocations.find(loc => loc.id === Number(selectedLocationId));
+  //console.log('chosen location: ' + location.name);
+  if (!location) return;
+
+  const newBooking = {
+    id: null, // new booking
+    location: location,
+    organizationUnits: [],
+  };
+
+  console.log(newBooking);
+
+  setBookedLocations([...bookedLocations, newBooking]);
+};
+
+  const removeBooking = (bookingId) => {
+    setBookedLocations((prev) => prev.filter((b) => b.id !== bookingId));
+  };
+
+  const handleSave = async () => {
+  // Simplify bookedLocations
+  const simplifiedBookings = bookedLocations.map(b => ({
+    id: b.id,
+    locationId: b.location.id,
+    organizationUnits: b.organizationUnits
+  }));
+
+  const payload = {
+    id: id,
+    name: name,
+    date: formatDate(date),
+    description: description,
+    entryCode: entryCode,
+    venueId: venue.id,
+    bookedLocations: simplifiedBookings
+  };
+
+  alert(JSON.stringify(payload)); // for debugging
+
+  const url = 'http://localhost:9000/api/events/save';
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload), // <- remember to stringify!
+    });
+
+    if (response.ok) {
+      alert('Dogadjaj je sacuvan uspesno.');
+    } else {
+      alert('Doslo je do greske prilikom cuvanja.');
+    }
+  } catch (err) {
+    alert('Error during connection when updating event.');
+  }
+};
 
   return (
     <div>
-      <Header title='FON Event Manager' buttons={[]} />
+      <Header title="FON Event Manager" buttons={[]} />
       <div className="main">
-        <AboutSection title='' description='' />
+        <AboutSection title="" description="" />
         <div className="main-content">
           <form>
             <label htmlFor="name">Naziv</label>
-            <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
             <label htmlFor="venue">Mesto odrzavanja</label>
-            <select name="venue" id="" onChange={(e) => setVenue(e.target.value)} disabled>
-              {mode === 'edit' ? (<option value={venue.id}>{venue.name}</option>) : <option></option>}
+            <select name="venue" disabled>
+              {mode === "edit" ? (
+                <option value={venue.id}>{venue.name}</option>
+              ) : (
+                <option></option>
+              )}
             </select>
 
             <label htmlFor="description">Opis</label>
-            <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <input
+              type="text"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
 
             <label htmlFor="date">Datum</label>
-            <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <input
+              type="date"
+              name="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
 
             <label htmlFor="entry-code">Sifra za ulaz</label>
-            <input type="text" name="entry-code" value={entryCode} onChange={(e) => setEntryCode(e.target.value)} />
+            <input
+              type="text"
+              name="entry-code"
+              value={entryCode}
+              onChange={(e) => setEntryCode(e.target.value)}
+            />
+
+            <div className="booked-locations-input">
+              <select onChange={(e) => setSelectedLocationId(e.target.value)} name="available-locations" id="">
+                <option value="">--Odaberite lokaciju--</option>
+                {availableLocations.map((loc, index) => (
+                  <option key={index} value={loc.id}>{loc.name}</option>
+                ))}
+              </select>
+              <button onClick={addBooking}>Dodaj rezervaciju</button>
+            </div>
 
             <div className="booked-locations">
-              <div className="location-add">
-                <select name="location" id="">
-                  {availableLocations.map((loc, index) => (
-                    <option key={index} value={loc.id}>{loc.name}</option>
-                  ))}
-                </select>
-                <button>Rezervisi lokaciju</button>
-              </div>
               <ul className="locations-list">
-                {bookedLocations.map((loc, index) => (
-                  <li key={index}>
-                    <BookingItem location={loc.location}></BookingItem>
+                {bookedLocations.map((loc) => (
+                  <li key={loc.id}>
+                    <BookingItem
+                      booking={loc}
+                      onUpdateUnits={(units) => updateBookingUnits(loc.id, units)}
+                      onDeleteBooking={() => removeBooking(loc.id)}
+                    />
                   </li>
                 ))}
               </ul>
             </div>
           </form>
+          <button onClick={handleSave}>Sacuvaj</button>
         </div>
       </div>
     </div>

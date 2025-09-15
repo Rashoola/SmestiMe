@@ -5,6 +5,7 @@
 package dev.rashoola.backend.controller;
 
 import dev.rashoola.backend.domain.OrganizationUnit;
+import dev.rashoola.backend.domain.enums.LocationType;
 import dev.rashoola.backend.dto.OrganizationUnitCreationDto;
 import dev.rashoola.backend.util.ResponseConverter;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import dev.rashoola.backend.service.OrganizationUnitService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -59,7 +61,7 @@ public class OrganizationUnitController {
     }
     
     @GetMapping("/types")
-    public ResponseEntity<List<String>> getUnitTypes(){
-        return stringConverter.toListResponseEntity(unitService.getTypes());
+    public ResponseEntity<List<String>> getUnitTypes(@RequestParam String locationType){
+        return stringConverter.toListResponseEntity(unitService.getTypes(LocationType.valueOf(locationType)));
     }
 }

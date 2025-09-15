@@ -53,11 +53,13 @@ public class EventServiceImpl implements EventService{
 @Override
 public Response<Event> create(EventRequestDto dto) {
     try {
+        System.out.println("Started saving the event.");
         Event event;
 
         if (dto.id() != null) {
             event = repository.findById(dto.id())
                     .orElseThrow(() -> new RuntimeException("Event not found"));
+            System.out.println("Event is an existing one.");
         } else {
             event = new Event();
         }
@@ -128,6 +130,7 @@ public Response<Event> create(EventRequestDto dto) {
         return new Response<>(ResponseStatus.Ok, saved);
 
     } catch (Exception e) {
+        e.printStackTrace();
         return new Response<>(ResponseStatus.InternalServerError, null);
     }
 }

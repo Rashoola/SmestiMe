@@ -1,17 +1,32 @@
-import React, { useEffect, useState } from "react";
-import OrganizationUnitItem from "./OrganizationUnitItem";
+import { useState } from "react";
+import BookingDialog from "./BookingDialog";
 
-const BookingItem = ({location}) => {
-  const [organizationUnits, setOrganizationUnits] = useState([]);
+const BookingItem = ({ booking, onUpdateUnits, onDeleteBooking }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
     <div className="booking-item">
-     <p>{location.name}</p>
-     <button>Opremi</button>
+      <p>{booking.location.name}</p>
+      <button type="button" onClick={() => setDialogOpen(true)}>
+        Opremi
+      </button>
+      <button type="button" onClick={onDeleteBooking}>
+        Ukloni rezervaciju
+      </button>
+
+      <BookingDialog
+        isOpen={dialogOpen}
+        booking={booking}
+        organizationUnits={booking.organizationUnits || []}
+        setOrganizationUnits={onUpdateUnits}
+        onClose={() => setDialogOpen(false)}
+      />
     </div>
   );
 };
 
 export default BookingItem;
+
 
 
 
