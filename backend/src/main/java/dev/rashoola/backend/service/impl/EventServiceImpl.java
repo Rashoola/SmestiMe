@@ -61,6 +61,9 @@ public Response<Event> create(EventRequestDto dto) {
                     .orElseThrow(() -> new RuntimeException("Event not found"));
             System.out.println("Event is an existing one.");
         } else {
+            if(repository.existsByName(dto.name())){
+                return new Response<>(ResponseStatus.Conflict, null);
+            }
             event = new Event();
         }
 

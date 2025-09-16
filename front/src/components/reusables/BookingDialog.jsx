@@ -40,10 +40,22 @@ const BookingDialog = ({
       return;
     }
 
+    // Check if a unit with the same type + name already exists
+    const alreadyExists = organizationUnits.some(
+      (unit) =>
+        unit.unitType === form.unitType &&
+        unit.name.trim().toLowerCase() === form.name.trim().toLowerCase()
+    );
+
+    if (alreadyExists) {
+      alert('Ova organizaciona jedinica je već dodata.');
+      return;
+    }
+
     const newUnit = {
       id: null,
       unitType: form.unitType,
-      name: form.name,
+      name: form.name.trim(),
       capacity: Number(form.capacity),
     };
 
@@ -53,12 +65,12 @@ const BookingDialog = ({
     setForm({ unitType: '', name: '', capacity: '' });
   };
 
-const handleRemoveUnit = (index) => {
-  // Filter out the unit at the given index
-  const newUnits = [...organizationUnits];
-  newUnits.splice(index, 1); // remove one element at position index
-  setOrganizationUnits(newUnits);
-};
+  const handleRemoveUnit = (index) => {
+    // Filter out the unit at the given index
+    const newUnits = [...organizationUnits];
+    newUnits.splice(index, 1); // remove one element at position index
+    setOrganizationUnits(newUnits);
+  };
 
   useEffect(() => {
     fetchUnitTypes();
@@ -157,7 +169,7 @@ const handleRemoveUnit = (index) => {
           <ul>
             {organizationUnits.map((unit, index) => (
               <li key={index}>
-                <OrganizationUnitItem unit={unit} onRemove={() => handleRemoveUnit(index)}/>
+                <OrganizationUnitItem unit={unit} onRemove={() => handleRemoveUnit(index)} />
               </li>
             ))}
           </ul>

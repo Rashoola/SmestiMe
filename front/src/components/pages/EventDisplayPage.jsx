@@ -21,9 +21,9 @@ const EventDisplayPage = ({ mode }) => {
   useEffect(() => {
     if (mode === "edit") {
       fetchEvent();
-    } 
+    }
     fetchVenues();
-    
+
   }, [mode, id]);
 
   useEffect(() => {
@@ -102,9 +102,19 @@ const EventDisplayPage = ({ mode }) => {
       return;
     }
 
+    // Check if this location is already booked
+    const alreadyBooked = bookedLocations.some(
+      (b) => b.location.id === Number(selectedLocationId)
+    );
+    if (alreadyBooked) {
+      alert("Ova lokacija je već dodata.");
+      return;
+    }
+
     // Find the selected location object
-    const location = availableLocations.find(loc => loc.id === Number(selectedLocationId));
-    //console.log('chosen location: ' + location.name);
+    const location = availableLocations.find(
+      (loc) => loc.id === Number(selectedLocationId)
+    );
     if (!location) return;
 
     const newBooking = {
@@ -113,10 +123,9 @@ const EventDisplayPage = ({ mode }) => {
       organizationUnits: [],
     };
 
-    console.log(newBooking);
-
     setBookedLocations([...bookedLocations, newBooking]);
   };
+
 
   const removeBooking = (bookingId) => {
     setBookedLocations((prev) => prev.filter((b) => b.id !== bookingId));
@@ -208,7 +217,7 @@ const EventDisplayPage = ({ mode }) => {
               name="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              disabled = {mode === 'edit'}
+              disabled={mode === 'edit'}
             />
 
             <label htmlFor="entry-code">Sifra za ulaz</label>
