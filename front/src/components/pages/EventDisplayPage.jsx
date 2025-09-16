@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import Header from "../reusables/Header";
 import AboutSection from "../reusables/AboutSection";
@@ -6,13 +6,14 @@ import BookingItem from "../reusables/BookingItem";
 
 const EventDisplayPage = ({ mode }) => {
   const { id } = useParams();
+  const [venues, setVenues] = useState([]);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [venue, setVenue] = useState({ name: 'Not loaded yet..' });
+  const [venue, setVenue] = useState(null);
   const [date, setDate] = useState('');
   const [entryCode, setEntryCode] = useState('');
-  
+
   const [availableLocations, setAvailableLocations] = useState([]);
   const [selectedLocationId, setSelectedLocationId] = useState("");
   const [bookedLocations, setBookedLocations] = useState([]); // 🔑 real source of truth
@@ -20,12 +21,30 @@ const EventDisplayPage = ({ mode }) => {
   useEffect(() => {
     if (mode === "edit") {
       fetchEvent();
-    }
+    } 
+    fetchVenues();
+    
   }, [mode, id]);
 
   useEffect(() => {
-    fetchAvailableLocations();
+    if (date && venue) {
+      fetchAvailableLocations();
+    }
   }, [date, venue]);
+
+  const fetchVenues = async () => {
+    const url = 'http://localhost:9000/api/venues';
+    try {
+      let data = [];
+      const response = await fetch(url);
+      if (response.ok) {
+        data = await response.json();
+        setVenues(data);
+      }
+    } catch (err) {
+      alert('Error during fetching venues');
+    }
+  }
 
   const fetchEvent = async () => {
     try {
@@ -75,72 +94,72 @@ const EventDisplayPage = ({ mode }) => {
     );
   };
 
-const addBooking = (e) => {
-  e.preventDefault(); // prevent form submission
+  const addBooking = (e) => {
+    e.preventDefault(); // prevent form submission
 
-  if (!selectedLocationId) {
-    alert("Odaberite lokaciju");
-    return;
-  }
+    if (!selectedLocationId) {
+      alert("Odaberite lokaciju");
+      return;
+    }
 
-  // Find the selected location object
-  const location = availableLocations.find(loc => loc.id === Number(selectedLocationId));
-  //console.log('chosen location: ' + location.name);
-  if (!location) return;
+    // Find the selected location object
+    const location = availableLocations.find(loc => loc.id === Number(selectedLocationId));
+    //console.log('chosen location: ' + location.name);
+    if (!location) return;
 
-  const newBooking = {
-    id: null, // new booking
-    location: location,
-    organizationUnits: [],
+    const newBooking = {
+      id: null, // new booking
+      location: location,
+      organizationUnits: [],
+    };
+
+    console.log(newBooking);
+
+    setBookedLocations([...bookedLocations, newBooking]);
   };
-
-  console.log(newBooking);
-
-  setBookedLocations([...bookedLocations, newBooking]);
-};
 
   const removeBooking = (bookingId) => {
     setBookedLocations((prev) => prev.filter((b) => b.id !== bookingId));
   };
 
   const handleSave = async () => {
-  // Simplify bookedLocations
-  const simplifiedBookings = bookedLocations.map(b => ({
-    id: b.id,
-    locationId: b.location.id,
-    organizationUnits: b.organizationUnits
-  }));
+    // Simplify bookedLocations
+    const simplifiedBookings = bookedLocations.map(b => ({
+      id: b.id,
+      locationId: b.location.id,
+      organizationUnits: b.organizationUnits
+    }));
 
-  const payload = {
-    id: id,
-    name: name,
-    date: formatDate(date),
-    description: description,
-    entryCode: entryCode,
-    venueId: venue.id,
-    bookedLocations: simplifiedBookings
-  };
+    const payload = {
+      id: id,
+      name: name,
+      date: formatDate(date),
+      description: description,
+      entryCode: entryCode,
+      venueId: venue.id,
+      bookedLocations: simplifiedBookings
+    };
 
-  alert(JSON.stringify(payload)); // for debugging
+    alert(JSON.stringify(payload)); // for debugging
 
-  const url = 'http://localhost:9000/api/events/save';
+    const url = 'http://localhost:9000/api/events/save';
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload), // <- remember to stringify!
-    });
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload), // <- remember to stringify!
+      });
 
-    if (response.ok) {
-      alert('Dogadjaj je sacuvan uspesno.');
-    } else {
-      alert('Doslo je do greske prilikom cuvanja.');
+      if (response.ok) {
+        alert('Dogadjaj je sacuvan uspesno.');
+      } else {
+        alert('Doslo je do greske prilikom cuvanja.');
+      }
+    } catch (err) {
+      alert('Error during connection when updating event.');
     }
-  } catch (err) {
-    alert('Error during connection when updating event.');
-  }
-};
+  };
 
   return (
     <div>
@@ -158,12 +177,21 @@ const addBooking = (e) => {
             />
 
             <label htmlFor="venue">Mesto odrzavanja</label>
-            <select name="venue" disabled>
-              {mode === "edit" ? (
-                <option value={venue.id}>{venue.name}</option>
-              ) : (
-                <option></option>
-              )}
+            <select
+              name="venue"
+              value={venue ? venue.id : ""}
+              onChange={(e) => {
+                const selected = venues.find(v => v.id === Number(e.target.value));
+                setVenue(selected);
+              }}
+              disabled={mode === "edit"}
+            >
+              {mode !== "edit" && <option value="">--Odaberite mesto--</option>}
+              {venues.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.name}
+                </option>
+              ))}
             </select>
 
             <label htmlFor="description">Opis</label>
@@ -180,6 +208,7 @@ const addBooking = (e) => {
               name="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              disabled = {mode === 'edit'}
             />
 
             <label htmlFor="entry-code">Sifra za ulaz</label>
