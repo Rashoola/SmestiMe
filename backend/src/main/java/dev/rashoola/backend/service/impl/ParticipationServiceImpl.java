@@ -162,8 +162,16 @@ public class ParticipationServiceImpl implements ParticipationService{
     }
 
     @Override
-    public Response<List<UserParticipationDto>> getParticipationsByUser(Long userId) {
-       return null;
+    public Response<List<Participation>> getParticipationsByUser(Long userId) {
+       Response<User> userResponse = userService.findById(userId);
+       if(!(userResponse.getStatus() == ResponseStatus.Ok)){
+           return new Response<>(ResponseStatus.Unauthorized, null);
+       }
+       
+       User user = userResponse.getData();
+       
+       List<Participation> participations = repository.findByUser(user);
+       return new Response<>(ResponseStatus.Ok, participations);
     }
 
     @Override

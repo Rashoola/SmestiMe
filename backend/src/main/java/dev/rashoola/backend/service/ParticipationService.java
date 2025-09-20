@@ -20,6 +20,6 @@ public interface ParticipationService {
     public Response<String> assignOrganizationUnit(OrganizationUnitAssignmentDto dto);
     public Response<List<Participation>> getWaitingParticipations(Long eventId);
     public Response<List<Participation>> getParticipationsByOrganizationUnit(Long sittingTableId);
-    public Response<List<UserParticipationDto>> getParticipationsByUser(Long userId);
+    public Response<List<Participation>> getParticipationsByUser(Long userId);
     public Response<Boolean> hasASeat(Long participationId);
 }

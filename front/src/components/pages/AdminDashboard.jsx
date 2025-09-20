@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AboutSection from '../reusables/AboutSection';
 
 const AdminDashboard = () => {
-    const loggedAdmin = JSON.parse(localStorage.getItem("loggedAdmin"));
+    const loggedAdmin = JSON.parse(localStorage.getItem("loggedUser"));
     const navigate = useNavigate();
 
     const headerButtons = [

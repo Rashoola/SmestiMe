@@ -35,34 +35,7 @@ public class UserEventServiceImpl implements UserEventService{
 
     @Override
     public Response<List<Event>> getForParticipants(Long userId) {
-        System.out.println("Metoda servisa pozvana");
-        Response<List<Event>> eventsResponse = eventService.index();
-
-        if (!eventsResponse.getStatus().equals(ResponseStatus.Ok)) {
-            System.out.println("Nema eventova");
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
-
-        List<Event> events = eventsResponse.getData();
-
-        // Fetch user participations
-        Response<List<UserParticipationDto>> participationsResponse = participationService.getParticipationsByUser(userId);
-        if (participationsResponse.getStatus() != ResponseStatus.Ok || participationsResponse.getData() == null) {
-            System.out.println("Nema participacija");
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
-
-        // Extract participation event IDs into a Set for efficient lookup
-        Set<Long> participationEventIds = participationsResponse.getData().stream()
-                .map(participation -> participation.event().id())
-                .collect(Collectors.toSet());
-
-        // Filter events based on conditions
-        List<Event> filteredEvents = events.stream()
-                .filter(event -> !participationEventIds.contains(event.getId()) && event.getDate().isAfter(LocalDate.now()))
-                .collect(Collectors.toList());
-
-        return new Response<>(ResponseStatus.Ok, filteredEvents);
+       return null;
     }
 
 }

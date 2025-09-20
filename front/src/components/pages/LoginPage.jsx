@@ -23,13 +23,18 @@ const LoginPage = () => {
       const data = await response.json();
       console.log('Logged in user:', data);
 
-      localStorage.setItem('loggedAdmin', JSON.stringify(data));
+      localStorage.setItem('loggedUser', JSON.stringify(data));
 
       // Optionally, save user in local state or context
       // setUser(data.user);
 
       // Navigate to Admin Dashboard
-      navigate('/admin-dashboard');
+      if(data.userType === 'ADMIN'){
+        navigate('/admin-dashboard');
+      } else {
+        navigate('/dashboard');
+      }
+      
     } catch (error) {
       console.error(error);
       alert('Login failed. Check your credentials.');
