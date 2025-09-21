@@ -180,6 +180,15 @@ public Response<Event> create(EventRequestDto dto) {
             return new Response<>(ResponseStatus.InternalServerError, null);
         }
     }
+
+    @Override
+    public Response<Event> findByEntryCode(String entryCode) {
+        try{
+            return new Response<>(ResponseStatus.Ok, repository.findByEntryCode(entryCode).get());
+        } catch(Exception ex){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+    }
 }
 
     

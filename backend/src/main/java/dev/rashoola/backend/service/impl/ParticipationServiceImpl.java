@@ -10,9 +10,6 @@ import dev.rashoola.backend.domain.OrganizationUnit;
 import dev.rashoola.backend.domain.User;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.dto.OrganizationUnitAssignmentDto;
-import dev.rashoola.backend.dto.OrganizationUnitCreationDto.OrganizationUnitDto;
-import dev.rashoola.backend.dto.UserParticipationDto;
-import dev.rashoola.backend.dto.UserParticipationDto.EventDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.ParticipationRepository;
 import dev.rashoola.backend.service.EventService;
@@ -49,33 +46,28 @@ public class ParticipationServiceImpl implements ParticipationService{
     @Override
     public Response<Participation> create(ParticipationCreationDto dto) {
         Response<User> userResponse = userService.findById(dto.userId());
-        Response<Event> eventResponse = eventService.findById(dto.eventId());
+        Response<Event> eventResponse = eventService.findByEntryCode(dto.entryCode());
         
-        if(!(userResponse.getStatus().equals(ResponseStatus.Ok) && eventResponse.getStatus().equals(ResponseStatus.Ok))){
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
-        
-        User user = userResponse.getData();
-        Event event = eventResponse.getData();
-        
-        if(repository.existsByUserAndEvent(user, event)){
-            return new Response<>(ResponseStatus.Conflict, null);
-        }
-        
-        if((!dto.entryCode().equals(event.getEntryCode())) & (event.getEntryCode() != null)){
+        if(!(userResponse.getStatus() == ResponseStatus.Ok)){
+            System.out.println("User does not exist for participation.");
             return new Response<>(ResponseStatus.Unauthorized, null);
         }
         
-        Participation participation = new Participation();
-        participation.setUser(user);
-        participation.setEvent(event);
-        
-        try{
-            Participation savedParticipation = repository.save(participation);
-            return new Response<>(ResponseStatus.Ok, savedParticipation);
-        } catch(Exception ex){
-            return new Response<>(ResponseStatus.InternalServerError, null);
+        if(!(eventResponse.getStatus() == ResponseStatus.Ok)){
+            System.out.println("Event does not exist for participation.");
+            return new Response<>(ResponseStatus.NotFound, null);
         }
+        
+        Participation participation = new Participation();
+        participation.setEvent(eventResponse.getData());
+        participation.setUser(userResponse.getData());
+        
+        if(repository.existsByUserAndEvent(userResponse.getData(), eventResponse.getData())){
+            return new Response<>(ResponseStatus.Conflict, null);
+        }
+        
+        repository.save(participation);
+        return new Response<>(ResponseStatus.Ok, null);
     }
 
     @Override

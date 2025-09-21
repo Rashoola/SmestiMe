@@ -25,7 +25,6 @@ public class Participation {
     private User user;
     
     @ManyToOne
-    @JsonIgnore
     private Event event;
     
     @ManyToOne

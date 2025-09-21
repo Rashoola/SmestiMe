@@ -40,7 +40,7 @@ public class ParticipationController {
     private final ResponseConverter<String> stringConverter;
     
     @Autowired
-    private final ResponseConverter<UserParticipationDto> dtoConverter;
+    private final ResponseConverter<Participation> participationConverter;
     
     @Autowired
     private final ResponseConverter<Boolean> booleanConverter;
@@ -62,8 +62,8 @@ public class ParticipationController {
     }
     
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<UserParticipationDto>> getParticipationsByUser(@PathVariable Long userId){
-        return dtoConverter.toListResponseEntity(participationService.getParticipationsByUser(userId));
+    public ResponseEntity<List<Participation>> getParticipationsByUser(@PathVariable Long userId){
+        return participationConverter.toListResponseEntity(participationService.getParticipationsByUser(userId));
     }
     
     @GetMapping("/{id}/has-a-seat")
