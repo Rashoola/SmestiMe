@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dev.rashoola.backend.service.OrganizationUnitService;
+import java.util.Optional;
 
 /**
  *
@@ -181,6 +182,16 @@ public class ParticipationServiceImpl implements ParticipationService{
         }
         
         return new Response<>(ResponseStatus.Ok, true);
+    }
+
+    @Override
+    public Response<Participation> findById(Long id) {
+        Optional<Participation> participation = repository.findById(id);
+        if(participation.isEmpty()){
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+        
+        return new Response<>(ResponseStatus.Ok, participation.get());
     }
     
 }

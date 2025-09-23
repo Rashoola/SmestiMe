@@ -17,6 +17,7 @@ import java.util.List;
  */
 public interface ParticipationService {
     public Response<Participation> create(ParticipationCreationDto dto);
+    public Response<Participation> findById(Long id);
     public Response<String> assignOrganizationUnit(OrganizationUnitAssignmentDto dto);
     public Response<List<Participation>> getWaitingParticipations(Long eventId);
     public Response<List<Participation>> getParticipationsByOrganizationUnit(Long sittingTableId);

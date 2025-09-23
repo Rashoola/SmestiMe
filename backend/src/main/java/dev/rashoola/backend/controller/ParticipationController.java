@@ -50,6 +50,11 @@ public class ParticipationController {
         return converter.toResponseEntity(participationService.create(dto));
     }
     
+    @GetMapping("/{id}")
+    public ResponseEntity<Participation> show(@PathVariable Long id){
+        return converter.toResponseEntity(participationService.findById(id));
+    }
+    
     @PostMapping("/assign-unit")
     public ResponseEntity<String> assignUnit(@RequestBody OrganizationUnitAssignmentDto dto){
         System.out.println("Pozvano smestanje na sto. ParticipationId: " + dto.participationId() + ", TableId: " + dto.organizationUnitId());
