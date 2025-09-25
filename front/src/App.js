@@ -9,6 +9,7 @@ import EventDisplayPage from './components/pages/EventDisplayPage';
 import AdminDashboard from './components/pages/AdminDashboard';
 import Dashboard from './components/pages/Dashboard';
 import ParticipantEventsPage from './components/pages/ParticipantEventsPage';
+import ParticipationBookingsPage from './components/pages/ParticipationBookingsPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/event/:id" element={<EventDisplayPage mode='edit'/>} />
         <Route path="/event/create" element={<EventDisplayPage mode='create'/>} />
         <Route path="/participant/:id/events" element={<ParticipantEventsPage />} />
+        <Route path="/participation/:id" element={<ParticipationBookingsPage />} />
       </Routes>
     </Router>
   );

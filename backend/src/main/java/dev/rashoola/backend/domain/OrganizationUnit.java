@@ -6,6 +6,7 @@ package dev.rashoola.backend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.rashoola.backend.domain.enums.UnitType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,6 +15,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 /**
  *
@@ -78,7 +81,5 @@ public class OrganizationUnit {
     public void setUnitType(UnitType unitType) {
         this.unitType = unitType;
     }
-
-   
     
 }

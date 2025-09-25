@@ -13,10 +13,11 @@ const ParticipationBookingsPage = () => {
       useEffect(
         () => {
             fetchParticipation();
-        }, []
+        }, [id]
       );
 
     const fetchParticipation = async () => {
+        alert('participationId = ' + id);
         const url = `http://localhost:9000/api/participations/${id}`;
         try {
             const response = await fetch(url);
@@ -39,13 +40,13 @@ const ParticipationBookingsPage = () => {
                 <div className='main-content'>
                     <h1>Rezervisane lokacije u okviru izabranog dogadjaja</h1>
                     <ul>
-                        {participation.event.bookedLocations.map(
+                        {participation ? (participation.event.bookedLocations.map(
                             (booking, index) => (
                                 <li key={index}>
                                     <ParticipationBookingItem booking={booking}></ParticipationBookingItem>
                                 </li>
                             )
-                        )}
+                        )) : <p>Ucitavam rezervacije...</p>}
                     </ul>
                 </div>
             </div>

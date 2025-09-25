@@ -42,7 +42,7 @@ public class ParticipationServiceImpl implements ParticipationService{
     private final EventService eventService;
     
     @Autowired
-    private final OrganizationUnitService sittingTableService;
+    private final OrganizationUnitService organizationUnitService;
 
     @Override
     public Response<Participation> create(ParticipationCreationDto dto) {
@@ -83,7 +83,7 @@ public class ParticipationServiceImpl implements ParticipationService{
         
         OrganizationUnit table = null;
         try{
-           Response<OrganizationUnit> tableResponse = sittingTableService.findById(dto.organizationUnitId());
+           Response<OrganizationUnit> tableResponse = organizationUnitService.findById(dto.organizationUnitId());
            if(!tableResponse.getStatus().equals(ResponseStatus.Ok)){
                return new Response<>(ResponseStatus.NotFound, "Sitting table not found.");
            }
@@ -93,7 +93,7 @@ public class ParticipationServiceImpl implements ParticipationService{
             return new Response<>(ResponseStatus.NotFound, "Sitting table not found.");
         }
         
-        Response<Boolean> fullnessResponse = sittingTableService.isFull(table);
+        Response<Boolean> fullnessResponse = organizationUnitService.isFull(table);
         Boolean isFull = fullnessResponse.getData();
         if(isFull){
             return new Response<>(ResponseStatus.Forbidden, "Sitting table is full.");
@@ -141,15 +141,15 @@ public class ParticipationServiceImpl implements ParticipationService{
 
     @Override
     public Response<List<Participation>> getParticipationsByOrganizationUnit(Long sittingTableId) {
-        Response<OrganizationUnit> tableResponse = sittingTableService.findById(sittingTableId);
+        Response<OrganizationUnit> unitResponse = organizationUnitService.findById(sittingTableId);
         
-        if(!tableResponse.getStatus().equals(ResponseStatus.Ok)){
+        if(!unitResponse.getStatus().equals(ResponseStatus.Ok)){
             return new Response<>(ResponseStatus.NotFound, null);
         }
         
-        OrganizationUnit table = tableResponse.getData();
+        OrganizationUnit unit = unitResponse.getData();
         
-        List<Participation> participations = repository.findByOrganizationUnit(table);
+        List<Participation> participations = repository.findByOrganizationUnit(unit);
         
         return new Response<>(ResponseStatus.Ok, participations);
     }
