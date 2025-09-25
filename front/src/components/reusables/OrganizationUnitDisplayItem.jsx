@@ -2,7 +2,7 @@ import React from 'react';
 import UnitParticipantsDialog from './UnitParticipantsDialog';
 import {useState} from 'react';
 
-const OrganizationUnitDisplayItem = ({unit}) => {
+const OrganizationUnitDisplayItem = ({unit, participation}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const openDialog = () => {
@@ -19,10 +19,26 @@ const OrganizationUnitDisplayItem = ({unit}) => {
 
   const assignUnit = async () => {
     const url = 'http://localhost:9000/api/participations/assign-unit';
+    const payload = {
+            participationId: participation.id,
+            organizationUnitId: unit.id
+          };
     try {
+      const response = await fetch(url, 
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }
+      );
+      if(response.ok){
+        alert('Uspesno ste izabrali svoje mesto.');
+      } else {
+        alert('Neuspesan odabir mesta.');
+      }
 
     } catch {
-      
+      alert('Error during connection to the server.')
     }
   }
 
@@ -30,7 +46,7 @@ const OrganizationUnitDisplayItem = ({unit}) => {
     <div className='organization-unit-display-item'>
         <p>{unit.name}</p>
         <button type='button' onClick={openDialog}>Vidi ucesnike</button>
-        <button>Izaberi</button>
+        <button onClick={assignUnit}>Izaberi</button>
         <UnitParticipantsDialog unit={unit} isOpen={dialogOpen} onClose={closeDialog}></UnitParticipantsDialog>
     </div>
   );

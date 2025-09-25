@@ -43,7 +43,7 @@ const ParticipationBookingsPage = () => {
                         {participation ? (participation.event.bookedLocations.map(
                             (booking, index) => (
                                 <li key={index}>
-                                    <ParticipationBookingItem booking={booking}></ParticipationBookingItem>
+                                    <ParticipationBookingItem booking={booking} participation={participation}></ParticipationBookingItem>
                                 </li>
                             )
                         )) : <p>Ucitavam rezervacije...</p>}

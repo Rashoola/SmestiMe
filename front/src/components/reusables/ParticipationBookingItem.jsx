@@ -1,7 +1,7 @@
 import React from 'react';
 import OrganizationUnitDisplayItem from './OrganizationUnitDisplayItem';
 
-const ParticipationBookingItem = ({booking}) => {
+const ParticipationBookingItem = ({booking, participation}) => {
   return (
     <div className='participation-booking-item'>
       <p>{booking.location.name}</p>
@@ -10,7 +10,7 @@ const ParticipationBookingItem = ({booking}) => {
           {booking.organizationUnits.map(
             (unit, index) => (
               <li key={index}>
-                <OrganizationUnitDisplayItem unit={unit}></OrganizationUnitDisplayItem>
+                <OrganizationUnitDisplayItem unit={unit} participation={participation}></OrganizationUnitDisplayItem>
               </li>
             )
           )}
