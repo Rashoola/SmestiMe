@@ -10,6 +10,7 @@ import AdminDashboard from './components/pages/AdminDashboard';
 import Dashboard from './components/pages/Dashboard';
 import ParticipantEventsPage from './components/pages/ParticipantEventsPage';
 import ParticipationBookingsPage from './components/pages/ParticipationBookingsPage';
+import EventParticipantsDistributionPage from './components/pages/EventParticipantsDistributionPage';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/venue/:id" element={<VenueDisplayPage mode='edit'/>} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/event/:id" element={<EventDisplayPage mode='edit'/>} />
+        <Route path="/event/:id/distribution" element={<EventParticipantsDistributionPage />} />
         <Route path="/event/create" element={<EventDisplayPage mode='create'/>} />
         <Route path="/participant/:id/events" element={<ParticipantEventsPage />} />
         <Route path="/participation/:id" element={<ParticipationBookingsPage />} />
