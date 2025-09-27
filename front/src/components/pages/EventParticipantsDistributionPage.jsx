@@ -8,6 +8,7 @@ import WaitingParticipantItem from '../reusables/WaitingParticipantItem';
 const EventParticipantsDistributionPage = () => {
   const [event, setEvent] = useState(null);
   const [waitingParticipants, setWaitingParticipants] = useState([]);
+  const [draggedParticipant, setDraggedParticipant] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -45,6 +46,10 @@ const EventParticipantsDistributionPage = () => {
     }
   };
 
+  const handleDragParticipant = ({participant}) => {
+    setDraggedParticipant(participant);
+  }
+
   return (
     <>
       <Header title="FON Event Manager" buttons={[]} />
@@ -56,7 +61,7 @@ const EventParticipantsDistributionPage = () => {
               <ul>
                 {event.bookedLocations.map((booking, index) => (
                   <li key={index}>
-                    <BookingDisplayItem booking={booking} />
+                    <BookingDisplayItem booking={booking} draggedParticipant={draggedParticipant}/>
                   </li>
                 ))}
               </ul>
@@ -69,7 +74,7 @@ const EventParticipantsDistributionPage = () => {
               <ul>
                 {waitingParticipants.map((participation, index) => (
                   <li key={index}>
-                    <WaitingParticipantItem participation={participation}></WaitingParticipantItem>
+                    <WaitingParticipantItem participation={participation} onDrag={handleDragParticipant}></WaitingParticipantItem>
                   </li>
                 ))}
               </ul>

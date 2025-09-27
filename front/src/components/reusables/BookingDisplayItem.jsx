@@ -1,7 +1,7 @@
 import React from 'react';
 import OrganizationUnitChoiceItem from './OrganizationUnitChoiceItem';
 
-const BookingDisplayItem = ({booking}) => {
+const BookingDisplayItem = ({booking, draggedParticipant}) => {
   return (
     <div className='booking-display-item'>
         <strong>{booking.location.name}</strong>
@@ -9,7 +9,7 @@ const BookingDisplayItem = ({booking}) => {
             {booking.organizationUnits.map(
                 (unit, index) => (
                     <li key={index}>
-                        <OrganizationUnitChoiceItem unit={unit}></OrganizationUnitChoiceItem>
+                        <OrganizationUnitChoiceItem unit={unit} draggedParticipant={draggedParticipant}></OrganizationUnitChoiceItem>
                     </li>
                 )
             )}
