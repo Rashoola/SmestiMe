@@ -45,6 +45,7 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
   return (
     <div className='organization-unit-display-item'>
         <p>{unit.name}</p>
+        <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
         <button type='button' onClick={openDialog}>Vidi ucesnike</button>
         <button onClick={assignUnit}>Izaberi</button>
         <UnitParticipantsDialog unit={unit} isOpen={dialogOpen} onClose={closeDialog}></UnitParticipantsDialog>

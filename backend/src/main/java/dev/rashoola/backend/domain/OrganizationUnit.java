@@ -5,6 +5,7 @@
 package dev.rashoola.backend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.rashoola.backend.domain.enums.UnitType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import java.util.List;
 
 /**
@@ -41,6 +43,12 @@ public class OrganizationUnit {
     @ManyToOne
     @JsonIgnore
     private Booking booking;
+
+    @OneToMany(mappedBy = "organizationUnit")
+    @JsonIgnore // prevent infinite recursion
+    private List<Participation> participations;
+
+    // --- Getters & Setters ---
 
     public Long getId() {
         return id;
@@ -81,5 +89,20 @@ public class OrganizationUnit {
     public void setUnitType(UnitType unitType) {
         this.unitType = unitType;
     }
-    
+
+    public List<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
+    }
+
+    // --- Custom JSON field ---
+    @Transient
+    @JsonProperty("capacityLeft")
+    public int getCapacityLeft() {
+        return capacity - (participations != null ? participations.size() : 0);
+    }
 }
+
