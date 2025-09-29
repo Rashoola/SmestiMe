@@ -1,10 +1,11 @@
 import React from 'react';
+import '../../style/LocationItem.css';
 
 const LocationItem = ({location, onRemove}) => {
   return (
-    <div>
-        <p>{location.name}</p>
-        <p>{location.locationType === 'HALL' ? 'sala' : 'ekskurzija'}</p>
+    <div className='location-item'>
+        <strong>Naziv: {location.name}</strong>
+        <p>Tip lokacije: {location.locationType === 'HALL' ? 'sala' : 'ekskurzija'}</p>
         <button onClick={onRemove}>Ukloni</button>
     </div>
   );

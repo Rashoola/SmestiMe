@@ -1,0 +1,23 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+    height: 100vh;
+}
+
+body{
+    height: 100%;
+    padding: 0;
+}
+
+.main{
+    display: flex;
+    height: 75vh;
+}
+
+.main-content{
+    flex-basis: 80%;
+    padding: 15px;
+    overflow-y: scroll;
+}

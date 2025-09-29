@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
 import LocationItem from '../reusables/LocationItem';
+import '../../style/VenueDisplayPage.css';
 
 const VenueDisplayPage = ({ mode }) => {
+  const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   const { id } = useParams();
 
   const [name, setName] = useState('');
@@ -114,7 +116,7 @@ const VenueDisplayPage = ({ mode }) => {
 
   return (
     <>
-      <Header title="FON Event Manager" name="" buttons={[]} />
+      <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
         <AboutSection
           title={mode === 'create' ? 'Kreiranje mesta' : 'Izmena mesta'}
@@ -126,8 +128,9 @@ const VenueDisplayPage = ({ mode }) => {
         />
 
         <div className="main-content">
-          <h2>Podaci o mestu</h2>
-          <form onSubmit={handleSaveVenue}>
+          <h2>Podaci o mestu održavanja:</h2>
+          <form className='venue-form' onSubmit={handleSaveVenue}>
+            <div className='basic-venue-data'>
             <label htmlFor="name">Naziv:</label>
             <input
               type="text"
@@ -150,8 +153,12 @@ const VenueDisplayPage = ({ mode }) => {
               name="contact"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
+              style={{marginBottom: '10px'}}
             />
+            </div>
 
+            <div className='location-input'>
+              <div className='location-input-fields'>
             <label htmlFor="location-name">Unesi naziv frakcije:</label>
             <input
               type="text"
@@ -174,8 +181,8 @@ const VenueDisplayPage = ({ mode }) => {
             </select>
 
             <button onClick={handleAddLocation}>Dodaj frakciju</button>
-
-            <ul>
+            </div>
+            <ul className='locations-list'>
               {locations.map((location, index) => (
                 <li key={index}>
                   <LocationItem
@@ -185,8 +192,10 @@ const VenueDisplayPage = ({ mode }) => {
                 </li>
               ))}
             </ul>
-
             <button type="submit">Sačuvaj</button>
+            </div>
+
+            
           </form>
         </div>
       </div>

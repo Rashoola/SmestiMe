@@ -6,6 +6,7 @@ import AboutSection from '../reusables/AboutSection';
 import {useNavigate} from 'react-router-dom';
 
 const VenuesPage = () => {
+    const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
     const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
 
@@ -32,7 +33,7 @@ const VenuesPage = () => {
 
   return (
     <>
-      <Header title='FON Event Manager' name='' buttons={headerButtons}/>
+      <Header title='FON Event Manager' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
       <div className='main'>
         <AboutSection
           title='Prikaz svih mesta' 
@@ -41,8 +42,8 @@ const VenuesPage = () => {
           njihove podatke.'
         />
         <div className='main-content'>
-          <h2>Lista dostupnih mesta u sistemu</h2>
-          <ul>
+          <h2>Lista mesta održavanja dostupnih u sistemu:</h2>
+          <ul style={{padding: 0}}>
             {venues.map((venue) => (
               <VenueItem key={venue.id} venue={venue} />
             ))}

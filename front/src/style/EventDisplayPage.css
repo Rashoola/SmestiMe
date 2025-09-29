@@ -1,0 +1,46 @@
+.main-content form {
+    background-image: linear-gradient(black, rgb(14, 161, 141));
+    color: white;
+    margin-left: 50px;
+    margin-right: 50px;
+
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    padding: 15px;
+}
+
+.booked-locations-list{
+    list-style: none;
+    padding: 0;
+    height: 75%;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    overflow-y: scroll;
+}
+
+.booked-locations-input-fields{
+    flex-basis: 25%;
+}
+
+.booked-locations{
+    flex-basis: 75%;
+}
+
+.basic-event-data{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 40%;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.booked-locations-input{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+    height: 100%;
+}

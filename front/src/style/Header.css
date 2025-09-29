@@ -1,0 +1,18 @@
+header{
+    height: 25vh;
+    padding: 15px;
+    background-color: black;
+    color: white;
+    font-style: italic;
+    border-bottom: 4px solid black;
+}
+
+.nav{
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.nav li{
+    margin-right: 5px;
+}

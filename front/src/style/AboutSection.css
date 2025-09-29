@@ -1,0 +1,9 @@
+.about-section{
+    box-sizing: border-box;
+    flex-basis: 20%;
+    padding: 15px;
+    background-image: linear-gradient(black, rgb(14, 161, 141));
+    border-right: 4px solid black;
+    color: white;
+    font-style: italic;
+}

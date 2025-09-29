@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../style/AboutSection.css';
 
 const AboutSection = ({title, description}) => {
   return (
-    <div>
-      <h2>{title}</h2>
+    <div className='about-section'>
+      <strong>{title}</strong>
       <p>{description}</p>
     </div>
   );

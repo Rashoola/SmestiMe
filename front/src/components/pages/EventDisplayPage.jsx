@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import Header from "../reusables/Header";
 import AboutSection from "../reusables/AboutSection";
 import BookingItem from "../reusables/BookingItem";
+import '../../style/EventDisplayPage.css';
 
 const EventDisplayPage = ({ mode }) => {
+  const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   const { id } = useParams();
   const [venues, setVenues] = useState([]);
 
@@ -172,11 +174,14 @@ const EventDisplayPage = ({ mode }) => {
 
   return (
     <div>
-      <Header title="FON Event Manager" buttons={[]} />
+      <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
-        <AboutSection title="" description="" />
+        <AboutSection title="Stranica za kreiranje/uređivanje događaja" 
+        description="Na ovoj stranici možete izvršiti pravljenje novog događaja kao i izmeniti 
+        podatke o postojećem." />
         <div className="main-content">
           <form>
+            <div className='basic-event-data'>
             <label htmlFor="name">Naziv</label>
             <input
               type="text"
@@ -227,8 +232,11 @@ const EventDisplayPage = ({ mode }) => {
               value={entryCode}
               onChange={(e) => setEntryCode(e.target.value)}
             />
+            </div>
 
             <div className="booked-locations-input">
+              <div className='booked-locations-input-fields'>
+              <p>Rezervisane lokacije:</p>
               <select onChange={(e) => setSelectedLocationId(e.target.value)} name="available-locations" id="">
                 <option value="">--Odaberite lokaciju--</option>
                 {availableLocations.map((loc, index) => (
@@ -239,7 +247,7 @@ const EventDisplayPage = ({ mode }) => {
             </div>
 
             <div className="booked-locations">
-              <ul className="locations-list">
+              <ul className="booked-locations-list">
                 {bookedLocations.map((loc) => (
                   <li key={loc.id}>
                     <BookingItem
@@ -250,9 +258,12 @@ const EventDisplayPage = ({ mode }) => {
                   </li>
                 ))}
               </ul>
+               <button onClick={handleSave}>Sacuvaj</button>
+            </div>
+           
             </div>
           </form>
-          <button onClick={handleSave}>Sacuvaj</button>
+          
         </div>
       </div>
     </div>

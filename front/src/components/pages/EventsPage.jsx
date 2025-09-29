@@ -5,6 +5,7 @@ import EventItem from '../reusables/EventItem'; // adjust path if needed
 import { useNavigate } from 'react-router-dom';
 
 const EventsPage = () => {
+  const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
@@ -31,7 +32,7 @@ const EventsPage = () => {
 
   return (
     <>
-      <Header title='FON Event Manager' name='' buttons={headerButtons}/>
+      <Header title='FON Event Manager' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
       <div className='main'>
         <AboutSection
           title='Prikaz svih događaja' 
@@ -40,8 +41,8 @@ const EventsPage = () => {
           njihove podatke.'
         />
         <div className='main-content'>
-          <h2>Lista dostupnih događaja u sistemu</h2>
-          <ul>
+          <h2>Lista predstojećih događaja u sistemu:</h2>
+          <ul style={{padding: 0}}>
             {events.map((event) => (
               <EventItem key={event.id} event={event} />
             ))}

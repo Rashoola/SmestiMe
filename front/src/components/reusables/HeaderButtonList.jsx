@@ -3,7 +3,7 @@ import HeaderButton from './HeaderButton';
 
 const HeaderButtonList = ({ buttons }) => {
   return (
-    <ul>
+    <ul className='nav'>
       {buttons.map((btn, index) => (
         <li>
         <HeaderButton 

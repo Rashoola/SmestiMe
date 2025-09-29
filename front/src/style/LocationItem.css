@@ -1,0 +1,7 @@
+.location-item{
+    box-sizing: border-box;
+    background-image: linear-gradient(black, rgb(14, 161, 141));
+    color: white;
+    padding: 5px;
+    margin-bottom: 5px;
+}

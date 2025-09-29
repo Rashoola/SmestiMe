@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BookingDialog from "./BookingDialog";
+import '../../style/BookingItem.css';
 
 const BookingItem = ({ booking, onUpdateUnits, onDeleteBooking }) => {
   const [dialogOpen, setDialogOpen] = useState(false);

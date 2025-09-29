@@ -1,0 +1,14 @@
+.event-item{
+    box-sizing: border-box;
+    display: inline-block;
+    background-image: linear-gradient(black, rgb(14, 161, 141));
+    color: white;
+    width: fit-content;
+    padding: 15px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+button{
+    margin-right: 5px;
+}
