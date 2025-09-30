@@ -7,3 +7,7 @@
     color: white;
     font-style: italic;
 }
+
+.about-section p {
+    text-align: justify;
+}

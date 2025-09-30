@@ -119,15 +119,12 @@ const VenueDisplayPage = ({ mode }) => {
       <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
         <AboutSection
-          title={mode === 'create' ? 'Kreiranje mesta' : 'Izmena mesta'}
-          description={
-            mode === 'create'
-              ? 'Na ovoj stranici možete uneti podatke o novom mestu.'
-              : 'Na ovoj stranici možete menjati podatke o mestu.'
-          }
+          title= 'Stranica za kreiranje/izmenu podataka o mestu održavanja'
+          description= 'Na ovoj stranici možete uneti novo mesto održavanja u sistem, kao i izmeniti podatke o postojećem.'
         />
 
         <div className="main-content">
+          <div className='central' style={{width: '100%'}}>
           <h2>Podaci o mestu održavanja:</h2>
           <form className='venue-form' onSubmit={handleSaveVenue}>
             <div className='basic-venue-data'>
@@ -197,6 +194,7 @@ const VenueDisplayPage = ({ mode }) => {
 
             
           </form>
+          </div>
         </div>
       </div>
     </>

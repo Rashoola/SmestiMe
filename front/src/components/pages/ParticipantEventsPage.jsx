@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
 import ParticipationItem from '../reusables/ParticipationItem';
+import '../../style/ParticipantEventsPage.css';
 
 const ParticipantEventsPage = () => {
   const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
@@ -59,19 +60,23 @@ const ParticipantEventsPage = () => {
 
   return (
     <>
-      <Header title="FON Event Manager" name={loggedUser.name} buttons={[]} />
+      <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
         <AboutSection
           title="Stranica sa dogadjajima korisnika"
-          description=""
+          description="Na ovoj stranici možete videti sve događaje na koje ste trenutno prijavljeni. 
+          U okviru svakog od tih događaja možete izabrati mesto na kojem biste želeli da budete 
+          raspoređeni. To ćete uraditi tako što ćete pritisnuti da dugme ODABERI JEDINICU, a zatim izabrati 
+          željeno mesto. Ukoliko ne želite da odaberete mesto, i to je u redu, jer to možemo da uradimo za Vas."
         />
         <div className="main-content">
+          <div style={{width: '100%'}} className='central'>
           <label htmlFor="entry-code">Kod za ulaz: </label>
-          <input onChange={(e) => setEntryCode(e.target.value)} id="entry-code" type="text" />
+          <input style={{marginRight: 10}} onChange={(e) => setEntryCode(e.target.value)} id="entry-code" type="text" />
           <button onClick={() => handleParticipate()} type="button">Pridruzi se dogadjaju</button>
 
           <div className="participant-event-list">
-            <h2>Lista dogadjaja na koje sam prijavljen/a</h2>
+            <h2 style={{marginLeft: 0}}>Lista dogadjaja na koje sam prijavljen/a</h2>
             {participations.length === 0 ? (
               <p>Nema prijavljenih dogadjaja za prikaz.</p>
             ) : (
@@ -83,6 +88,7 @@ const ParticipantEventsPage = () => {
                 ))}
               </ul>
             )}
+          </div>
           </div>
         </div>
       </div>

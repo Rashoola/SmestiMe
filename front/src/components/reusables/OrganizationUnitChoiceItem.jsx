@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import UnitParticipantsDialog from './UnitParticipantsDialog';
+import '../../style/OrganizationUnitChoiceItem.css';
 
 const OrganizationUnitChoiceItem = ({ unit }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -57,7 +58,7 @@ const OrganizationUnitChoiceItem = ({ unit }) => {
       onDrop={assign}
       onDragOver={(e) => e.preventDefault()}
     >
-      <p>{unit.name}</p>
+      <strong>{unit.name}</strong>
       <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
       <button type='button' onClick={openDialog}>Pogledaj ucesnike</button>
       <UnitParticipantsDialog unit={unit} onClose={closeDialog} isOpen={dialogOpen}></UnitParticipantsDialog>

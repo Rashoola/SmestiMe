@@ -1,6 +1,7 @@
 import React from 'react';
 import UnitParticipantsDialog from './UnitParticipantsDialog';
 import {useState} from 'react';
+import '../../style/OrganizationUnitDisplayItem.css';
 
 const OrganizationUnitDisplayItem = ({unit, participation}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -44,7 +45,7 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
 
   return (
     <div className='organization-unit-display-item'>
-        <p>{unit.name}</p>
+        <strong>{unit.name}</strong>
         <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
         <button type='button' onClick={openDialog}>Vidi ucesnike</button>
         <button onClick={assignUnit}>Izaberi</button>

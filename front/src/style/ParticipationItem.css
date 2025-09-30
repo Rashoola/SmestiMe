@@ -1,12 +1,6 @@
-.event-item{
-    box-sizing: border-box;
+.participation-item{
     background-image: linear-gradient(black, rgb(14, 161, 141));
     color: white;
     padding: 15px;
     margin-bottom: 5px;
-    margin-right: 5px;
-}
-
-button{
-    margin-right: 5px;
 }

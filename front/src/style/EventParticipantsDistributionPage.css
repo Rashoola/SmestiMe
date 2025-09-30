@@ -1,0 +1,29 @@
+.distribution{
+    flex-basis: 60%;
+}
+
+.waiting-participants{
+    flex-basis: 40%;
+    border: 2px solid black;
+}
+
+.waiting-participants ul{
+      overflow-y: scroll;
+      height: 85%;
+}
+
+.waiting-participants strong{
+    padding: 10px;
+    display: block;
+    border-bottom: 2px solid black;
+}
+
+.distribution ul{
+    list-style: none;
+    padding: 0;
+}
+
+.main-content{
+    display: flex;
+}
+

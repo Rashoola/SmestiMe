@@ -11,9 +11,10 @@ const Dashboard = () => {
   ];
   return (
     <>
-    <Header title='FON Event Manager' name={loggedUser.name} buttons = {buttonList}></Header>
+    <Header title='FON Event Manager' name={loggedUser.name + ' ' + loggedUser.surname} buttons = {buttonList}></Header>
     <div className='main'>
-      <AboutSection title='Stranica pocetna' description=''></AboutSection>
+      <AboutSection title='Početna stranica'
+       description='Dobrodošli na početnu stranicu servisa FON Event Manager.'></AboutSection>
       <div className='main-content'></div>
     </div>
     <div>

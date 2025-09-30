@@ -1,0 +1,24 @@
+.booking-dialog{
+    color: black;
+}
+
+.organization-unit-input{
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+}
+
+.organization-unit-list{
+    height: 55%;
+}
+
+.organization-unit-list ul{
+    overflow-y: scroll;
+    list-style: none;
+    padding: 0;
+    height: 100%;
+}
+
+input{
+    margin-bottom: 10px;
+}

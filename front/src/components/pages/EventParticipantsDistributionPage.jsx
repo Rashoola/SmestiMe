@@ -4,8 +4,10 @@ import AboutSection from '../reusables/AboutSection';
 import BookingDisplayItem from '../reusables/BookingDisplayItem';
 import { useParams } from 'react-router-dom';
 import WaitingParticipantItem from '../reusables/WaitingParticipantItem';
+import '../../style/EventParticipantsDistributionPage.css';
 
 const EventParticipantsDistributionPage = () => {
+  const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   const [event, setEvent] = useState(null);
   const [waitingParticipants, setWaitingParticipants] = useState([]);
   const [draggedParticipant, setDraggedParticipant] = useState(null);
@@ -52,9 +54,12 @@ const EventParticipantsDistributionPage = () => {
 
   return (
     <>
-      <Header title="FON Event Manager" buttons={[]} />
+      <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
-        <AboutSection title="" description="" />
+        <AboutSection title="Stranica za rasporedjivanje ucesnika po jedinicama" 
+        description="Na ovoj stranici se nalazi prikaz svih rezervacija u okviru datog dogadjaja, 
+        kao i organizacionih jedinica koje se nalaze u okviru njih samih. Klikom i prevlačenjem učesnika sa 
+        liste učesnika koji čekaju možete smestiti na jedinicu po izboru." />
         <div className="main-content">
           <div className="distribution">
             {event ? (
@@ -70,6 +75,7 @@ const EventParticipantsDistributionPage = () => {
             )}
           </div>
           <div className="waiting-participants">
+            <strong>Ucesnici koji cekaju da budu rasporedjeni:</strong>
             {waitingParticipants ? (
               <ul>
                 {waitingParticipants.map((participation, index) => (

@@ -41,12 +41,15 @@ const EventsPage = () => {
           njihove podatke.'
         />
         <div className='main-content'>
-          <h2>Lista predstojećih događaja u sistemu:</h2>
+           <div style={{width: '100%'}} className='central'>
+          <h2 style={{marginLeft: 0}}>Lista predstojećih događaja u sistemu:</h2>
+         
           <ul style={{padding: 0}}>
             {events.map((event) => (
               <EventItem key={event.id} event={event} />
             ))}
           </ul>
+          </div>
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
 import React from "react";
+import '../../style/OrganizationUnitItem.css';
 
 const OrganizationUnitItem = ({ unit, onRemove }) => {
     return (

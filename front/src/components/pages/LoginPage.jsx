@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../reusables/Header';
+import '../../style/General.css';
+import '../../style/LoginPage.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -43,28 +46,33 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <>
+    <Header title='FON Event Manager' buttons={[]}></Header>
+    <div className='login-form-container'>
       <h1>Dobrodošli na stranicu za prijavu!</h1>
       <form onSubmit={handleLogin}>
-        <label htmlFor="email">e-mail</label>
+        <label htmlFor="email">Mejl adresa:</label>
         <input 
           type="text" 
           name="email" 
           value={email} 
           onChange={(e) => setEmail(e.target.value)} 
+          placeholder='Unesite mejl adresu...'
         />
 
-        <label htmlFor="password">lozinka</label>
+        <label htmlFor="password">Lozinka:</label>
         <input 
           type="password" 
           name="password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
+          placeholder='Unesite lozinku...'
         />
 
         <button type='submit'>Prijavi se</button>
       </form>
     </div>
+    </>
   );
 };
 

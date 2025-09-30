@@ -180,6 +180,8 @@ const EventDisplayPage = ({ mode }) => {
         description="Na ovoj stranici možete izvršiti pravljenje novog događaja kao i izmeniti 
         podatke o postojećem." />
         <div className="main-content">
+          <div style={{width: '100%'}} className='central'>
+            <h2>Podaci o dogadjaju:</h2>
           <form>
             <div className='basic-event-data'>
             <label htmlFor="name">Naziv</label>
@@ -263,7 +265,7 @@ const EventDisplayPage = ({ mode }) => {
            
             </div>
           </form>
-          
+          </div>
         </div>
       </div>
     </div>

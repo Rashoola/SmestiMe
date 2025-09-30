@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OrganizationUnitItem from './OrganizationUnitItem';
+import '../../style/BookingDialog.css';
 
 const BookingDialog = ({
   isOpen,
@@ -102,8 +103,7 @@ const BookingDialog = ({
           borderRadius: '8px',
           border: '3px solid black',
           width: '33%',
-          maxHeight: '80%',
-          overflowY: 'auto',
+          height: '80%',
           position: 'relative',
         }}
       >
@@ -124,12 +124,13 @@ const BookingDialog = ({
           ✕
         </button>
 
-        <strong>
+        
+
+        <div className="organization-unit-input" style={{ marginTop: '1rem' }}>
+          <strong>
           Unos organizacionih jedinica za rezervaciju lokacije{' '}
           {booking.location.name}
         </strong>
-
-        <div className="organization-unit-input" style={{ marginTop: '1rem' }}>
           <label htmlFor="unit-type">Tip jedinice</label>
           <select
             name="unitType"

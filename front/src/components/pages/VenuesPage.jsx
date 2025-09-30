@@ -42,12 +42,14 @@ const VenuesPage = () => {
           njihove podatke.'
         />
         <div className='main-content'>
-          <h2>Lista mesta održavanja dostupnih u sistemu:</h2>
+          <div style={{width: '100%'}} className='central'>
+          <h2 style={{marginLeft: 0}}>Lista mesta održavanja dostupnih u sistemu:</h2>
           <ul style={{padding: 0}}>
             {venues.map((venue) => (
               <VenueItem key={venue.id} venue={venue} />
             ))}
           </ul>
+          </div>
         </div>
       </div>
     </>
