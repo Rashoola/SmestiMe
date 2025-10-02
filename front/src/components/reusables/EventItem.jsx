@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/EventItem.css';
+import eventSymbol from '../../images/event_symbol.png';
 
 const EventItem = ({ event }) => {
   const navigate = useNavigate();
@@ -20,12 +21,17 @@ const EventItem = ({ event }) => {
 
   return (
     <div className='event-item'>
+      <div className='symbol-container'>
+        <img src={eventSymbol} alt="" />
+      </div>
+      <div className='middle-part'>
       <strong>{event.name}</strong>
       <p>Datum: {formatDateSerbian(event.date)}</p>
       <p>Lokacija: {event.venue.name}</p>
 
       <button onClick={() => navigate(`/event/${event.id}`)}>Prikazi podatke</button>
       <button onClick={() => navigate(`/event/${event.id}/distribution`)}>Raspored</button>
+      </div>
     </div>
   );
 };

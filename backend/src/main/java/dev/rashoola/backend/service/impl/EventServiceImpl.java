@@ -27,6 +27,7 @@ import dev.rashoola.backend.service.LocationService;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -166,7 +167,14 @@ public Response<Event> create(EventRequestDto dto) {
     @Override
     public Response<List<Event>> index() {
         try{
-            return new Response<>(ResponseStatus.Ok, repository.findAll());
+            List<Event> events = repository.findAll();
+            List<Event> futureEvents = new ArrayList<>();
+            for(Event e : events){
+                if(e.getDate().isAfter(LocalDate.now())){
+                    futureEvents.add(e);
+                }
+            }
+            return new Response<>(ResponseStatus.Ok, futureEvents);
         } catch(Exception ex){
             return new Response<>(ResponseStatus.InternalServerError, null);
         }

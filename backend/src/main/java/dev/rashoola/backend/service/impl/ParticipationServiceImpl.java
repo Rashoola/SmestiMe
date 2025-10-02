@@ -125,7 +125,7 @@ public class ParticipationServiceImpl implements ParticipationService{
         List<Participation> participations = repository.findByEvent(event);
         List<Participation> waitingParticipations = new LinkedList<>();
         
-        if(participations == null || participations.isEmpty()){
+        if(participations == null){
             System.out.println("Participacije nisu pronadjene.");
             return new Response<>(ResponseStatus.NotFound, null);
         }

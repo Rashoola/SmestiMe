@@ -5,6 +5,16 @@
     padding: 15px;
     margin-bottom: 5px;
     margin-right: 5px;
+    display: flex;
+    border-radius: 10px;
+}
+
+.symbol-container{
+    height: 100px;
+}
+
+.symbol-container img{
+    height: 100%;
 }
 
 button{
