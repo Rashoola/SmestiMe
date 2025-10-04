@@ -2,5 +2,8 @@
     background-image: linear-gradient(black, rgb(14, 161, 141));
     color: white;
     padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 10px;
     height: 33%;
+    display: flex;
 }

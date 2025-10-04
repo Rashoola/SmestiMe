@@ -1,15 +1,21 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../../style/VenueItem.css';
+import venueSymbol from '../../images/venue_symbol.png';
 
 const VenueItem = ({venue}) => {
     const navigate = useNavigate();
   return (
     <div className='venue-item'>
-      <p>Naziv: {venue.name}</p>
+      <div className='symbol-container'>
+        <img src={venueSymbol} alt="" />
+      </div>
+      <div className='middle-part'>
+      <strong>{venue.name}</strong>
       <p>Adresa: {venue.address}</p>
 
       <button onClick={() => navigate(`/venue/${venue.id}`)}>Prikazi podatke</button>
+      </div>
     </div>
   );
 };

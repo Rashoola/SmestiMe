@@ -5,6 +5,8 @@
     padding: 15px;
     margin-bottom: 5px;
     margin-right: 5px;
+    border-radius: 10px;
+    display: flex;
 }
 
 button{

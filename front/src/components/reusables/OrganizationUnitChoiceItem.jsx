@@ -2,6 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import UnitParticipantsDialog from './UnitParticipantsDialog';
 import '../../style/OrganizationUnitChoiceItem.css';
+import tableSymbol from '../../images/table_symbol.png';
+import roomSymbol from '../../images/room_symbol.png';
+import busSymbol from '../../images/bus_symbol.png';
+import carSymbol from '../../images/car_symbol.png';
 
 const OrganizationUnitChoiceItem = ({ unit }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -51,6 +55,21 @@ const OrganizationUnitChoiceItem = ({ unit }) => {
     }
   };
 
+  const getSymbol = () => {
+    switch (unit.unitType) {
+      case 'TABLE':
+        return tableSymbol;
+      case 'ROOM':
+        return roomSymbol;
+      case 'BUS':
+        return busSymbol;
+      case 'CAR':
+        return carSymbol;
+      default:
+        return null;
+    }
+  };
+
 
   return (
     <div
@@ -58,10 +77,15 @@ const OrganizationUnitChoiceItem = ({ unit }) => {
       onDrop={assign}
       onDragOver={(e) => e.preventDefault()}
     >
+      <div className='symbol-container'>
+        <img src={getSymbol()} alt="" />
+      </div>
+      <div className='middle-part'>
       <strong>{unit.name}</strong>
       <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
       <button type='button' onClick={openDialog}>Pogledaj ucesnike</button>
       <UnitParticipantsDialog unit={unit} onClose={closeDialog} isOpen={dialogOpen}></UnitParticipantsDialog>
+      </div>
     </div>
   );
 };
