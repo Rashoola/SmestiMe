@@ -47,20 +47,12 @@ public class VenueController {
     @Autowired
     private final ResponseConverter<String> stringConverter;
     
-    @PostMapping("/create")
-    public ResponseEntity<Venue> create(@RequestBody Venue venue){
+    @PostMapping("/save")
+    public ResponseEntity<Venue> save(@RequestBody Venue venue){
         for(Location location : venue.getLocations()){
             location.setVenue(venue);
         }
-        return converter.toResponseEntity(venueService.create(venue));
-    }
-    
-    @PostMapping("/update")
-    public ResponseEntity<Venue> update(@RequestBody Venue venue){
-        for(Location location : venue.getLocations()){
-            location.setVenue(venue);
-        }
-        return converter.toResponseEntity(venueService.update(venue));
+        return converter.toResponseEntity(venueService.save(venue));
     }
     
     @GetMapping("")
@@ -71,11 +63,6 @@ public class VenueController {
     @GetMapping("/{id}")
     public ResponseEntity<Venue> show(@PathVariable Long id){
         return converter.toResponseEntity(venueService.findById(id));
-    }
-    
-    @GetMapping("/{id}/locations")
-    public ResponseEntity<List<Location>> getLocations(@PathVariable Long id){
-        return locationConverter.toListResponseEntity(locationService.findByVenueId(id));
     }
     
     @GetMapping("/locations/types")

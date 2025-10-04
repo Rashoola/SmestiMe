@@ -6,14 +6,12 @@ package dev.rashoola.backend.controller;
 
 import dev.rashoola.backend.domain.OrganizationUnit;
 import dev.rashoola.backend.domain.enums.LocationType;
-import dev.rashoola.backend.dto.OrganizationUnitCreationDto;
 import dev.rashoola.backend.util.ResponseConverter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,19 +43,9 @@ public class OrganizationUnitController {
     @Autowired
     private final ResponseConverter<String> stringConverter;
     
-    @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody OrganizationUnitCreationDto dto){
-        return converter.toResponseEntity(unitService.create(dto));
-    }
-    
     @PostMapping("/full")
     public ResponseEntity<Boolean> full(@RequestBody OrganizationUnit table){
         return booleanConverter.toResponseEntity(unitService.isFull(table));
-    }
-    
-    @GetMapping("/by-booking/{bookingId}")
-    public ResponseEntity<List<OrganizationUnit>> getByBookingId(@PathVariable Long bookingId){
-        return unitConverter.toListResponseEntity(unitService.findByBookingId(bookingId));
     }
     
     @GetMapping("/types")

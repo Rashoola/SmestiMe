@@ -28,28 +28,6 @@ public class BookingServiceImpl implements BookingService{
     private final BookingRepository repository;
 
     @Override
-    public Response<String> createBookingsForEvent(Event event, List<Location> locations) {
-        for (Location location : locations) {
-            Booking booking = new Booking();
-            booking.setEvent(event);
-            booking.setLocation(location);
-            repository.save(booking);
-        }
-        
-        return new Response<>(ResponseStatus.Ok, "The bookings have been saved.");
-    }
-
-    @Override
-    public Response<String> deleteByEvent(Event event) {
-        try {
-            repository.deleteByEvent(event);
-            return new Response<>(ResponseStatus.Ok, "The bookings for this event have been deleted.");
-        } catch(Exception ex) {
-            return new Response<>(ResponseStatus.InternalServerError, "An error occured during deletion of the bookings.");
-        }
-    }
-
-    @Override
     public Response<Booking> findById(Long id) {
         try{
             return new Response<>(ResponseStatus.Ok, repository.findById(id).get());

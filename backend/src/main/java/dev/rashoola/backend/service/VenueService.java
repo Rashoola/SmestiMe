@@ -13,8 +13,7 @@ import java.util.List;
  * @author rasul
  */
 public interface VenueService {
-    public Response<Venue> create(Venue venue);
-    public Response<Venue> update(Venue venue);
+    public Response<Venue> save(Venue venue);
     public Response<List<Venue>> index();
     public Response<Venue> findById(Long id);
 }

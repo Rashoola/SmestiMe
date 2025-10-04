@@ -27,8 +27,8 @@ public class VenueServiceImpl implements VenueService{
     private final VenueRepository repository;
 
     @Override
-    public Response<Venue> create(Venue venue) {
-        if(repository.existsByName(venue.getName())){
+    public Response<Venue> save(Venue venue) {
+        if(repository.existsByName(venue.getName()) && venue.getId() == null){
             return new Response<>(ResponseStatus.Conflict, null);
         }
         
@@ -56,10 +56,5 @@ public class VenueServiceImpl implements VenueService{
         return new Response<>(ResponseStatus.Ok, venue.get());
     }
 
-    @Override
-    public Response<Venue> update(Venue venue) {
-        repository.save(venue);
-        return new Response<>(ResponseStatus.Ok, venue);
-    }
     
 }

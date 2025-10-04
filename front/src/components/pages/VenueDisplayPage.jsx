@@ -85,10 +85,7 @@ const VenueDisplayPage = ({ mode }) => {
     const payload = { name, address, contact, locations };
 
     try {
-      const url =
-        mode === 'create'
-          ? 'http://localhost:9000/api/venues/create'
-          : `http://localhost:9000/api/venues/update`;
+      const url = 'http://localhost:9000/api/venues/save';
 
       const response = await fetch(url, {
         method: 'POST',

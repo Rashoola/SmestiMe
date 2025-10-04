@@ -36,164 +36,145 @@ import java.util.LinkedList;
  */
 @Service
 @RequiredArgsConstructor
-public class EventServiceImpl implements EventService{
-    
+public class EventServiceImpl implements EventService {
+
     @Autowired
     private final EventRepository repository;
-    
+
     @Autowired
     private final LocationService locationService;
-    
+
     @Autowired
     private final VenueService venueService;
-    
-    @Autowired
-    private final BookingService bookingService;
 
     @Transactional
-@Override
-public Response<Event> create(EventRequestDto dto) {
-    try {
-        System.out.println("Started saving the event.");
-        Event event;
+    @Override
+    public Response<Event> save(EventRequestDto dto) {
+        try {
+            System.out.println("Started saving the event.");
+            Event event;
 
-        if (dto.id() != null) {
-            event = repository.findById(dto.id())
-                    .orElseThrow(() -> new RuntimeException("Event not found"));
-            System.out.println("Event is an existing one.");
-        } else {
-            if(repository.existsByName(dto.name())){
-                return new Response<>(ResponseStatus.Conflict, null);
-            }
-            event = new Event();
-        }
-
-        // Basic fields
-        event.setName(dto.name());
-        event.setDescription(dto.description());
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate date = LocalDate.parse(dto.date(), dtf);
-        event.setDate(date);
-        event.setEntryCode(dto.entryCode());
-
-        Venue venue = venueService.findById(dto.venueId()).getData();
-        if (venue == null) {
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
-        event.setVenue(venue);
-
-        // Clear old bookings if updating
-        if (event.getBookedLocations() == null) {
-            event.setBookedLocations(new LinkedList<>());
-        } else {
-            event.getBookedLocations().clear();
-        }
-
-        // Map DTO → Bookings
-        for (EventRequestDto.BookingDto bookingDto : dto.bookedLocations()) {
-            Booking booking = new Booking();
-
-            if (bookingDto.id() != null) {
-                booking.setId(bookingDto.id());
+            if (dto.id() != null) {
+                event = repository.findById(dto.id())
+                        .orElseThrow(() -> new RuntimeException("Event not found"));
+                System.out.println("Event is an existing one.");
+            } else {
+                if (repository.existsByName(dto.name())) {
+                    return new Response<>(ResponseStatus.Conflict, null);
+                }
+                event = new Event();
             }
 
-            Location location = locationService.findById(bookingDto.locationId()).getData();
-            if (location == null) {
+            // Basic fields
+            event.setName(dto.name());
+            event.setDescription(dto.description());
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate date = LocalDate.parse(dto.date(), dtf);
+            event.setDate(date);
+            event.setEntryCode(dto.entryCode());
+
+            Venue venue = venueService.findById(dto.venueId()).getData();
+            if (venue == null) {
                 return new Response<>(ResponseStatus.NotFound, null);
             }
-            booking.setLocation(location);
-            booking.setEvent(event);
+            event.setVenue(venue);
 
-            // Units
-            List<OrganizationUnit> units = new LinkedList<>();
-            for (EventRequestDto.BookingDto.OrganizationUnitDto unitDto : bookingDto.organizationUnits()) {
-                OrganizationUnit unit = new OrganizationUnit();
-
-                if (unitDto.id() != null) {
-                    unit.setId(unitDto.id());
-                }
-
-                unit.setName(unitDto.name());
-                unit.setCapacity(unitDto.capacity());
-                try {
-                    unit.setUnitType(UnitType.valueOf(unitDto.unitType()));
-                } catch (IllegalArgumentException e) {
-                    return new Response<>(ResponseStatus.BadRequest, null);
-                }
-                unit.setBooking(booking);
-
-                units.add(unit);
+            // Clear old bookings if updating
+            if (event.getBookedLocations() == null) {
+                event.setBookedLocations(new LinkedList<>());
+            } else {
+                event.getBookedLocations().clear();
             }
 
-            booking.setOrganizationUnits(units);
-            event.getBookedLocations().add(booking);
-        }
+            // Map DTO → Bookings
+            for (EventRequestDto.BookingDto bookingDto : dto.bookedLocations()) {
+                Booking booking = new Booking();
 
-        Event saved = repository.save(event);
-        return new Response<>(ResponseStatus.Ok, saved);
+                if (bookingDto.id() != null) {
+                    booking.setId(bookingDto.id());
+                }
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        return new Response<>(ResponseStatus.InternalServerError, null);
-    }
-}
+                Location location = locationService.findById(bookingDto.locationId()).getData();
+                if (location == null) {
+                    return new Response<>(ResponseStatus.NotFound, null);
+                }
+                booking.setLocation(location);
+                booking.setEvent(event);
 
+                // Units
+                List<OrganizationUnit> units = new LinkedList<>();
+                for (EventRequestDto.BookingDto.OrganizationUnitDto unitDto : bookingDto.organizationUnits()) {
+                    OrganizationUnit unit = new OrganizationUnit();
 
-    @Override
-    public Response<String> delete(Event event) {
-        Response<String> bookingDeletionResponse = bookingService.deleteByEvent(event);
-        if(!bookingDeletionResponse.getStatus().equals(ResponseStatus.Ok)){
-            return new Response<>(ResponseStatus.InternalServerError, "The booking deletion failed.");
-        }
-        
-        try {
-            repository.delete(event);
-            return new Response<>(ResponseStatus.Ok, "The event has been deleted.");
-        } catch(Exception ex){
-            return new Response<>(ResponseStatus.InternalServerError, "An error occured during deletion of the event");
+                    if (unitDto.id() != null) {
+                        unit.setId(unitDto.id());
+                    }
+
+                    unit.setName(unitDto.name());
+                    unit.setCapacity(unitDto.capacity());
+                    try {
+                        unit.setUnitType(UnitType.valueOf(unitDto.unitType()));
+                    } catch (IllegalArgumentException e) {
+                        return new Response<>(ResponseStatus.BadRequest, null);
+                    }
+                    unit.setBooking(booking);
+
+                    units.add(unit);
+                }
+
+                booking.setOrganizationUnits(units);
+                event.getBookedLocations().add(booking);
+            }
+
+            Event saved = repository.save(event);
+            return new Response<>(ResponseStatus.Ok, saved);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response<>(ResponseStatus.InternalServerError, null);
         }
     }
 
     @Override
     public Response<Event> findById(Long id) {
-        try{
+        try {
             return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
-        } catch(Exception ex){
+        } catch (Exception ex) {
             return new Response<>(ResponseStatus.NotFound, null);
         }
     }
 
     @Override
     public Response<List<Event>> index() {
-        try{
+        try {
             List<Event> events = repository.findAll();
             List<Event> futureEvents = new ArrayList<>();
-            for(Event e : events){
-                if(e.getDate().isAfter(LocalDate.now())){
+            for (Event e : events) {
+                if (e.getDate().isAfter(LocalDate.now())) {
                     futureEvents.add(e);
                 }
             }
             return new Response<>(ResponseStatus.Ok, futureEvents);
-        } catch(Exception ex){
+        } catch (Exception ex) {
             return new Response<>(ResponseStatus.InternalServerError, null);
         }
     }
 
     @Override
     public Response<Event> show(Long id) {
-        try{
+        try {
             return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
-        } catch(Exception ex){
+        } catch (Exception ex) {
             return new Response<>(ResponseStatus.InternalServerError, null);
         }
     }
 
     @Override
     public Response<Event> findByEntryCode(String entryCode) {
-        try{
+        try {
             return new Response<>(ResponseStatus.Ok, repository.findByEntryCode(entryCode).get());
-        } catch(Exception ex){
+        } catch (Exception ex) {
             return new Response<>(ResponseStatus.NotFound, null);
         }
     }

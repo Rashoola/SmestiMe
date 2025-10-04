@@ -20,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dev.rashoola.backend.repository.OrganizationUnitRepository;
 import dev.rashoola.backend.service.OrganizationUnitService;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -29,85 +27,30 @@ import java.util.stream.Collectors;
  */
 @RequiredArgsConstructor
 @Service
-public class OrganizationUnitServiceImpl implements OrganizationUnitService{
-    
+public class OrganizationUnitServiceImpl implements OrganizationUnitService {
+
     @Autowired
     private final OrganizationUnitRepository repository;
-    
-    @Autowired BookingService bookingService;
 
     @Override
-    public Response<String> create(OrganizationUnitCreationDto dto) {
-        Response<Booking> bookingResponse = bookingService.findById(dto.bookingId());
-        
-        if(!bookingResponse.getStatus().equals(ResponseStatus.Ok)){
-            return new Response<>(ResponseStatus.NotFound, "There's no booking for these tables");
-        }
-        
-        Booking booking = bookingResponse.getData();
-        List<OrganizationUnit> units = new LinkedList<>();
-        
-        for(OrganizationUnitDto unit : dto.units()){
-            OrganizationUnit ou = new OrganizationUnit();
-            ou.setBooking(booking);
-            ou.setName(unit.name());
-            ou.setCapacity(unit.capacity());
-            ou.setUnitType(UnitType.valueOf(unit.unitType()));
-            
-            units.add(ou);
-        }
-        
-        try{
-            repository.saveAll(units);
-            return new Response<>(ResponseStatus.Ok, "All the tables have been saved.");
-        } catch(Exception ex){
-            return new Response<>(ResponseStatus.InternalServerError, "An error during saving of the tables.");
-        }
+    public Response<List<String>> getTypes(LocationType locationType) {
+        List<String> types = switch (locationType) {
+            case HALL ->
+                List.of(UnitType.TABLE.name());
+            case EXCURSION ->
+                List.of(UnitType.BUS.name(), UnitType.CAR.name());
+        };
+        return new Response<>(ResponseStatus.Ok, types);
     }
 
     @Override
     public Response<OrganizationUnit> findById(Long id) {
-        try{
-            return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
-        } catch(Exception ex){
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
+        return new Response<>(ResponseStatus.Ok, repository.findById(id).get());
     }
 
     @Override
-    public Response<Boolean> isFull(OrganizationUnit sittingTable) {
-        try{
-            return new Response<>(ResponseStatus.Ok, repository.isFull(sittingTable, sittingTable.getCapacity()));
-        } catch(Exception ex){
-            return new Response<>(ResponseStatus.InternalServerError, null);
-        }
+    public Response<Boolean> isFull(OrganizationUnit organizationUnit) {
+        return new Response<>(ResponseStatus.Ok, repository.isFull(organizationUnit, organizationUnit.getCapacity()));
     }
 
-    @Override
-    public Response<List<OrganizationUnit>> findByBookingId(Long bookingId) {
-        Response<Booking> bookingResponse = bookingService.findById(bookingId);
-        
-        if(!bookingResponse.getStatus().equals(ResponseStatus.Ok)){
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
-        
-        Booking booking = bookingResponse.getData();
-        
-        try{
-            return new Response<>(ResponseStatus.Ok, repository.findByBooking(booking));
-        } catch(Exception ex){
-            return new Response<>(ResponseStatus.NotFound, null);
-        }
-    }
-
-    @Override
-public Response<List<String>> getTypes(LocationType locationType) {
-    List<String> types = switch (locationType) {
-        case HALL -> List.of(UnitType.TABLE.name());
-        case EXCURSION -> List.of(UnitType.BUS.name(), UnitType.CAR.name());
-    };
-    return new Response<>(ResponseStatus.Ok, types);
-}
-
-    
 }

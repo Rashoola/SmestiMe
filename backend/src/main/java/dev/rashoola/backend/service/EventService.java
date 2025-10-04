@@ -14,8 +14,7 @@ import java.util.List;
  * @author rasul
  */
 public interface EventService {
-    public Response<Event> create(EventRequestDto event);
-    public Response<String> delete(Event event);
+    public Response<Event> save(EventRequestDto event);
     public Response<Event> findById(Long id);
     public Response<Event> findByEntryCode(String entryCode);
     public Response<List<Event>> index();

@@ -40,7 +40,7 @@ public class EventController {
     
     @PostMapping("/save")
     public ResponseEntity<Event> save(@RequestBody EventRequestDto event){
-        return converter.toResponseEntity(eventService.create(event));
+        return converter.toResponseEntity(eventService.save(event));
     }
     
     @GetMapping("")

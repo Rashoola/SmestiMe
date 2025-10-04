@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import Header from "../reusables/Header";
 import AboutSection from "../reusables/AboutSection";
 import BookingItem from "../reusables/BookingItem";
@@ -8,6 +9,8 @@ import '../../style/EventDisplayPage.css';
 const EventDisplayPage = ({ mode }) => {
   const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [venues, setVenues] = useState([]);
 
   const [name, setName] = useState('');
@@ -150,8 +153,6 @@ const EventDisplayPage = ({ mode }) => {
       venueId: venue.id,
       bookedLocations: simplifiedBookings
     };
-
-    alert(JSON.stringify(payload)); // for debugging
 
     const url = 'http://localhost:9000/api/events/save';
 
