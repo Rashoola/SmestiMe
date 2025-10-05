@@ -11,12 +11,9 @@ import dev.rashoola.backend.domain.OrganizationUnit;
 import dev.rashoola.backend.domain.Venue;
 import dev.rashoola.backend.domain.enums.UnitType;
 import dev.rashoola.backend.dto.EventRequestDto;
-import dev.rashoola.backend.dto.EventRequestDto.BookingDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.EventRepository;
-import dev.rashoola.backend.service.BookingService;
 import dev.rashoola.backend.service.EventService;
-import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.service.VenueService;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
@@ -104,6 +101,7 @@ public class EventServiceImpl implements EventService {
 
                 // Units
                 List<OrganizationUnit> units = new LinkedList<>();
+                
                 for (EventRequestDto.BookingDto.OrganizationUnitDto unitDto : bookingDto.organizationUnits()) {
                     OrganizationUnit unit = new OrganizationUnit();
 

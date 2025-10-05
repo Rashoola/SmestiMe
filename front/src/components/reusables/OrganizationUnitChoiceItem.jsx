@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import UnitParticipantsDialog from './UnitParticipantsDialog';
+import CircularCapacity from './CircularCapacity';
 import '../../style/OrganizationUnitChoiceItem.css';
 import tableSymbol from '../../images/table_symbol.png';
 import roomSymbol from '../../images/room_symbol.png';
@@ -85,6 +86,10 @@ const OrganizationUnitChoiceItem = ({ unit }) => {
       <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
       <button type='button' onClick={openDialog}>Pogledaj ucesnike</button>
       <UnitParticipantsDialog unit={unit} onClose={closeDialog} isOpen={dialogOpen}></UnitParticipantsDialog>
+      </div>
+      <div className='capacity-display'>
+        <p>Popunjenost:</p>
+      <CircularCapacity capacity={unit.capacity} capacityLeft={unit.capacityLeft} size={50} stroke={5}></CircularCapacity>
       </div>
     </div>
   );

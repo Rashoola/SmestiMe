@@ -28,7 +28,7 @@ const OrganizationUnitItem = ({ unit, onRemove }) => {
                 <img src={getSymbol()} alt="" />
             </div>
             <div className="middle-part">
-           <p>{unit.name} ({unit.unitType})</p>
+           <strong>{unit.name}</strong>
            <p>Kapacitet: {unit.capacity}</p>
            <button onClick={onRemove}>Ukloni</button>
            </div>

@@ -37,7 +37,7 @@ public class Event {
     @ManyToOne
     private Venue venue;
     
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String entryCode;
     
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)

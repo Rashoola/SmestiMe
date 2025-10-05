@@ -1,7 +1,12 @@
 import React from 'react';
 import UnitParticipantsDialog from './UnitParticipantsDialog';
+import CircularFullness from './CircularCapacity';
 import {useState} from 'react';
 import '../../style/OrganizationUnitDisplayItem.css';
+import tableSymbol from '../../images/table_symbol.png';
+import roomSymbol from '../../images/room_symbol.png';
+import busSymbol from '../../images/bus_symbol.png';
+import carSymbol from '../../images/car_symbol.png';
 
 const OrganizationUnitDisplayItem = ({unit, participation}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -43,13 +48,37 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
     }
   }
 
+  const getSymbol = () => {
+      switch (unit.unitType) {
+        case 'TABLE':
+          return tableSymbol;
+        case 'ROOM':
+          return roomSymbol;
+        case 'BUS':
+          return busSymbol;
+        case 'CAR':
+          return carSymbol;
+        default:
+          return null;
+      }
+    };
+
   return (
     <div className='organization-unit-display-item'>
+      <div className='symbol-container'>
+        <img src={getSymbol()} alt="" />
+      </div>
+      <div className='middle-part'>
         <strong>{unit.name}</strong>
         <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
         <button type='button' onClick={openDialog}>Vidi ucesnike</button>
         <button onClick={assignUnit}>Izaberi</button>
         <UnitParticipantsDialog unit={unit} isOpen={dialogOpen} onClose={closeDialog}></UnitParticipantsDialog>
+        </div>
+        <div className='capacity-display'>
+          <p>Popunjenost:</p>
+          <CircularFullness capacity={unit.capacity} capacityLeft={unit.capacityLeft} size={50} stroke={5}></CircularFullness>
+        </div>
     </div>
   );
 };

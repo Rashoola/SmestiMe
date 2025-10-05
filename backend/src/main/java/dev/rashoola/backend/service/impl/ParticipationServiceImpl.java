@@ -22,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dev.rashoola.backend.service.OrganizationUnitService;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -164,7 +166,14 @@ public class ParticipationServiceImpl implements ParticipationService{
        User user = userResponse.getData();
        
        List<Participation> participations = repository.findByUser(user);
-       return new Response<>(ResponseStatus.Ok, participations);
+       
+       List<Participation> futureParticipations = new ArrayList<>();
+       for(Participation p : participations){
+           if(p.getEvent().getDate().isAfter(LocalDate.now())){
+               futureParticipations.add(p);
+           }
+       }
+       return new Response<>(ResponseStatus.Ok, futureParticipations);
     }
 
     @Override

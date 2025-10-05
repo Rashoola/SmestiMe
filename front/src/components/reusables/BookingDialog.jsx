@@ -170,7 +170,7 @@ const BookingDialog = ({
           <ul>
             {organizationUnits.map((unit, index) => (
               <li key={index}>
-                <OrganizationUnitItem unit={unit} onRemove={() => handleRemoveUnit(index)} />
+                <OrganizationUnitItem key={unit.id} unit={unit} onRemove={() => handleRemoveUnit(index)} />
               </li>
             ))}
           </ul>

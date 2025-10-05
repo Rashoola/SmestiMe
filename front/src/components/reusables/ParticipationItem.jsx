@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/ParticipationItem.css';
+import eventSymbol from '../../images/event_symbol.png';
 
 const ParticipationItem = ({ participation }) => {
   const navigate = useNavigate();
@@ -19,6 +20,10 @@ const ParticipationItem = ({ participation }) => {
 
   return (
     <div className="participation-item">
+      <div className='symbol-container'>
+        <img src={eventSymbol} alt="" />
+      </div>
+      <div className='middle-part'>
       <strong>{participation.event.name}</strong>
       <p>Datum održavanja: {formatDateSerbian(participation.event.date)}</p>
 
@@ -27,8 +32,9 @@ const ParticipationItem = ({ participation }) => {
           Odaberi jedinicu
         </button>
       ) : (
-        <p>Odabrana organizaciona jedinica: {participation.organizationUnit.name}</p>
+        <p style={{color: 'yellow'}}>Odabrana organizaciona jedinica: {participation.organizationUnit.name}</p>
       )}
+      </div>
     </div>
   );
 };

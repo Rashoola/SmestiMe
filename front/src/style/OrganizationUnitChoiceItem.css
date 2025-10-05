@@ -1,9 +1,25 @@
 .organization-unit-choice-item{
-     background-image: linear-gradient(black, rgb(14, 161, 141));
+    background-image: linear-gradient(black, rgb(14, 161, 141));
     color: white;
     padding: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
     display: flex;
+}
+
+.symbol-container{
+    flex-basis: 20%;
+}
+
+.middle-part{
+    flex-basis: 60%;
+}
+
+.capacity-display{
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

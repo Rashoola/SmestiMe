@@ -33,9 +33,6 @@ public class EventController {
     private final EventService eventService;
     
     @Autowired
-    private final UserEventService userEventService;
-    
-    @Autowired
     private final ResponseConverter<Event> converter;
     
     @PostMapping("/save")
@@ -51,12 +48,6 @@ public class EventController {
     @GetMapping("/{id}")
     public ResponseEntity<Event> show(@PathVariable Long id){
         return converter.toResponseEntity(eventService.show(id));
-    }
-    
-    @GetMapping("/for-participants/{userId}")
-    public ResponseEntity<List<Event>> getForParticipants(@PathVariable Long userId){
-        System.out.println("Metoda kontrolora pozvana");
-        return converter.toListResponseEntity(userEventService.getForParticipants(userId));
     }
     
 }

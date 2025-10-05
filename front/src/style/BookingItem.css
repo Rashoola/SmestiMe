@@ -2,6 +2,7 @@
     background-image: linear-gradient(black, rgb(14, 161, 141));
     color: white;
     padding: 10px;
+    margin-bottom: 5px;
     border-radius: 10px;
     display: flex;
 }
