@@ -11,7 +11,7 @@ const VenueItem = ({venue}) => {
         <img src={venueSymbol} alt="" />
       </div>
       <div className='middle-part'>
-      <strong>{venue.name}</strong>
+      <strong style={{textTransform: 'uppercase'}}>{venue.name}</strong>
       <p>Adresa: {venue.address}</p>
 
       <button onClick={() => navigate(`/venue/${venue.id}`)}>Prikazi podatke</button>

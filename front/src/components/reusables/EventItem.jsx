@@ -25,7 +25,7 @@ const EventItem = ({ event }) => {
         <img src={eventSymbol} alt="" />
       </div>
       <div className='middle-part'>
-      <strong>{event.name}</strong>
+      <strong style={{textTransform: 'uppercase'}}>{event.name}</strong>
       <p>Datum: {formatDateSerbian(event.date)}</p>
       <p>Lokacija: {event.venue.name}</p>
 

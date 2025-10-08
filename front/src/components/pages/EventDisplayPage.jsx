@@ -91,10 +91,11 @@ const EventDisplayPage = ({ mode }) => {
   };
 
   // 🔑 Update bookedLocations directly
-  const updateBookingUnits = (bookingId, newUnits) => {
+  const updateBookingUnits = (bookingLocationId, newUnits) => {
+    alert('Updating units. Adding units: ' + newUnits + ' to booking: ' + bookingLocationId);
     setBookedLocations((prev) =>
       prev.map((b) =>
-        b.id === bookingId ? { ...b, organizationUnits: newUnits } : b
+        b.location.id === bookingLocationId ? { ...b, organizationUnits: newUnits } : b
       )
     );
   };
@@ -154,6 +155,7 @@ const EventDisplayPage = ({ mode }) => {
       bookedLocations: simplifiedBookings
     };
 
+    alert(JSON.stringify(payload));
     const url = 'http://localhost:9000/api/events/save';
 
     try {
@@ -251,11 +253,12 @@ const EventDisplayPage = ({ mode }) => {
 
             <div className="booked-locations">
               <ul className="booked-locations-list">
-                {bookedLocations.map((loc) => (
-                  <li key={loc.id}>
-                    <BookingItem
+                {bookedLocations.map((loc, index) => (
+                  <li key={index}>
+                    <BookingItem 
+                      key={index}
                       booking={loc}
-                      onUpdateUnits={(units) => updateBookingUnits(loc.id, units)}
+                      onUpdateUnits={(units) => updateBookingUnits(loc.location.id, units)}
                       onDeleteBooking={() => removeBooking(loc.id)}
                     />
                   </li>

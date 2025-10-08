@@ -35,7 +35,7 @@ const BookingDialog = ({
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAddUnit = () => {
+  const handleAddUnit = (bookingName) => {
     if (!form.unitType || !form.name || !form.capacity) {
       alert('Popunite sva polja');
       return;
@@ -161,7 +161,7 @@ const BookingDialog = ({
             onChange={handleChange}
           />
 
-          <button type="button" onClick={handleAddUnit}>
+          <button type="button" onClick={() => handleAddUnit(booking.location.name)}>
             Dodaj
           </button>
         </div>
@@ -170,7 +170,7 @@ const BookingDialog = ({
           <ul>
             {organizationUnits.map((unit, index) => (
               <li key={index}>
-                <OrganizationUnitItem key={unit.id} unit={unit} onRemove={() => handleRemoveUnit(index)} />
+                <OrganizationUnitItem key={index} unit={unit} onRemove={() => handleRemoveUnit(index)} />
               </li>
             ))}
           </ul>

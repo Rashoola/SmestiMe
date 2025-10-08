@@ -36,7 +36,7 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
     public Response<List<String>> getTypes(LocationType locationType) {
         List<String> types = switch (locationType) {
             case HALL ->
-                List.of(UnitType.TABLE.name());
+                List.of(UnitType.TABLE.name(), UnitType.ROOM.name());
             case EXCURSION ->
                 List.of(UnitType.BUS.name(), UnitType.CAR.name());
         };
