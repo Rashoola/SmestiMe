@@ -1,5 +1,6 @@
 .distribution{
     flex-basis: 60%;
+    overflow-y: scroll;
 }
 
 .waiting-participants{

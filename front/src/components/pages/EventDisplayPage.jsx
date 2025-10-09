@@ -92,7 +92,6 @@ const EventDisplayPage = ({ mode }) => {
 
   // 🔑 Update bookedLocations directly
   const updateBookingUnits = (bookingLocationId, newUnits) => {
-    alert('Updating units. Adding units: ' + newUnits + ' to booking: ' + bookingLocationId);
     setBookedLocations((prev) =>
       prev.map((b) =>
         b.location.id === bookingLocationId ? { ...b, organizationUnits: newUnits } : b
@@ -137,7 +136,8 @@ const EventDisplayPage = ({ mode }) => {
     setBookedLocations((prev) => prev.filter((b) => b.id !== bookingId));
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     // Simplify bookedLocations
     const simplifiedBookings = bookedLocations.map(b => ({
       id: b.id,
@@ -155,7 +155,6 @@ const EventDisplayPage = ({ mode }) => {
       bookedLocations: simplifiedBookings
     };
 
-    alert(JSON.stringify(payload));
     const url = 'http://localhost:9000/api/events/save';
 
     try {
@@ -167,6 +166,7 @@ const EventDisplayPage = ({ mode }) => {
 
       if (response.ok) {
         alert('Dogadjaj je sacuvan uspesno.');
+        navigate('/admin-dashboard', {replace: true});
       } else {
         alert('Doslo je do greske prilikom cuvanja.');
       }
@@ -177,17 +177,18 @@ const EventDisplayPage = ({ mode }) => {
 
   return (
     <div>
-      <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
+      <Header title="подаци о догађају" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
-        <AboutSection title="Stranica za kreiranje/uređivanje događaja" 
-        description="Na ovoj stranici možete izvršiti pravljenje novog događaja kao i izmeniti 
-        podatke o postojećem." />
+        <AboutSection title="Страница за унос и измену података о догађају" 
+        description="На овој страници можете вршити унос података о новом догађају као и мењати 
+        податке у оквиру већ постојећег догађаја у систему. У оквиру самог догађаја, можете додавати и уклањати 
+        резервисане локације у оквиру којих можете исто тако додавати и уклањати организационе јединице." />
         <div className="main-content">
           <div style={{width: '100%'}} className='central'>
-            <h2>Podaci o dogadjaju:</h2>
+            <h2>Подаци о догађају</h2>
           <form>
             <div className='basic-event-data'>
-            <label htmlFor="name">Naziv</label>
+            <label htmlFor="name">Назив</label>
             <input
               type="text"
               name="name"
@@ -195,7 +196,7 @@ const EventDisplayPage = ({ mode }) => {
               onChange={(e) => setName(e.target.value)}
             />
 
-            <label htmlFor="venue">Mesto odrzavanja</label>
+            <label htmlFor="venue">Место одржавања</label>
             <select
               name="venue"
               value={venue ? venue.id : ""}
@@ -213,15 +214,15 @@ const EventDisplayPage = ({ mode }) => {
               ))}
             </select>
 
-            <label htmlFor="description">Opis</label>
-            <input
+            <label htmlFor="description">Опис</label>
+            <textarea
               type="text"
               name="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
 
-            <label htmlFor="date">Datum</label>
+            <label htmlFor="date">Датум одржавања</label>
             <input
               type="date"
               name="date"
@@ -230,7 +231,7 @@ const EventDisplayPage = ({ mode }) => {
               disabled={mode === 'edit'}
             />
 
-            <label htmlFor="entry-code">Sifra za ulaz</label>
+            <label htmlFor="entry-code">Шифра за улаз</label>
             <input
               type="text"
               name="entry-code"
@@ -241,14 +242,14 @@ const EventDisplayPage = ({ mode }) => {
 
             <div className="booked-locations-input">
               <div className='booked-locations-input-fields'>
-              <p>Rezervisane lokacije:</p>
-              <select onChange={(e) => setSelectedLocationId(e.target.value)} name="available-locations" id="">
-                <option value="">--Odaberite lokaciju--</option>
+              <p>Резервисане локације</p>
+              <select style={{marginRight: 10}} onChange={(e) => setSelectedLocationId(e.target.value)} name="available-locations" id="">
+                <option value="">--Одаберите локацију--</option>
                 {availableLocations.map((loc, index) => (
                   <option key={index} value={loc.id}>{loc.name}</option>
                 ))}
               </select>
-              <button onClick={addBooking}>Dodaj rezervaciju</button>
+              <button onClick={addBooking}>Додај резервацију</button>
             </div>
 
             <div className="booked-locations">
@@ -264,7 +265,8 @@ const EventDisplayPage = ({ mode }) => {
                   </li>
                 ))}
               </ul>
-               <button onClick={handleSave}>Sacuvaj</button>
+               <button onClick={handleSave}>Сачувај податке</button>
+               <button>Откажи</button>
             </div>
            
             </div>

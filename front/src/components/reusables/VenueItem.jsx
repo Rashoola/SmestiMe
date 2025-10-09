@@ -12,9 +12,9 @@ const VenueItem = ({venue}) => {
       </div>
       <div className='middle-part'>
       <strong style={{textTransform: 'uppercase'}}>{venue.name}</strong>
-      <p>Adresa: {venue.address}</p>
+      <p>Адреса: {venue.address}</p>
 
-      <button onClick={() => navigate(`/venue/${venue.id}`)}>Prikazi podatke</button>
+      <button onClick={() => navigate(`/venue/${venue.id}`)}>Прикажи податке</button>
       </div>
     </div>
   );

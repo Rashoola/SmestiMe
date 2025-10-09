@@ -1,8 +1,9 @@
 .main-content form {
-    background-image: linear-gradient(black, rgb(14, 161, 141));
+    background-image: linear-gradient(to right, #3F48CC, #7092BE);
     color: white;
     margin-left: 50px;
     margin-right: 50px;
+    border-radius: 20px;
 
     box-sizing: border-box;
     display: flex;

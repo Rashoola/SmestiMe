@@ -2,6 +2,7 @@ import React from 'react';
 import UnitParticipantsDialog from './UnitParticipantsDialog';
 import CircularFullness from './CircularCapacity';
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../style/OrganizationUnitDisplayItem.css';
 import tableSymbol from '../../images/table_symbol.png';
 import roomSymbol from '../../images/room_symbol.png';
@@ -10,6 +11,7 @@ import carSymbol from '../../images/car_symbol.png';
 
 const OrganizationUnitDisplayItem = ({unit, participation}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const openDialog = () => {
     if(!dialogOpen){
@@ -39,6 +41,7 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
       );
       if(response.ok){
         alert('Uspesno ste izabrali svoje mesto.');
+        navigate('/dashboard');
       } else {
         alert('Neuspesan odabir mesta.');
       }

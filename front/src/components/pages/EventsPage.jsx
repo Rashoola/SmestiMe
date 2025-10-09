@@ -27,22 +27,22 @@ const EventsPage = () => {
   }, []);
 
   const headerButtons = [
-    { title: "Napravi dogadjaj", action: ()=>navigate('/event/create') },
+    { title: "Направи нови догађај", action: ()=>navigate('/event/create') },
   ];
 
   return (
     <>
-      <Header title='FON Event Manager' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
+      <Header title='приказ предстојећих догађаја' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
       <div className='main'>
         <AboutSection
-          title='Prikaz svih događaja' 
-          description='Na ovoj stranici možete videti sve događaje koji 
-          se trenutno nalaze u sistemu, kao i pregledati ili promeniti 
-          njihove podatke.'
+          title='Приказ предстојећих догађаја' 
+          description='На овој страници налазе се сви догађаји који ће се одржати 
+          у наредном периоду. У оквиру сваког од њих можете мењати податке као и управљати распоредом 
+          корисника који су пријављени на исте.'
         />
         <div className='main-content'>
            <div style={{width: '100%'}} className='central'>
-          <h2 style={{marginLeft: 0}}>Lista predstojećih događaja u sistemu:</h2>
+          <h2 style={{marginLeft: 0}}>Догађаји који ће се одржати у наредном периоду</h2>
          
           <ul style={{padding: 0}}>
             {events.map((event) => (

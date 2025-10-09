@@ -1,10 +1,11 @@
 import React from 'react';
 import OrganizationUnitChoiceItem from './OrganizationUnitChoiceItem';
+import '../../style/BookingDisplayItem.css';
 
 const BookingDisplayItem = ({booking, draggedParticipant}) => {
   return (
     <div className='booking-display-item'>
-        <strong>{booking.location.name}</strong>
+        <strong style={{marginBottom: 10, textTransform: 'uppercase'}}>{booking.location.name}</strong>
         <ul>
             {booking.organizationUnits.map(
                 (unit, index) => (

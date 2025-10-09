@@ -10,9 +10,9 @@ const LocationItem = ({location, onRemove}) => {
         {location.locationType === 'HALL' ? <img src={hallSymbol}></img> : <img src={excursionSymbol}></img>}
       </div>
       <div className='data-container'>
-        <strong>Naziv: {location.name}</strong>
-        <p>Tip lokacije: {location.locationType === 'HALL' ? 'sala' : 'ekskurzija'}</p>
-        <button onClick={onRemove}>Ukloni</button>
+        <strong>{location.name}</strong>
+        <p style={{margin: 0}}>{location.locationType === 'HALL' ? 'Сала' : 'Група возила'}</p>
+        <button onClick={onRemove}>Уклони</button>
         </div>
     </div>
   );

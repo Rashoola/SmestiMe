@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
 import LocationItem from '../reusables/LocationItem';
@@ -17,6 +17,8 @@ const VenueDisplayPage = ({ mode }) => {
   const [locationName, setLocationName] = useState('');
   const [locationTypes, setLocationTypes] = useState([]);
   const [locationType, setLocationType] = useState('');
+
+  const navigate = useNavigate();
 
   // --- Fetch location types ---
   const fetchLocationTypes = async () => {
@@ -106,6 +108,7 @@ const VenueDisplayPage = ({ mode }) => {
         setLocations([]);
       }
       alert('Podaci o mestu su sačuvani.');
+      navigate('/admin-dashboard', {replace: true});
     } catch (err) {
       alert(err.message || 'Greška prilikom povezivanja.');
     }
@@ -113,19 +116,19 @@ const VenueDisplayPage = ({ mode }) => {
 
   return (
     <>
-      <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
+      <Header title="подаци о месту" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
         <AboutSection
-          title= 'Stranica za kreiranje/izmenu podataka o mestu održavanja'
-          description= 'Na ovoj stranici možete uneti novo mesto održavanja u sistem, kao i izmeniti podatke o postojećem.'
+          title= 'Страница за унос и измену података о месту одржавања'
+          description= 'На овој страници можете унети податке о новом месту одржавања, као и изменити податке о већ постојећем месту у систему.'
         />
 
         <div className="main-content">
           <div className='central' style={{width: '100%'}}>
-          <h2>Podaci o mestu održavanja:</h2>
+          <h2>Подаци о месту</h2>
           <form className='venue-form' onSubmit={handleSaveVenue}>
             <div className='basic-venue-data'>
-            <label htmlFor="name">Naziv:</label>
+            <label htmlFor="name">Назив</label>
             <input
               type="text"
               name="name"
@@ -133,7 +136,7 @@ const VenueDisplayPage = ({ mode }) => {
               onChange={(e) => setName(e.target.value)}
             />
 
-            <label htmlFor="address">Adresa:</label>
+            <label htmlFor="address">Адреса</label>
             <input
               type="text"
               name="address"
@@ -141,7 +144,7 @@ const VenueDisplayPage = ({ mode }) => {
               onChange={(e) => setAddress(e.target.value)}
             />
 
-            <label htmlFor="contact">Kontakt:</label>
+            <label htmlFor="contact">Контакт</label>
             <input
               type="text"
               name="contact"
@@ -153,7 +156,7 @@ const VenueDisplayPage = ({ mode }) => {
 
             <div className='location-input'>
               <div className='location-input-fields'>
-            <label htmlFor="location-name">Unesi naziv frakcije:</label>
+            <label htmlFor="location-name">Унесите назив локације</label>
             <input
               type="text"
               name="location-name"
@@ -161,7 +164,7 @@ const VenueDisplayPage = ({ mode }) => {
               onChange={(e) => setLocationName(e.target.value)}
             />
 
-            <label htmlFor="location-type">Unesi tip frakcije:</label>
+            <label htmlFor="location-type">Унесите врсту локације</label>
             <select
               name="location-type"
               value={locationType}
@@ -174,7 +177,7 @@ const VenueDisplayPage = ({ mode }) => {
               ))}
             </select>
 
-            <button onClick={handleAddLocation}>Dodaj frakciju</button>
+            <button onClick={handleAddLocation}>Додај локацију</button>
             </div>
             <ul className='locations-list'>
               {locations.map((location, index) => (
@@ -186,10 +189,9 @@ const VenueDisplayPage = ({ mode }) => {
                 </li>
               ))}
             </ul>
-            <button type="submit">Sačuvaj</button>
-            </div>
-
-            
+            <button type="submit">Сачувај податке</button>
+            <button>Откажи</button>
+            </div>  
           </form>
           </div>
         </div>

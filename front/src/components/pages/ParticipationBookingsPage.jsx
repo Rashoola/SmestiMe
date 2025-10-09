@@ -34,7 +34,7 @@ const ParticipationBookingsPage = () => {
 
     return (
         <>
-            <Header title='FON Event Manager' name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]}></Header>
+            <Header title='одабир места' name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]}></Header>
             <div className='main'>
                 <AboutSection title='Stranica za prikaz izbora lokacija'
                  description='Na ovoj stranici nalazi se pregled svih rezervacija u okviru 

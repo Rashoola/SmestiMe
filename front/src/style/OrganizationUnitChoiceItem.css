@@ -1,11 +1,12 @@
 .organization-unit-choice-item{
-    background-image: linear-gradient(black, rgb(14, 161, 141));
-    color: white;
     padding: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
     display: flex;
+    background-color: white;
+    color: black;
+    box-shadow: 0px 5px 10px 0px gray;
 }
 
 .symbol-container{

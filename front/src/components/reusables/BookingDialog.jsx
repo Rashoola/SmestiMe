@@ -66,12 +66,11 @@ const BookingDialog = ({
     setForm({ unitType: '', name: '', capacity: '' });
   };
 
-  const handleRemoveUnit = (index) => {
-    // Filter out the unit at the given index
-    const newUnits = [...organizationUnits];
-    newUnits.splice(index, 1); // remove one element at position index
-    setOrganizationUnits(newUnits);
-  };
+  const handleRemoveUnit = (unitName) => {
+  const newUnits = organizationUnits.filter((unit) => unit.name !== unitName);
+  setOrganizationUnits(newUnits);
+};
+
 
   useEffect(() => {
     fetchUnitTypes();
@@ -168,9 +167,9 @@ const BookingDialog = ({
 
         <div className="organization-unit-list" style={{ marginTop: '1rem' }}>
           <ul>
-            {organizationUnits.map((unit, index) => (
-              <li key={index}>
-                <OrganizationUnitItem key={index} unit={unit} onRemove={() => handleRemoveUnit(index)} />
+            {organizationUnits.map((unit) => (
+              <li key={unit.id ?? unit.name}>
+                <OrganizationUnitItem key={unit.id ?? unit.name} unit={unit} onRemove={() => handleRemoveUnit(unit.name)} />
               </li>
             ))}
           </ul>

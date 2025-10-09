@@ -54,12 +54,13 @@ const EventParticipantsDistributionPage = () => {
 
   return (
     <>
-      <Header title="FON Event Manager" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
+      <Header title="распоређивање учесника" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
       <div className="main">
-        <AboutSection title="Stranica za rasporedjivanje ucesnika po jedinicama" 
-        description="Na ovoj stranici se nalazi prikaz svih rezervacija u okviru datog dogadjaja, 
-        kao i organizacionih jedinica koje se nalaze u okviru njih samih. Klikom i prevlačenjem učesnika sa 
-        liste učesnika koji čekaju možete smestiti na jedinicu po izboru." />
+        <AboutSection title="Страница за распоређивање учесника" 
+        description="На овој страници можете видети преглед свих организационих јединица које су ангажоване 
+        за дати догађај. У листи са десне стране налазе се сви учесници догађаја који тренутно 
+        чеаку да буду распоређени на своју јединицу. Притиском и превлачењем учесника на жељену 
+        јединицу можете извршити распоређивање." />
         <div className="main-content">
           <div className="distribution">
             {event ? (
@@ -75,7 +76,7 @@ const EventParticipantsDistributionPage = () => {
             )}
           </div>
           <div className="waiting-participants">
-            <strong>Ucesnici koji cekaju da budu rasporedjeni:</strong>
+            <strong>Учесници који чекају да буду распоређени</strong>
             {waitingParticipants ? (
               <ul>
                 {waitingParticipants.map((participation, index) => (

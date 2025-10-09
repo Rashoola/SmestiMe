@@ -25,14 +25,14 @@ const ParticipationItem = ({ participation }) => {
       </div>
       <div className='middle-part'>
       <strong>{participation.event.name}</strong>
-      <p>Datum održavanja: {formatDateSerbian(participation.event.date)}</p>
+      <p>Датум одржавања: {formatDateSerbian(participation.event.date)}</p>
 
       {participation.organizationUnit === null ? (
         <button onClick={() => navigate(`/participation/${participation.id}`)}>
-          Odaberi jedinicu
+          Одабери јединицу
         </button>
       ) : (
-        <p style={{color: 'yellow'}}>Odabrana organizaciona jedinica: {participation.organizationUnit.name}</p>
+        <p style={{color: '#00d93a'}}>Odabrana organizaciona jedinica: {participation.organizationUnit.name}</p>
       )}
       </div>
     </div>

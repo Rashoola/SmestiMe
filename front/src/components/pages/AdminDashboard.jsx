@@ -9,18 +9,19 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     const headerButtons = [
-    { title: "Dogadjaji", action: () => navigate("/events") },
-    { title: "Mesta", action: () => navigate("/venues") },
+    { title: "Догађаји", action: () => navigate("/events") },
+    { title: "Места", action: () => navigate("/venues") },
   ];
 
   return (
     <>
-    <Header title="FON Events Manager" name={loggedAdmin.name + " " + loggedAdmin.surname} buttons={headerButtons}/>
+    <Header title="главна страница" name={loggedAdmin.name + " " + loggedAdmin.surname} buttons={headerButtons}/>
     <div className='main'>
         <AboutSection
-         title="Dobrodošli na glavnu stranicu administratora!"
-         description="Ova stranica je polazna tacka rada na sistemu. 
-         U meniju koji se nalazi vise, mozete odabrati sa cime zelite da radite."
+         title="Главна страница администратора"
+         description="Ова страница је полазна тачка система. У менију у заглављу налазе се 
+         картице преко којих можете приступити страницама за уређивање догађаја и места на којима се 
+         исти одржавају."
          />
          <div className='main-content'>
             <img src="" alt="" />

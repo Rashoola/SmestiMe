@@ -33,17 +33,17 @@ const VenuesPage = () => {
 
   return (
     <>
-      <Header title='FON Event Manager' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
+      <Header title='места одржавања' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
       <div className='main'>
         <AboutSection
-          title='Prikaz svih mesta' 
-          description='Na ovoj stranici možete videti sva mesta koja 
-          se trenutno nalaze u sistemu, kao i pregledati ili promeniti 
-          njihove podatke.'
+          title='Преглед места одржавања' 
+          description='На овој страници налази се преглед свих места одржавања у нашем систему. 
+          У оквиру сваког од њих можете мењати податке, а можете и направити ново место притиском на дугме 
+          у менију више.'
         />
         <div className='main-content'>
           <div style={{width: '100%'}} className='central'>
-          <h2 style={{marginLeft: 0}}>Lista mesta održavanja dostupnih u sistemu:</h2>
+          <h2 style={{marginLeft: 0}}>Места одржавања догађаја</h2>
           <ul style={{padding: 0}}>
             {venues.map((venue) => (
               <VenueItem key={venue.id} venue={venue} />

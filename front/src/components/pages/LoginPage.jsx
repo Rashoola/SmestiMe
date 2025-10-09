@@ -47,29 +47,29 @@ const LoginPage = () => {
 
   return (
     <>
-    <Header title='FON Event Manager' buttons={[]}></Header>
+    <Header title='пријава корисника на систем' buttons={[]}></Header>
     <div className='login-form-container'>
-      <h1>Dobrodošli na stranicu za prijavu!</h1>
+      <h1>Пријавите се како бисте приступили систему</h1>
       <form onSubmit={handleLogin}>
-        <label htmlFor="email">Mejl adresa:</label>
+        <label htmlFor="email">И-мејл адреса</label>
         <input 
           type="text" 
           name="email" 
           value={email} 
           onChange={(e) => setEmail(e.target.value)} 
-          placeholder='Unesite mejl adresu...'
+          placeholder='Унесите и-мејл адресу...'
         />
 
-        <label htmlFor="password">Lozinka:</label>
+        <label htmlFor="password">Лозинка</label>
         <input 
           type="password" 
           name="password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
-          placeholder='Unesite lozinku...'
+          placeholder='Унесите лозинку...'
         />
 
-        <button type='submit'>Prijavi se</button>
+        <button type='submit'>Пријава</button>
       </form>
     </div>
     </>

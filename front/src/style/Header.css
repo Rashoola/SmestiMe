@@ -1,10 +1,9 @@
 header{
     height: 25vh;
     padding: 15px;
-    background-color: black;
+    background-image: linear-gradient(to right, #3F48CC, #00d93a);
     color: white;
     font-style: italic;
-    border-bottom: 4px solid black;
 }
 
 .nav{

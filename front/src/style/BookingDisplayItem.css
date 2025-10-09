@@ -1,0 +1,7 @@
+.booking-display-item{
+   background-image: linear-gradient(to right, #3F48CC, #7092BE);
+   color: white;
+   padding: 20px;
+   border-radius: 20px;
+   margin: 10px;
+}

@@ -47,7 +47,7 @@ const CircularFullness = ({ capacityLeft, capacity, size = 48, stroke = 6 }) => 
         textAnchor="middle"
         dominantBaseline="central"
         fontSize={size * 0.28}
-        fill="white"
+        fill="black"
       >
         {Math.round(fullRatio * 100)}%
       </text>
