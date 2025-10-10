@@ -31,15 +31,13 @@ const UnitParticipantsDialog = ({unit, isOpen, onClose}) => {
     }
   return (
     <div className='unit-participants-dialog'>
-      <strong>Ucesnici:</strong>
-      <ul>
+      <ul style={{marginTop: 10}}>
         {participants.map((participant, index) => (
             <li key={index}>
-                {participant.user.name + ' ' + participant.user.surname}
+                <strong>{participant.user.name + ' ' + participant.user.surname}</strong>
             </li>
         ))}
       </ul>
-      <button onClick={onClose}>Izadji</button>
     </div>
   );
 };

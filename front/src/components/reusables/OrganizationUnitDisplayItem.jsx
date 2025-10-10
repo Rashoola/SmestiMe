@@ -25,6 +25,10 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
     }
   }
 
+    const toggleDialog = () => {
+    setDialogOpen(prev => !prev);
+  };
+
   const assignUnit = async () => {
     const url = 'http://localhost:9000/api/participations/assign-unit';
     const payload = {
@@ -74,8 +78,8 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
       <div className='middle-part'>
         <strong>{unit.name}</strong>
         <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
-        <button type='button' onClick={openDialog}>Vidi ucesnike</button>
-        <button onClick={assignUnit}>Izaberi</button>
+        <button type='button' onClick={toggleDialog}>{dialogOpen ? 'Сакриј' : 'Прикажи учеснике'}</button>
+        <button style={{backgroundColor: '#00d93a'}} onClick={assignUnit}>Izaberi</button>
         <UnitParticipantsDialog unit={unit} isOpen={dialogOpen} onClose={closeDialog}></UnitParticipantsDialog>
         </div>
         <div className='capacity-display'>
