@@ -76,6 +76,15 @@ const BookingDialog = ({
     fetchUnitTypes();
   }, [booking]);
 
+  const getUnitTypeTranslation = (value) => {
+    switch(value){
+      case 'TABLE': return 'Сто';
+      case 'ROOM': return 'Просторија';
+      case 'BUS': return 'Аутобус';
+      case 'CAR': return 'Аутомобил';
+    }
+  }
+
   if (!isOpen) return null;
 
   return (
@@ -100,7 +109,6 @@ const BookingDialog = ({
           backgroundColor: 'white',
           padding: '1rem',
           borderRadius: '8px',
-          border: '3px solid black',
           width: '33%',
           height: '80%',
           position: 'relative',
@@ -126,25 +134,25 @@ const BookingDialog = ({
         
 
         <div className="organization-unit-input" style={{ marginTop: '1rem' }}>
-          <strong>
-          Unos organizacionih jedinica za rezervaciju lokacije{' '}
+          <strong style={{marginBottom: 10}}>
+          Унос организационих јединица за резервацију локације {' '}
           {booking.location.name}
         </strong>
-          <label htmlFor="unit-type">Tip jedinice</label>
+          <label htmlFor="unit-type">Тип јединице</label>
           <select
             name="unitType"
             value={form.unitType}
             onChange={handleChange}
           >
-            <option value=""> --Odaberite tip jedinice--</option>
+            <option value=""> --Одаберите тип јединице--</option>
             {unitTypes.map((type, index) => (
               <option key={index} value={type}>
-                {type}
+                {getUnitTypeTranslation(type)}
               </option>
             ))}
           </select>
 
-          <label>Naziv</label>
+          <label>Назив</label>
           <input
             type="text"
             name="name"
@@ -152,7 +160,7 @@ const BookingDialog = ({
             onChange={handleChange}
           />
 
-          <label>Kapacitet</label>
+          <label>Капацитет</label>
           <input
             type="number"
             name="capacity"
@@ -161,7 +169,7 @@ const BookingDialog = ({
           />
 
           <button type="button" onClick={() => handleAddUnit(booking.location.name)}>
-            Dodaj
+            Додај
           </button>
         </div>
 

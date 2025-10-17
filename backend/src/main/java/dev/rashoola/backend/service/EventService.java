@@ -5,7 +5,7 @@
 package dev.rashoola.backend.service;
 
 import dev.rashoola.backend.domain.Event;
-import dev.rashoola.backend.dto.EventRequestDto;
+import dev.rashoola.backend.dto.EventDto;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @author rasul
  */
 public interface EventService {
-    public Response<Event> save(EventRequestDto event);
+    public Response<Event> save(EventDto event);
     public Response<Event> findById(Long id);
     public Response<Event> findByEntryCode(String entryCode);
     public Response<List<Event>> index();

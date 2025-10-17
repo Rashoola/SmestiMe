@@ -45,9 +45,11 @@ const EventDisplayPage = ({ mode }) => {
       if (response.ok) {
         data = await response.json();
         setVenues(data);
+      } else {
+        alert('Систем не може да учита места одржавања.');
       }
     } catch (err) {
-      alert('Error during fetching venues');
+      alert('Грешка приликом повезивања.');
     }
   }
 
@@ -63,10 +65,10 @@ const EventDisplayPage = ({ mode }) => {
         setEntryCode(data.entryCode);
         setBookedLocations(data.bookedLocations || []);
       } else {
-        alert("Error while fetching the event");
+        alert("Систем не може да учита догађај.");
       }
     } catch (err) {
-      alert("Error while connecting.");
+      alert("Грешка приликом повезивања.");
     }
   };
 
@@ -82,6 +84,10 @@ const EventDisplayPage = ({ mode }) => {
       const url = `http://localhost:9000/api/venues/${venue.id}/locations/available?date=${formattedDate}`;
       try {
         const response = await fetch(url);
+        if(!response.ok){
+          alert('Систем не може да учита доступне локације.');
+          return;
+        }
         const data = await response.json();
         setAvailableLocations(data);
       } catch (err) {
@@ -103,7 +109,7 @@ const EventDisplayPage = ({ mode }) => {
     e.preventDefault(); // prevent form submission
 
     if (!selectedLocationId) {
-      alert("Odaberite lokaciju");
+      alert("Одаберите локацију.");
       return;
     }
 
@@ -165,13 +171,13 @@ const EventDisplayPage = ({ mode }) => {
       });
 
       if (response.ok) {
-        alert('Dogadjaj je sacuvan uspesno.');
+        alert('Систем је запамтио догађај.');
         navigate('/admin-dashboard', {replace: true});
       } else {
-        alert('Doslo je do greske prilikom cuvanja.');
+        alert('Систем не може да запамти догађај.');
       }
     } catch (err) {
-      alert('Error during connection when updating event.');
+      alert('Грешка приликом повезивања.');
     }
   };
 

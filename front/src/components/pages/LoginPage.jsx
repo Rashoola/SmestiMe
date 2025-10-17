@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../reusables/Header';
 import '../../style/General.css';
 import '../../style/LoginPage.css';
@@ -28,6 +29,7 @@ const LoginPage = () => {
       console.log('Logged in user:', data);
 
       localStorage.setItem('loggedUser', JSON.stringify(data));
+      alert('Успешна пријава на систем.');
 
       // Optionally, save user in local state or context
       // setUser(data.user);
@@ -41,7 +43,7 @@ const LoginPage = () => {
       
     } catch (error) {
       console.error(error);
-      alert('Login failed. Check your credentials.');
+      alert('Неуспешна пријава. Грешка приликом повезивања.');
     }
   };
 
@@ -49,7 +51,7 @@ const LoginPage = () => {
     <>
     <Header title='пријава корисника на систем' buttons={[]}></Header>
     <div className='login-form-container'>
-      <h1>Пријавите се како бисте приступили систему</h1>
+      <h1>Пријава</h1>
       <form onSubmit={handleLogin}>
         <label htmlFor="email">И-мејл адреса</label>
         <input 
@@ -70,6 +72,7 @@ const LoginPage = () => {
         />
 
         <button type='submit'>Пријава</button>
+        <Link to='/registration'>Немате налог? Региструјте се.</Link>
       </form>
     </div>
     </>

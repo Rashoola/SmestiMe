@@ -29,7 +29,7 @@ const OrganizationUnitItem = ({ unit, onRemove }) => {
             </div>
             <div className="middle-part">
            <strong>{unit.name}</strong>
-           <p>Kapacitet: {unit.capacity}</p>
+           <p>Капацитет: {unit.capacity}</p>
            <button onClick={onRemove}>Ukloni</button>
            </div>
         </div>

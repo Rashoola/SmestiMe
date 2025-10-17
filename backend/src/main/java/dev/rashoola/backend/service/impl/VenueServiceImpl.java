@@ -4,6 +4,7 @@
  */
 package dev.rashoola.backend.service.impl;
 
+import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.Venue;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.VenueRepository;
@@ -28,10 +29,12 @@ public class VenueServiceImpl implements VenueService{
 
     @Override
     public Response<Venue> save(Venue venue) {
-        if(repository.existsByName(venue.getName()) && venue.getId() == null){
+        if (repository.existsByName(venue.getName()) && venue.getId() == null) {
             return new Response<>(ResponseStatus.Conflict, null);
         }
-        
+        for (Location location : venue.getLocations()) {
+            location.setVenue(venue);
+        }
         repository.save(venue);
         return new Response<>(ResponseStatus.Ok, venue);
     }
@@ -39,7 +42,7 @@ public class VenueServiceImpl implements VenueService{
     @Override
     public Response<List<Venue>> index() {
         List<Venue> venues = repository.findAll();
-        if(venues == null || venues.size() == 0){
+        if(venues == null || venues.isEmpty()){
             return new Response<>(ResponseStatus.NotFound, null);
         }
         

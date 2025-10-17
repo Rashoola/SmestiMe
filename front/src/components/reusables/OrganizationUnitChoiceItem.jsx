@@ -50,13 +50,13 @@ const OrganizationUnitChoiceItem = ({ unit }) => {
       });
 
       if (response.ok) {
-        alert('Uspesno rasporedjivanje korisnika na svoje mesto.');
+        alert('Успешно распоређивање корисника.');
         window.location.reload();
       } else {
-        alert('Bad response from the server.');
+        alert('Неуспешно распоређивање корисника.');
       }
     } catch (err) {
-      alert('Error while connecting to the server.');
+      alert('Грешка приликом повезивања.');
     }
   };
 

@@ -5,7 +5,7 @@
 package dev.rashoola.backend.controller;
 
 import dev.rashoola.backend.domain.Event;
-import dev.rashoola.backend.dto.EventRequestDto;
+import dev.rashoola.backend.dto.EventDto;
 import dev.rashoola.backend.service.EventService;
 import dev.rashoola.backend.service.UserEventService;
 import dev.rashoola.backend.util.ResponseConverter;
@@ -36,7 +36,7 @@ public class EventController {
     private final ResponseConverter<Event> converter;
     
     @PostMapping("/save")
-    public ResponseEntity<Event> save(@RequestBody EventRequestDto event){
+    public ResponseEntity<Event> save(@RequestBody EventDto event){
         return converter.toResponseEntity(eventService.save(event));
     }
     

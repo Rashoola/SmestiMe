@@ -25,10 +25,10 @@ const ParticipationBookingsPage = () => {
                 const data = await response.json();
                 setParticipation(data);
             } else {
-                alert('Participation fetch response was not good.')
+                alert('Систем не може да учита учешће.')
             }
         } catch (err) {
-            alert('Error during connecting to the server.')
+            alert('Грешка приликом повезивања.')
         }
     };
 

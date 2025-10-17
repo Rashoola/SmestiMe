@@ -11,7 +11,7 @@ const LocationItem = ({location, onRemove}) => {
       </div>
       <div className='data-container'>
         <strong>{location.name}</strong>
-        <p style={{margin: 0}}>{location.locationType === 'HALL' ? 'Сала' : 'Група возила'}</p>
+        <p style={{margin: 0}}>Тип: {location.locationType === 'HALL' ? 'Сала' : 'Превоз'}</p>
         <button onClick={onRemove}>Уклони</button>
         </div>
     </div>

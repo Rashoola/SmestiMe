@@ -17,7 +17,7 @@ const HeaderButtonList = ({ buttons }) => {
         />
         </li>
       ))}
-      {location.pathname !== '/' && (
+      {!['/', '/registration'].includes(location.pathname) && (
         <li>
           <button
             style={{

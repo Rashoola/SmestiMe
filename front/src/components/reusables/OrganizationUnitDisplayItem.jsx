@@ -44,14 +44,14 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
         }
       );
       if(response.ok){
-        alert('Uspesno ste izabrali svoje mesto.');
+        alert('Успешан одабир јединице.');
         navigate('/dashboard');
       } else {
-        alert('Neuspesan odabir mesta.');
+        alert('Неуспешан одабир јединице.');
       }
 
     } catch {
-      alert('Error during connection to the server.')
+      alert('Грешка приликом повезивања.')
     }
   }
 

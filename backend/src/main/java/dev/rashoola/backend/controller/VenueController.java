@@ -49,9 +49,6 @@ public class VenueController {
     
     @PostMapping("/save")
     public ResponseEntity<Venue> save(@RequestBody Venue venue){
-        for(Location location : venue.getLocations()){
-            location.setVenue(venue);
-        }
         return converter.toResponseEntity(venueService.save(venue));
     }
     

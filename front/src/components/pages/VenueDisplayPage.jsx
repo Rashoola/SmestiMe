@@ -24,7 +24,7 @@ const VenueDisplayPage = ({ mode }) => {
   const fetchLocationTypes = async () => {
     try {
       const response = await fetch('http://localhost:9000/api/venues/locations/types');
-      if (!response.ok) throw new Error('Neuspešno učitavanje tipova frakcija.');
+      if (!response.ok) throw new Error('Систем не може да учита типове локација.');
       const data = await response.json();
       setLocationTypes(data);
       if (data.length > 0) setLocationType(data[0]);
@@ -38,14 +38,14 @@ const VenueDisplayPage = ({ mode }) => {
     if (mode !== 'edit' || !id) return;
     try {
       const response = await fetch(`http://localhost:9000/api/venues/${id}`);
-      if (!response.ok) throw new Error('Neuspešno učitavanje mesta.');
+      if (!response.ok) throw new Error('Систем не може да учита место одржавања.');
       const data = await response.json();
       setName(data.name || '');
       setAddress(data.address || '');
       setContact(data.contact || '');
       setLocations(data.locations || []);
     } catch (err) {
-      alert(err.message || 'Greška prilikom povezivanja.');
+      alert(err.message || 'Грешка приликом повезивања.');
     }
   };
 
@@ -58,7 +58,7 @@ const VenueDisplayPage = ({ mode }) => {
   const handleAddLocation = (e) => {
     e.preventDefault();
     if (!locationName.trim()) {
-      alert('Naziv frakcije je obavezan.');
+      alert('Назив локације је обавезан.');
       return;
     }
     setLocations([...locations, { name: locationName, locationType }]);
@@ -70,17 +70,24 @@ const VenueDisplayPage = ({ mode }) => {
     setLocations(locations.filter((_, index) => index !== indexToRemove));
   };
 
+  const getLocationTypeTranslation = (value) => {
+    switch(value){
+      case 'HALL': return 'Сала';
+      case 'EXCURSION': return 'Превоз';
+    }
+  }
+
   // --- Save venue (create or update) ---
   const handleSaveVenue = async (e) => {
     e.preventDefault();
 
     // Validation
     if (!name.trim() || !address.trim() || !contact.trim()) {
-      alert('Naziv, adresa i kontakt su obavezni.');
+      alert('Назив, адреса и контакт су обавезни.');
       return;
     }
     if (locations.length === 0) {
-      alert('Morate dodati bar jednu frakciju.');
+      alert('Морате додати бар једну локацију.');
       return;
     }
 
@@ -95,7 +102,7 @@ const VenueDisplayPage = ({ mode }) => {
         body: JSON.stringify(mode === 'edit' ? { id, ...payload } : payload),
       });
 
-      if (!response.ok) throw new Error('Neuspešno čuvanje mesta.');
+      if (!response.ok) throw new Error('Систем не може да сачува место одржавања.');
       const data = await response.json();
       console.log('Venue saved:', data);
 
@@ -107,10 +114,10 @@ const VenueDisplayPage = ({ mode }) => {
         setContact('');
         setLocations([]);
       }
-      alert('Podaci o mestu su sačuvani.');
+      alert('Систем је запамтио место одржавања.');
       navigate('/admin-dashboard', {replace: true});
     } catch (err) {
-      alert(err.message || 'Greška prilikom povezivanja.');
+      alert(err.message || 'Грешка приликом повезивања');
     }
   };
 
@@ -172,7 +179,7 @@ const VenueDisplayPage = ({ mode }) => {
             >
               {locationTypes.map((type, idx) => (
                 <option key={idx} value={type}>
-                  {type}
+                  {getLocationTypeTranslation(type)}
                 </option>
               ))}
             </select>

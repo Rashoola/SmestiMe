@@ -11,6 +11,7 @@ import Dashboard from './components/pages/Dashboard';
 import ParticipantEventsPage from './components/pages/ParticipantEventsPage';
 import ParticipationBookingsPage from './components/pages/ParticipationBookingsPage';
 import EventParticipantsDistributionPage from './components/pages/EventParticipantsDistributionPage';
+import RegistrationPage from './components/pages/RegistrationPage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/venues" element={<VenuesPage />} />

@@ -10,7 +10,7 @@ import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.domain.OrganizationUnit;
 import dev.rashoola.backend.domain.Venue;
 import dev.rashoola.backend.domain.enums.UnitType;
-import dev.rashoola.backend.dto.EventRequestDto;
+import dev.rashoola.backend.dto.EventDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.EventRepository;
 import dev.rashoola.backend.service.EventService;
@@ -46,7 +46,7 @@ public class EventServiceImpl implements EventService {
 
     @Transactional
     @Override
-    public Response<Event> save(EventRequestDto dto) {
+    public Response<Event> save(EventDto dto) {
         try {
             System.out.println("Started saving the event.");
             Event event;
@@ -85,7 +85,7 @@ public class EventServiceImpl implements EventService {
             }
 
             // Map DTO → Bookings
-            for (EventRequestDto.BookingDto bookingDto : dto.bookedLocations()) {
+            for (EventDto.BookingDto bookingDto : dto.bookedLocations()) {
                 Booking booking = new Booking();
 
                 if (bookingDto.id() != null) {
@@ -102,7 +102,7 @@ public class EventServiceImpl implements EventService {
                 // Units
                 List<OrganizationUnit> units = new LinkedList<>();
                 
-                for (EventRequestDto.BookingDto.OrganizationUnitDto unitDto : bookingDto.organizationUnits()) {
+                for (EventDto.BookingDto.OrganizationUnitDto unitDto : bookingDto.organizationUnits()) {
                     OrganizationUnit unit = new OrganizationUnit();
 
                     if (unitDto.id() != null) {

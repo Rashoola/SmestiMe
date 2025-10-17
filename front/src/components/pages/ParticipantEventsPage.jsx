@@ -33,13 +33,13 @@ const ParticipantEventsPage = () => {
       );
 
       if(response.ok){
-        alert('Uspesna prijava na dogadjaj.');
+        alert('Успешна пријава на догађај.');
         fetchParticipations();
       } else {
-        alert('Prijava za dogadjaj neuspesna.')
+        alert('Неуспешна пријава на догађај.')
       }
     }catch(err){
-      alert('An unexpected error ocurred.')
+      alert('Грешка приликом повезивања.')
     }
   };
 
@@ -51,10 +51,10 @@ const ParticipantEventsPage = () => {
         const data = await response.json();
         setParticipations(data);
       } else {
-        alert('Response from the server was not ok.');
+        alert('Систем не може да учита учешћа.');
       }
     } catch (err) {
-      alert('Error during participations fetching.');
+      alert('Грешка приликом повезивања.');
     }
   };
 

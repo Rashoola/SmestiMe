@@ -9,8 +9,8 @@ const EventItem = ({ event }) => {
   // Helper function to format the date
   const formatDateSerbian = (dateString) => {
     const months = [
-      'januar', 'februar', 'mart', 'april', 'maj', 'jun',
-      'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'
+      'јануар', 'фебруар', 'март', 'април', 'мај', 'јуни',
+      'јули', 'август', 'септембар', 'октобар', 'новембар', 'децембар'
     ];
     const date = new Date(dateString);
     const day = date.getDate();
@@ -26,11 +26,11 @@ const EventItem = ({ event }) => {
       </div>
       <div className='middle-part'>
       <strong style={{textTransform: 'uppercase'}}>{event.name}</strong>
-      <p>Datum: {formatDateSerbian(event.date)}</p>
-      <p>Lokacija: {event.venue.name}</p>
+      <p>Датум: {formatDateSerbian(event.date)}</p>
+      <p>Локација: {event.venue.name}</p>
 
-      <button onClick={() => navigate(`/event/${event.id}`)}>Prikazi podatke</button>
-      <button onClick={() => navigate(`/event/${event.id}/distribution`)}>Raspored</button>
+      <button onClick={() => navigate(`/event/${event.id}`)}>Прикажи податке</button>
+      <button onClick={() => navigate(`/event/${event.id}/distribution`)}>Распоред</button>
       </div>
     </div>
   );

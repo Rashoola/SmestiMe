@@ -15,10 +15,10 @@ const BookingItem = ({ booking, onUpdateUnits, onDeleteBooking }) => {
       <div className="middle-part">
       <strong>{booking.location.name}</strong><br />
       <button type="button" onClick={() => setDialogOpen(true)}>
-        Opremi
+        Опреми
       </button>
       <button type="button" onClick={onDeleteBooking}>
-        Ukloni rezervaciju
+        Уклони резервацију
       </button>
 
       <BookingDialog
