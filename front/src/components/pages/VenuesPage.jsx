@@ -29,6 +29,7 @@ const VenuesPage = () => {
 
       const headerButtons = [
     { title: "Napravi mesto", action: ()=>navigate('/venue/create') },
+    {title: 'Почетна', action: () => navigate('/admin-dashboard')}
   ]
 
   return (

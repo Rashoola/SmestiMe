@@ -14,7 +14,7 @@ const WaitingParticipantItem = ({participation, onDrag}) => {
       </div>
       <div className='middle-part'>
       <strong style={{textTransform: 'uppercase'}}>{participation.user.name + ' ' + participation.user.surname}</strong>
-      <p>И-мејл адреса: <span style={{fontWeight: 'bold'}}>{participation.user.email}</span></p>
+      <p>Мејл адреса: <span style={{fontWeight: 'bold'}}>{participation.user.email}</span></p>
       </div>
     </div>
   );

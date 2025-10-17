@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
@@ -11,6 +12,8 @@ const ParticipantEventsPage = () => {
 
   const [participations, setParticipations] = useState([]);
   const [entryCode, setEntryCode] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchParticipations();
@@ -60,7 +63,7 @@ const ParticipantEventsPage = () => {
 
   return (
     <>
-      <Header title="догађаји на које сте пријављени" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
+      <Header title="догађаји на које сте пријављени" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/dashboard')}]} />
       <div className="main">
         <AboutSection
           title="Догађаји на којима учествујете"

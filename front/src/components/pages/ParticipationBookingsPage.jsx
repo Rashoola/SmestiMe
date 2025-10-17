@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ParticipationBookingItem from '../reusables/ParticipationBookingItem';
 import '../../style/ParticipationBookingsPage.css';
@@ -9,7 +9,9 @@ import '../../style/ParticipationBookingsPage.css';
 const ParticipationBookingsPage = () => {
     const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
     const [participation, setParticipation] = useState(null);
-      const { id } = useParams();
+    const { id } = useParams();
+
+    const navigate = useNavigate();
 
       useEffect(
         () => {
@@ -34,7 +36,7 @@ const ParticipationBookingsPage = () => {
 
     return (
         <>
-            <Header title='одабир места' name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]}></Header>
+            <Header title='одабир места' name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/dashboard')}]}></Header>
             <div className='main'>
                 <AboutSection title='Stranica za prikaz izbora lokacija'
                  description='Na ovoj stranici nalazi se pregled svih rezervacija u okviru 

@@ -32,7 +32,7 @@ const OrganizationUnitChoiceItem = ({ unit }) => {
     const data = e.dataTransfer.getData("application/json");
     const draggedParticipant = JSON.parse(data);
 
-    if (!window.confirm(`Are you sure you want to assign ${draggedParticipant.user.name} to ${unit.name}?`)) {
+    if (!window.confirm(`Да ли сте сигурни да желите да распоредите учесника ${draggedParticipant.user.name} на јединицу ${unit.name}?`)) {
       return; // stop if user cancels
     }
 

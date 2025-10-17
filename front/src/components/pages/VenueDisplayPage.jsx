@@ -123,7 +123,7 @@ const VenueDisplayPage = ({ mode }) => {
 
   return (
     <>
-      <Header title="подаци о месту" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
+      <Header title="подаци о месту" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
         <AboutSection
           title= 'Страница за унос и измену података о месту одржавања'

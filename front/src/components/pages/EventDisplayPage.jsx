@@ -142,8 +142,18 @@ const EventDisplayPage = ({ mode }) => {
     setBookedLocations((prev) => prev.filter((b) => b.id !== bookingId));
   };
 
+  const validateInput = () => {
+    if (!name.trim() || !description.trim() || !date || !entryCode.trim() || !venue) {
+      alert('Сва поља морају бити попуњена.');
+      return false;
+    }
+    return true;
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
+
+    if(!validateInput()) return;
     // Simplify bookedLocations
     const simplifiedBookings = bookedLocations.map(b => ({
       id: b.id,
@@ -183,7 +193,7 @@ const EventDisplayPage = ({ mode }) => {
 
   return (
     <div>
-      <Header title="подаци о догађају" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
+      <Header title="подаци о догађају" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
         <AboutSection title="Страница за унос и измену података о догађају" 
         description="На овој страници можете вршити унос података о новом догађају као и мењати 

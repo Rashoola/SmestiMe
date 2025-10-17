@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../reusables/Header';
 import AboutSection from '../reusables/AboutSection';
 import BookingDisplayItem from '../reusables/BookingDisplayItem';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import WaitingParticipantItem from '../reusables/WaitingParticipantItem';
 import '../../style/EventParticipantsDistributionPage.css';
 
@@ -12,6 +12,8 @@ const EventParticipantsDistributionPage = () => {
   const [waitingParticipants, setWaitingParticipants] = useState([]);
   const [draggedParticipant, setDraggedParticipant] = useState(null);
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEvent();
@@ -54,7 +56,7 @@ const EventParticipantsDistributionPage = () => {
 
   return (
     <>
-      <Header title="распоређивање учесника" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[]} />
+      <Header title="распоређивање учесника" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
         <AboutSection title="Страница за распоређивање учесника" 
         description="На овој страници можете видети преглед свих организационих јединица које су ангажоване 
@@ -77,7 +79,7 @@ const EventParticipantsDistributionPage = () => {
           </div>
           <div className="waiting-participants">
             <strong>Учесници који чекају да буду распоређени</strong>
-            {waitingParticipants ? (
+            {waitingParticipants.length > 0 ? (
               <ul>
                 {waitingParticipants.map((participation, index) => (
                   <li key={index}>
@@ -86,7 +88,7 @@ const EventParticipantsDistributionPage = () => {
                 ))}
               </ul>
             ) : (
-              <p>Loading event data...</p>
+              <p>Тренутно нема чекајућих учесника.</p>
             )}
           </div>
         </div>

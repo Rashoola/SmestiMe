@@ -28,6 +28,7 @@ const EventsPage = () => {
 
   const headerButtons = [
     { title: "Направи нови догађај", action: ()=>navigate('/event/create') },
+    {title: 'Почетна', action: () => navigate('/admin-dashboard')}
   ];
 
   return (
