@@ -17,8 +17,8 @@ const AdminDashboard = () => {
     <>
     <Header title="главна страница" name={loggedAdmin.name + " " + loggedAdmin.surname} buttons={headerButtons}/>
     <div className='main'>
-         <div className='main-content'>
-            <img src="" alt="" />
+         <div className='main-content' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <strong style={{color: 'white', fontSize: 80, fontStyle: 'italic'}}>Организујте са лакоћом</strong>
          </div>
     </div>
     </>

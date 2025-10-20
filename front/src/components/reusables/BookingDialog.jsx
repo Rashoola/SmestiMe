@@ -107,7 +107,6 @@ const BookingDialog = ({
         className="booking-dialog"
         style={{
           padding: '1rem',
-          borderRadius: '8px',
           width: '33%',
           height: '80%',
           position: 'relative',

@@ -65,14 +65,16 @@ const ParticipantEventsPage = () => {
     <>
       <Header title="догађаји на које сте пријављени" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/dashboard')}]} />
       <div className="main">
-        <div className="main-content">
-          <div style={{width: '100%'}} className='central'>
+        <div className='join-form'>
           <label htmlFor="entry-code">Шифра за улаз </label>
           <input style={{marginRight: 10}} onChange={(e) => setEntryCode(e.target.value)} id="entry-code" type="text" />
           <button onClick={() => handleParticipate()} type="button">Придружи се догађају</button>
-
+          </div>
+        <div className="main-content">
+          
+          <div style={{width: '100%'}} className='central'>
+            
           <div className="participant-event-list">
-            <h2 style={{marginLeft: 0}}>Догађаји у којима учествујем</h2>
             {participations.length === 0 ? (
               <p>Нема догађаја за приказ.</p>
             ) : (

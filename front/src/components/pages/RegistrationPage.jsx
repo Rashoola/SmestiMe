@@ -62,9 +62,21 @@ const RegistrationPage = () => {
 
   return (
     <>
-      <Header title='регистрација на систем' buttons={[]}></Header>
+      <div className='main'
+      style={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+        }}>
       <div className='registration-form-container'>
-        <h1>Регистрација</h1>
+        <strong style={{
+          margin: 30,
+          fontSize: 40,
+          color: 'white'
+        }}>
+          Регистрација на систем ФОН Догађаји
+          </strong>
         <form onSubmit={handleRegister}>
           <label htmlFor="name">Име</label>
           <input 
@@ -104,6 +116,7 @@ const RegistrationPage = () => {
 
           <button type='submit'>Региструј се</button>
         </form>
+      </div>
       </div>
     </>
   );

@@ -54,9 +54,21 @@ const LoginPage = () => {
 
   return (
     <>
-      <Header title='пријава корисника на систем' buttons={[]}></Header>
+      <div className='main'
+       style={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+        }}>
       <div className='login-form-container'>
-        <h1>Пријава</h1>
+        <strong style={{
+          margin: 30,
+          fontSize: 40,
+          color: 'white'
+        }}>
+          Пријава на систем ФОН Догађаји
+          </strong>
         <form onSubmit={handleLogin}>
           <label htmlFor="email">И-мејл адреса</label>
           <input 
@@ -79,6 +91,7 @@ const LoginPage = () => {
           <button type='submit'>Пријава</button>
           <Link to='/registration'>Немате налог? Региструјте се.</Link>
         </form>
+      </div>
       </div>
     </>
   );

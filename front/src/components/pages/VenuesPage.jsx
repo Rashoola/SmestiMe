@@ -28,7 +28,7 @@ const VenuesPage = () => {
       }, []);
 
       const headerButtons = [
-    { title: "Napravi mesto", action: ()=>navigate('/venue/create') },
+    { title: "Направи ново место", action: ()=>navigate('/venue/create') },
     {title: 'Почетна', action: () => navigate('/admin-dashboard')}
   ]
 
@@ -38,7 +38,6 @@ const VenuesPage = () => {
       <div className='main'>
         <div className='main-content' style={{overflowY: 'scroll'}}>
           <div style={{width: '100%'}} className='central'>
-          <h2 style={{marginLeft: 0}}>Места одржавања догађаја</h2>
           <ul style={{padding: 0}}>
             {venues.map((venue) => (
               <VenueItem key={venue.id} venue={venue} />

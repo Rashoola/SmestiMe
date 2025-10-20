@@ -1,12 +1,11 @@
 .venue-item{
     box-sizing: border-box;
     height: 150px;
-    width: 40%;
     padding: 15px;
     margin-bottom: 20px;
-    margin-right: 20px;
-    border-radius: 10px;
-    display: inline-flex;
+    margin-right: 300px;
+    margin-left: 300px;
+    display: flex;
     align-items: center;
     background-color: white;
 }

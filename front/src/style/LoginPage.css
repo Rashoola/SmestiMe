@@ -8,6 +8,8 @@
 .login-form-container form {
     display: flex;
     flex-direction: column;
+    background-color: white;
+    padding: 20px;
 }
 
 #root {

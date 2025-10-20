@@ -1,7 +1,6 @@
 .waiting-participant-item{
     padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px 0px gray;
+    background-color: white;
     margin: 10px;
     display: flex;
 }

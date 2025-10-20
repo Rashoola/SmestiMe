@@ -1,13 +1,15 @@
 .main-content form {
-    background-color: #464854;
-    border-radius: 20px;
+    background-color: rgba(255,255,255,0.2);
+    color: white;
 
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 85%;
+    height: 100%;
     padding: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .booked-locations-list{

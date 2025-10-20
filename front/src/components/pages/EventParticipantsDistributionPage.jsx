@@ -73,6 +73,9 @@ const EventParticipantsDistributionPage = () => {
             )}
           </div>
           <div className="waiting-participants">
+            <strong style={{color: 'white', fontSize: 20}}>На чекању:</strong>
+            <strong style={{color: 'white', fontSize: 15, fontStyle: 'italic', fontWeight: 'normal'}}>
+              *Притисните, задржите и превуците корисника на жељену јединицу како бисте га распоредили.</strong>
             {waitingParticipants.length > 0 ? (
               <ul>
                 {waitingParticipants.map((participation, index) => (
@@ -82,7 +85,7 @@ const EventParticipantsDistributionPage = () => {
                 ))}
               </ul>
             ) : (
-              <p>Тренутно нема чекајућих учесника.</p>
+              <p style={{color: 'red'}}>Тренутно нема чекајућих учесника.</p>
             )}
           </div>
         </div>
