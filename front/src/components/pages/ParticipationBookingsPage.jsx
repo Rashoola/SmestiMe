@@ -38,12 +38,6 @@ const ParticipationBookingsPage = () => {
         <>
             <Header title='одабир места' name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/dashboard')}]}></Header>
             <div className='main'>
-                <AboutSection title='Stranica za prikaz izbora lokacija'
-                 description='Na ovoj stranici nalazi se pregled svih rezervacija u okviru 
-                 događaja na koji ste prijavljeni. U okviru svake rezervacije imate izbor jedinica na koje 
-                 možete biti raspoređeni ili koje Vi želite da odaberete. U okviru samih jedinica, možete pogledati 
-                 koji su sve učesnici raspoređeni na toj jedinici, te u skladu i sa time možete odabrati svoje mesto. 
-                 Nakon što izaberete mesto, na Vaš e-mail će pristići obaveštenje o raspoređivanju.'></AboutSection>
                 <div className='main-content'>
                     <div style={{width: '100%'}} className='central'>
                     <h1>Rezervisane lokacije u okviru izabranog dogadjaja</h1>

@@ -125,14 +125,9 @@ const VenueDisplayPage = ({ mode }) => {
     <>
       <Header title="подаци о месту" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
-        <AboutSection
-          title= 'Страница за унос и измену података о месту одржавања'
-          description= 'На овој страници можете унети податке о новом месту одржавања, као и изменити податке о већ постојећем месту у систему.'
-        />
 
         <div className="main-content">
           <div className='central' style={{width: '100%'}}>
-          <h2>Подаци о месту</h2>
           <form className='venue-form' onSubmit={handleSaveVenue}>
             <div className='basic-venue-data'>
             <label htmlFor="name">Назив</label>

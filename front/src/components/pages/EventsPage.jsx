@@ -35,16 +35,8 @@ const EventsPage = () => {
     <>
       <Header title='приказ предстојећих догађаја' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
       <div className='main'>
-        <AboutSection
-          title='Приказ предстојећих догађаја' 
-          description='На овој страници налазе се сви догађаји који ће се одржати 
-          у наредном периоду. У оквиру сваког од њих можете мењати податке као и управљати распоредом 
-          корисника који су пријављени на исте.'
-        />
-        <div className='main-content'>
+        <div className='main-content' style={{overflowY: 'scroll'}}>
            <div style={{width: '100%'}} className='central'>
-          <h2 style={{marginLeft: 0}}>Догађаји који ће се одржати у наредном периоду</h2>
-         
           <ul style={{padding: 0}}>
             {events.map((event) => (
               <EventItem key={event.id} event={event} />

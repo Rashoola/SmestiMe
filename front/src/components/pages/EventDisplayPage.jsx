@@ -154,6 +154,12 @@ const EventDisplayPage = ({ mode }) => {
     e.preventDefault();
 
     if(!validateInput()) return;
+
+      if (!window.confirm(`Да ли сте сигурни да желите да сачувате догађај? Након што се догађај сачува, 
+      промена датума и места одржавања неће бити могућа.`)) {
+      return; // stop if user cancels
+    }
+    
     // Simplify bookedLocations
     const simplifiedBookings = bookedLocations.map(b => ({
       id: b.id,
@@ -195,13 +201,8 @@ const EventDisplayPage = ({ mode }) => {
     <div>
       <Header title="подаци о догађају" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
-        <AboutSection title="Страница за унос и измену података о догађају" 
-        description="На овој страници можете вршити унос података о новом догађају као и мењати 
-        податке у оквиру већ постојећег догађаја у систему. У оквиру самог догађаја, можете додавати и уклањати 
-        резервисане локације у оквиру којих можете исто тако додавати и уклањати организационе јединице." />
         <div className="main-content">
           <div style={{width: '100%'}} className='central'>
-            <h2>Подаци о догађају</h2>
           <form>
             <div className='basic-event-data'>
             <label htmlFor="name">Назив</label>

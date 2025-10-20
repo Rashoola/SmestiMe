@@ -1,6 +1,6 @@
 *{
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Verdana;
 }
 
 button{
@@ -19,10 +19,10 @@ body{
 .main{
     display: flex;
     height: 75vh;
+    background-color: #c7c9d6;
 }
 
 .main-content{
-    flex-basis: 80%;
     padding: 15px;
-    overflow-y: scroll;
+    width: 100%;
 }

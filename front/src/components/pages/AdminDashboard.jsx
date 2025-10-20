@@ -17,12 +17,6 @@ const AdminDashboard = () => {
     <>
     <Header title="главна страница" name={loggedAdmin.name + " " + loggedAdmin.surname} buttons={headerButtons}/>
     <div className='main'>
-        <AboutSection
-         title="Главна страница администратора"
-         description="Ова страница је полазна тачка система. У менију у заглављу налазе се 
-         картице преко којих можете приступити страницама за уређивање догађаја и места на којима се 
-         исти одржавају."
-         />
          <div className='main-content'>
             <img src="" alt="" />
          </div>

@@ -1,5 +1,6 @@
 .booking-dialog{
     color: black;
+    background-color: #c7c9d6;
 }
 
 .organization-unit-input{
@@ -13,7 +14,7 @@
 }
 
 .organization-unit-list ul{
-    overflow-y: scroll;
+    overflow-y: auto;
     list-style: none;
     padding: 0;
     height: 100%;

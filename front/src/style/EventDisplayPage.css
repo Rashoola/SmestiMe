@@ -1,7 +1,5 @@
 .main-content form {
-    background-image: linear-gradient(to right, #3F48CC, #00d93a);
-    margin-left: 50px;
-    margin-right: 50px;
+    background-color: #464854;
     border-radius: 20px;
 
     box-sizing: border-box;
@@ -23,7 +21,7 @@
 }
 
 .booked-locations-input-fields{
-    flex-basis: 25%;
+    flex-basis: 30%;
 }
 
 .booked-locations{
@@ -33,7 +31,7 @@
 .basic-event-data{
     display: flex;
     flex-direction: column;
-    flex-basis: 40%;
+    flex-basis: 70%;
     height: 100%;
     margin-right: 10px;
 }
@@ -43,4 +41,10 @@
     flex-direction: column;
     flex-basis: 60%;
     height: 100%;
+}
+
+textarea{
+    resize: none;
+    height: 152px;
+    overflow-y: auto;
 }

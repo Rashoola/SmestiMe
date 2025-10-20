@@ -65,13 +65,6 @@ const ParticipantEventsPage = () => {
     <>
       <Header title="догађаји на које сте пријављени" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/dashboard')}]} />
       <div className="main">
-        <AboutSection
-          title="Догађаји на којима учествујете"
-          description="На овој страници можете видети све догађаје у којима тренутно учествујете. 
-          У оквиру сваког од тих догађаја можете изабрати место на којем бисте желели да будете 
-          распоређени. То ћете урадити тако што ћете притиснути на дугме ОДАБЕРИ ЈЕДИНИЦУ, а затим изабрати 
-          жељено место. Уколико не желите да одаберете место, и то је у реду, јер можемо то да урадимо за Вас."
-        />
         <div className="main-content">
           <div style={{width: '100%'}} className='central'>
           <label htmlFor="entry-code">Шифра за улаз </label>

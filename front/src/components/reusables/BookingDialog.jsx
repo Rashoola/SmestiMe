@@ -106,7 +106,6 @@ const BookingDialog = ({
       <div
         className="booking-dialog"
         style={{
-          backgroundColor: 'white',
           padding: '1rem',
           borderRadius: '8px',
           width: '33%',
@@ -134,10 +133,6 @@ const BookingDialog = ({
         
 
         <div className="organization-unit-input" style={{ marginTop: '1rem' }}>
-          <strong style={{marginBottom: 10}}>
-          Унос организационих јединица за резервацију локације {' '}
-          {booking.location.name}
-        </strong>
           <label htmlFor="unit-type">Тип јединице</label>
           <select
             name="unitType"

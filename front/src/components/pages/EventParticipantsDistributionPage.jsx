@@ -58,11 +58,6 @@ const EventParticipantsDistributionPage = () => {
     <>
       <Header title="распоређивање учесника" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
-        <AboutSection title="Страница за распоређивање учесника" 
-        description="На овој страници можете видети преглед свих организационих јединица које су ангажоване 
-        за дати догађај. У листи са десне стране налазе се сви учесници догађаја који тренутно 
-        чеаку да буду распоређени на своју јединицу. Притиском и превлачењем учесника на жељену 
-        јединицу можете извршити распоређивање." />
         <div className="main-content">
           <div className="distribution">
             {event ? (
@@ -78,7 +73,6 @@ const EventParticipantsDistributionPage = () => {
             )}
           </div>
           <div className="waiting-participants">
-            <strong>Учесници који чекају да буду распоређени</strong>
             {waitingParticipants.length > 0 ? (
               <ul>
                 {waitingParticipants.map((participation, index) => (

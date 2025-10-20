@@ -36,13 +36,7 @@ const VenuesPage = () => {
     <>
       <Header title='места одржавања' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
       <div className='main'>
-        <AboutSection
-          title='Преглед места одржавања' 
-          description='На овој страници налази се преглед свих места одржавања у нашем систему. 
-          У оквиру сваког од њих можете мењати податке, а можете и направити ново место притиском на дугме 
-          у менију више.'
-        />
-        <div className='main-content'>
+        <div className='main-content' style={{overflowY: 'scroll'}}>
           <div style={{width: '100%'}} className='central'>
           <h2 style={{marginLeft: 0}}>Места одржавања догађаја</h2>
           <ul style={{padding: 0}}>

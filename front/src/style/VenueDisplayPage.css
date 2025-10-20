@@ -1,8 +1,6 @@
 .main-content form {
-    background-image: linear-gradient(black, rgb(14, 161, 141));
+    background-color: #464854;
     color: white;
-    margin-left: 50px;
-    margin-right: 50px;
 
     box-sizing: border-box;
     display: flex;
@@ -56,6 +54,6 @@
     list-style: none;
 }
 
-h2{
+.main h1{
     margin-left: 50px;
 }
