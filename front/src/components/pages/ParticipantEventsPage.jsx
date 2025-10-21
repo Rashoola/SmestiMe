@@ -68,8 +68,8 @@ const ParticipantEventsPage = () => {
         
         <div className="main-content">
           <div className='join-form'>
-          <p>Унесите код за улаз како бисте се придружили догађају.</p>
-          <label htmlFor="entry-code">Шифра за улаз </label>
+          <p>Унесите шифру за улаз како бисте се придружили догађају.</p>
+          <label htmlFor="entry-code">Шифра за улаз: </label>
           <input style={{marginRight: 10}} onChange={(e) => setEntryCode(e.target.value)} id="entry-code" type="text" />
           <button onClick={() => handleParticipate()} type="button">Придружи се догађају</button>
           </div>
@@ -79,8 +79,8 @@ const ParticipantEventsPage = () => {
               <p style={{color: 'white'}}>Нема догађаја за приказ.</p>
             ) : (
               <ul>
-                {participations.map((participation, index) => (
-                  <li key={index} value={participation.id}>
+                {participations.map((participation) => (
+                  <li key={participation.id} value={participation.id}>
                     <ParticipationItem participation={participation} />
                   </li>
                 ))}

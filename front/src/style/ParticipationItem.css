@@ -1,6 +1,8 @@
 .participation-item{
     padding: 15px;
     margin-bottom: 5px;
+    margin-left: 300px;
+    margin-right: 300px;
     display: flex;
     background-color: white;
 }

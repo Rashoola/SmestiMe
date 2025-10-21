@@ -77,13 +77,13 @@ const OrganizationUnitDisplayItem = ({unit, participation}) => {
       </div>
       <div className='middle-part'>
         <strong>{unit.name}</strong>
-        <p>Broj slobodnih mesta: {unit.capacityLeft}</p>
+        <p>Број слободнхих места: {unit.capacityLeft}</p>
         <button type='button' onClick={toggleDialog}>{dialogOpen ? 'Сакриј' : 'Прикажи учеснике'}</button>
-        <button style={{backgroundColor: '#00d93a'}} onClick={assignUnit}>Izaberi</button>
+        <button style={{backgroundColor: '#00d93a'}} onClick={assignUnit}>Изабери јединицу</button>
         <UnitParticipantsDialog unit={unit} isOpen={dialogOpen} onClose={closeDialog}></UnitParticipantsDialog>
         </div>
         <div className='capacity-display'>
-          <p>Popunjenost:</p>
+          <p>Попуњеност</p>
           <CircularFullness capacity={unit.capacity} capacityLeft={unit.capacityLeft} size={50} stroke={5}></CircularFullness>
         </div>
     </div>

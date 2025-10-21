@@ -11,7 +11,7 @@ const LoginPage = () => {
 
   const validateInput = () => {
     if (!email.trim() || !password.trim()) {
-      alert('Сва поља морају бити попуњена.');
+      alert('Систем не може да пронађе доступне локације.');
       return false;
     }
     return true;

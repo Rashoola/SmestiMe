@@ -36,11 +36,11 @@ const ParticipationBookingsPage = () => {
 
     return (
         <>
-            <Header title='Одабир места у оквиру догађаја' name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/dashboard')}]}></Header>
+            <Header title={'Одабир места у оквиру догађаја'} name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/dashboard')}]}></Header>
             <div className='main'>
                 <div className='main-content'>
                     <div style={{width: '100%'}} className='central'>
-                    <h1 style={{marginLeft: 10, color: 'white'}}>Резервисане локације у оквирз изабраног догађаја</h1>
+                    <h1 style={{marginLeft: 10, color: 'white'}}>Резервисане локације у оквиру изабраног догађаја</h1>
                     <ul className='participation-booking-list'>
                         {participation ? (participation.event.bookedLocations.map(
                             (booking, index) => (

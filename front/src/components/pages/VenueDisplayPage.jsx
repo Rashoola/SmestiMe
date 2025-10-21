@@ -102,7 +102,7 @@ const VenueDisplayPage = ({ mode }) => {
         body: JSON.stringify(mode === 'edit' ? { id, ...payload } : payload),
       });
 
-      if (!response.ok) throw new Error('Систем не може да сачува место одржавања.');
+      if (!response.ok) throw new Error('Систем не може да запамти место одржавања.');
       const data = await response.json();
       console.log('Venue saved:', data);
 
