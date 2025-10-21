@@ -10,10 +10,10 @@
 }
 
 .waiting-participants ul{
-      height: 85%;
       list-style: none;
       padding: 0;
-      overflow-y: auto;
+      display: flex;
+      overflow-x: auto;
 }
 
 .waiting-participants strong{

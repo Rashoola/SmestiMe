@@ -30,7 +30,7 @@ const OrganizationUnitItem = ({ unit, onRemove }) => {
             <div className="middle-part">
            <strong>{unit.name}</strong>
            <p>Капацитет: {unit.capacity}</p>
-           <button style={{backgroundColor: 'red', color: 'white'}} onClick={onRemove}>Ukloni</button>
+           <button style={{backgroundColor: 'red', color: 'white'}} onClick={onRemove}>Уклони јединицу</button>
            </div>
         </div>
     );

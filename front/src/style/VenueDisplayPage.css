@@ -1,12 +1,13 @@
-.main-content form {
-    background-color: #464854;
+.venue-form {
+    background-color: rgba(255,255,244,0.2);
     color: white;
 
     box-sizing: border-box;
     display: flex;
+    margin: 50px;
+    height: 80%;
     justify-content: center;
     align-items: center;
-    height: 85%;
     padding: 15px;
 }
 

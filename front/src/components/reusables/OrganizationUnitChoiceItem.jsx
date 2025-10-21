@@ -87,7 +87,7 @@ const OrganizationUnitChoiceItem = ({ unit }) => {
       </div>
       <div className='middle-part'>
       <strong>{unit.name}</strong>
-      <p>Број слободних места {unit.capacityLeft}</p>
+      <p>Број слободних места: {unit.capacityLeft}</p>
       <button type='button' onClick={toggleDialog}>{dialogOpen ? 'Сакриј' : 'Прикажи учеснике'}</button>
       <UnitParticipantsDialog unit={unit} onClose={closeDialog} isOpen={dialogOpen}></UnitParticipantsDialog>
       </div>

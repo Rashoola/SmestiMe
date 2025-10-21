@@ -1,12 +1,18 @@
 .join-form{
+    flex-basis: 10%;
+    padding: 10px;
     background-color: white;
 }
 
 .participant-event-list{
+    flex-basis: 90%;
     padding: 15px;
+    overflow-y: auto;
 }
 
 .participant-event-list ul {
+    height: 450px;
     list-style: none;
     padding: 0;
+    overflow-y: auto;
 }

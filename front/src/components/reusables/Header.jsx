@@ -5,7 +5,7 @@ import '../../style/Header.css';
 const Header = ({ title, name, buttons }) => {
   return (
     <header>
-      <h1 style={{fontSize: 35}}>ФОН Догађаји - {title}</h1>
+      <h1 style={{fontSize: 35}}>{title}</h1>
       {name?
         <strong>Пријављени корисник: {name}</strong> : null
       }

@@ -56,7 +56,7 @@ const EventParticipantsDistributionPage = () => {
 
   return (
     <>
-      <Header title="распоређивање учесника" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
+      <Header title="Распоређивање учесника" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
         <div className="main-content">
           <div className="distribution">

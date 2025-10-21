@@ -13,7 +13,7 @@ const WaitingParticipantItem = ({participation, onDrag}) => {
         <img src={userSymbol} alt="" />
       </div>
       <div className='middle-part'>
-      <strong style={{textTransform: 'uppercase'}}>{participation.user.name + ' ' + participation.user.surname}</strong>
+      <strong style={{textTransform: 'uppercase', padding: 0, marginTop: 10}}>{participation.user.name + ' ' + participation.user.surname}</strong>
       <p>Мејл адреса: <span style={{fontWeight: 'bold'}}>{participation.user.email}</span></p>
       </div>
     </div>

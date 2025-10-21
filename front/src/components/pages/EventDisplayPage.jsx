@@ -199,11 +199,10 @@ const EventDisplayPage = ({ mode }) => {
 
   return (
     <div>
-      <Header title="подаци о догађају" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
+      <Header title="Подаци о догађају" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
         <div className="main-content">
-          <div style={{width: '100%'}} className='central'>
-          <form>
+          <form className='event-form'>
             <div className='basic-event-data'>
             <label htmlFor="name">Назив</label>
             <input
@@ -223,7 +222,7 @@ const EventDisplayPage = ({ mode }) => {
               }}
               disabled={mode === "edit"}
             >
-              {mode !== "edit" && <option value="">--Odaberite mesto--</option>}
+              {mode !== "edit" && <option value="">--Одаберите место--</option>}
               {venues.map((v) => (
                 <option key={v.id} value={v.id}>
                   {v.name}
@@ -288,7 +287,6 @@ const EventDisplayPage = ({ mode }) => {
            
             </div>
           </form>
-          </div>
         </div>
       </div>
     </div>

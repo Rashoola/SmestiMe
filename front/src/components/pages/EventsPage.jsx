@@ -33,7 +33,7 @@ const EventsPage = () => {
 
   return (
     <>
-      <Header title='приказ предстојећих догађаја' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
+      <Header title='Приказ предстојећих догађаја' name={loggedUser.name + ' ' + loggedUser.surname} buttons={headerButtons}/>
       <div className='main'>
         <div className='main-content' style={{overflowY: 'scroll'}}>
            <div style={{width: '100%'}} className='central'>

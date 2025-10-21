@@ -123,11 +123,10 @@ const VenueDisplayPage = ({ mode }) => {
 
   return (
     <>
-      <Header title="подаци о месту" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
+      <Header title="Подаци о месту" name={loggedUser.name + ' ' + loggedUser.surname} buttons={[{title: 'Почетна', action: () => navigate('/admin-dashboard')}]} />
       <div className="main">
 
         <div className="main-content">
-          <div className='central' style={{width: '100%'}}>
           <form className='venue-form' onSubmit={handleSaveVenue}>
             <div className='basic-venue-data'>
             <label htmlFor="name">Назив</label>
@@ -195,7 +194,6 @@ const VenueDisplayPage = ({ mode }) => {
             <button>Откажи</button>
             </div>  
           </form>
-          </div>
         </div>
       </div>
     </>

@@ -15,10 +15,11 @@ const AdminDashboard = () => {
 
   return (
     <>
-    <Header title="главна страница" name={loggedAdmin.name + " " + loggedAdmin.surname} buttons={headerButtons}/>
+    <Header title="Почетна страница" name={loggedAdmin.name + " " + loggedAdmin.surname} buttons={headerButtons}/>
     <div className='main'>
          <div className='main-content' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            <strong style={{color: 'white', fontSize: 80, fontStyle: 'italic'}}>Организујте са лакоћом</strong>
+            <strong style={{color: 'white', fontSize: 80, fontStyle: 'italic'}}>ФОН Догађаји</strong>
+            <strong style={{color: 'white', fontSize: 40, fontStyle: 'italic', fontWeight: 'normal'}}>Све је у добром распореду</strong>
          </div>
     </div>
     </>

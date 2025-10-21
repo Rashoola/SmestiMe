@@ -11,9 +11,12 @@ const Dashboard = () => {
   ];
   return (
     <>
-    <Header title='почетна страница' name={loggedUser.name + ' ' + loggedUser.surname} buttons = {buttonList}></Header>
+    <Header title='Почетна страница' name={loggedUser.name + ' ' + loggedUser.surname} buttons = {buttonList}></Header>
     <div className='main'>
-      <div className='main-content'></div>
+      <div className='main-content' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <strong style={{color: 'white', fontSize: 80, fontStyle: 'italic'}}>ФОН Догађаји</strong>
+        <strong style={{color: 'white', fontSize: 40, fontStyle: 'italic', fontWeight: 'normal'}}>Ви бирате своје место</strong>
+      </div>
     </div>
     <div>
     </div>
