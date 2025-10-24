@@ -45,7 +45,7 @@ public class OrganizationUnit {
     private Booking booking;
 
     @OneToMany(mappedBy = "organizationUnit")
-    @JsonIgnore // prevent infinite recursion
+    @JsonIgnore
     private List<Participation> participations;
 
     // --- Getters & Setters ---

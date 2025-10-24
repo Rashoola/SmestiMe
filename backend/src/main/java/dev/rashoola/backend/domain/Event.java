@@ -34,11 +34,11 @@ public class Event {
     @Column(nullable = false)
     private LocalDate date;
     
-    @ManyToOne
-    private Venue venue;
-    
     @Column(nullable = false, unique = true)
     private String entryCode;
+    
+    @ManyToOne
+    private Venue venue;
     
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookedLocations;
