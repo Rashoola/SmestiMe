@@ -5,13 +5,10 @@
 package dev.rashoola.backend.service.impl;
 
 import dev.rashoola.backend.domain.Booking;
-import dev.rashoola.backend.domain.Event;
-import dev.rashoola.backend.domain.Location;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.BookingRepository;
 import dev.rashoola.backend.service.BookingService;
 import dev.rashoola.backend.util.Response;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
