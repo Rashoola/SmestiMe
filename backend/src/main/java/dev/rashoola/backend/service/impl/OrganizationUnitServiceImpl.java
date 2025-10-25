@@ -4,16 +4,11 @@
  */
 package dev.rashoola.backend.service.impl;
 
-import dev.rashoola.backend.domain.Booking;
 import dev.rashoola.backend.domain.OrganizationUnit;
 import dev.rashoola.backend.domain.enums.LocationType;
 import dev.rashoola.backend.domain.enums.UnitType;
-import dev.rashoola.backend.dto.OrganizationUnitCreationDto;
-import dev.rashoola.backend.dto.OrganizationUnitCreationDto.OrganizationUnitDto;
 import dev.rashoola.backend.enums.ResponseStatus;
-import dev.rashoola.backend.service.BookingService;
 import dev.rashoola.backend.util.Response;
-import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

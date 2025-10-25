@@ -7,7 +7,6 @@ package dev.rashoola.backend.service;
 import dev.rashoola.backend.domain.Participation;
 import dev.rashoola.backend.dto.ParticipationCreationDto;
 import dev.rashoola.backend.dto.OrganizationUnitAssignmentDto;
-import dev.rashoola.backend.dto.UserParticipationDto;
 import dev.rashoola.backend.util.Response;
 import java.util.List;
 
