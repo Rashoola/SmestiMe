@@ -81,7 +81,7 @@ const EventDisplayPage = ({ mode }) => {
   const fetchAvailableLocations = async () => {
     if (date !== "" && venue !== null) {
       const formattedDate = formatDate(date);
-      const url = `http://localhost:9000/api/venues/${venue.id}/locations/available?date=${formattedDate}`;
+      const url = `http://localhost:9000/api/locations/venue/${venue.id}/available?date=${formattedDate}`;
       try {
         const response = await fetch(url);
         if(!response.ok){

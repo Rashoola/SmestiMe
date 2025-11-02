@@ -13,6 +13,7 @@ import dev.rashoola.backend.dto.OrganizationUnitAssignmentDto;
 import dev.rashoola.backend.enums.ResponseStatus;
 import dev.rashoola.backend.repository.ParticipationRepository;
 import dev.rashoola.backend.service.EventService;
+import dev.rashoola.backend.service.MailService;
 import dev.rashoola.backend.service.ParticipationService;
 import dev.rashoola.backend.service.UserService;
 import dev.rashoola.backend.util.Response;
@@ -45,7 +46,10 @@ public class ParticipationServiceImpl implements ParticipationService{
     
     @Autowired
     private final OrganizationUnitService organizationUnitService;
-
+    
+    @Autowired
+    private final MailService mailService;
+    
     @Override
     public Response<Participation> create(ParticipationCreationDto dto) {
         Response<User> userResponse = userService.findById(dto.userId());
@@ -106,6 +110,7 @@ public class ParticipationServiceImpl implements ParticipationService{
         
         try{
             repository.save(participation);
+            mailService.notifyUser(participation);
             return new Response<>(ResponseStatus.Ok, "The participation has been modified.");
         } catch(Exception ex){
             return new Response<>(ResponseStatus.InternalServerError, "An error ocurred during changing the participation.");

@@ -23,7 +23,7 @@ const VenueDisplayPage = ({ mode }) => {
   // --- Fetch location types ---
   const fetchLocationTypes = async () => {
     try {
-      const response = await fetch('http://localhost:9000/api/venues/locations/types');
+      const response = await fetch('http://localhost:9000/api/locations/types');
       if (!response.ok) throw new Error('Систем не може да учита типове локација.');
       const data = await response.json();
       setLocationTypes(data);
