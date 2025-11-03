@@ -22,4 +22,5 @@ public interface ParticipationService {
     public Response<List<Participation>> getParticipationsByOrganizationUnit(Long sittingTableId);
     public Response<List<Participation>> getParticipationsByUser(Long userId);
     public Response<Boolean> hasASeat(Long participationId);
+    public Response<String> cancel(Long id);
 }

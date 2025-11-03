@@ -207,5 +207,16 @@ public class ParticipationServiceImpl implements ParticipationService{
         
         return new Response<>(ResponseStatus.Ok, participation.get());
     }
+
+    @Override
+    public Response<String> cancel(Long id) {
+        if (!repository.existsById(id)) {
+            return new Response<>(ResponseStatus.NotFound, null);
+        }
+
+        repository.deleteById(id);
+        return new Response<>(ResponseStatus.Ok, "Participation successfully canceled.");
+    }
+
     
 }

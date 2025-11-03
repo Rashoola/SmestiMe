@@ -18,6 +18,37 @@ const ParticipationItem = ({ participation }) => {
     return `${day}. ${month} ${year}.`;
   };
 
+  const handleCancelParticipation = async () => {
+  const confirmCancel = window.confirm("Да ли сте сигурни да желите да откажете учешће?");
+  if (!confirmCancel) return;
+
+  const url = `http://localhost:9000/api/participations/${participation.id}/cancel`;
+
+  try {
+    const response = await fetch(url, { method: 'DELETE' });
+
+    if (response.status === 404) {
+      alert("Учешће није пронађено.");
+      return;
+    }
+
+    if (!response.ok) {
+      alert("Систем не може да откаже учешће.");
+      return;
+    }
+
+    alert("Успешно отказивање учешћа.");
+
+    // Optional: refresh participations
+    window.location.reload();
+    // await fetchParticipations();
+
+  } catch (err) {
+    alert("Грешка приликом повезивања.");
+  }
+};
+
+
   return (
     <div className="participation-item">
       <div className='symbol-container'>
@@ -35,6 +66,7 @@ const ParticipationItem = ({ participation }) => {
       ) : (
         <p style={{color: '#00d93a'}}>Odabrana organizaciona jedinica: {participation.organizationUnit.name}</p>
       )}
+      <button onClick={handleCancelParticipation}>Откажи учешће</button>
       </div>
     </div>
   );
